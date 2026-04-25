@@ -1,0 +1,61 @@
+{
+  "config": {
+    "model": "/home/wuping/infra/dataset/Qwen3-1.7B",
+    "output_dir": "./Qwen3-1.7B_w4a8_nf4_nf8_gptq",
+    "quantized_model_path": "./Qwen3-1.7B_w4a8_nf4_nf8_gptq",
+    "weight_bits": 4,
+    "weight_quant_scheme": "nf4",
+    "group_size": 64,
+    "num_calibration_samples": 128,
+    "quant_max_length": 2048,
+    "eval_max_length": 2048,
+    "eval_stride": 512,
+    "act_bits": 8,
+    "activation_quant_scheme": "nf8",
+    "act_symmetric": false,
+    "act_granularity": "per-channel",
+    "use_smoothquant": true,
+    "smoothquant_alpha": 0.85,
+    "smoothquant_dataset": "local:/home/wuping/infra/test7_rtn/Qwen3_GPTQ_nf4/eval_data/wikitext2_train.txt",
+    "smoothquant_dataset_config": "",
+    "smoothquant_split": "train",
+    "smoothquant_text_field": "text",
+    "local_files_only": false,
+    "hf_cache_dir": null,
+    "enable_vector_demo": false,
+    "enable_layer_distribution": false
+  },
+  "wikitext2": {
+    "fp16": {
+      "model_name": "FP16 (Qwen3-1.7B)",
+      "perplexity": 15.0485,
+      "loss": 2.71128,
+      "num_tokens": 298938,
+      "dataset": "wikitext/wikitext-2-raw-v1",
+      "max_length": 2048,
+      "stride": 512,
+      "timestamp": "2026-04-25T15:25:14.190528"
+    },
+    "gptq_w4": {
+      "model_name": "W4A16/NF4 (Qwen3-1.7B_w4a8_nf4_nf8_gptq)",
+      "perplexity": 16.9391,
+      "loss": 2.829627,
+      "num_tokens": 298938,
+      "dataset": "wikitext/wikitext-2-raw-v1",
+      "max_length": 2048,
+      "stride": 512,
+      "timestamp": "2026-04-25T15:27:51.091993"
+    },
+    "w4a8": {
+      "model_name": "W4A8/NF8 (Qwen3-1.7B_w4a8_nf4_nf8_gptq)",
+      "perplexity": 21.848,
+      "loss": 3.084109,
+      "num_tokens": 298938,
+      "dataset": "wikitext/wikitext-2-raw-v1",
+      "max_length": 2048,
+      "stride": 512,
+      "timestamp": "2026-04-25T15:32:14.151073"
+    }
+  },
+  "timestamp": "2026-04-25T15:32:14.387494"
+}

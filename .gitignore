@@ -1,0 +1,7 @@
+*.safetensors
+*.bin
+*.pth
+*.pt
+*.h5
+*.gguf
+__pycache__/

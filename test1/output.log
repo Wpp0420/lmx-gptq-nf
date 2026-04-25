@@ -1,0 +1,1265 @@
+nohup: 忽略输入
+2026-04-25 02:56:58 - INFO - __main__ - GPTQ W4A8 量化 Pipeline
+2026-04-25 02:56:58 - INFO - __main__ - 模型: /home/wuping/infra/dataset/Qwen3-1.7B
+2026-04-25 02:56:58 - INFO - __main__ - 统一配置: W4A8, group_size=64, weight_scheme=int4, act_scheme=int8, act_granularity=per-channel
+2026-04-25 02:56:58 - INFO - utils - ==================================================
+2026-04-25 02:56:58 - INFO - utils - 设备信息:
+2026-04-25 02:56:58 - INFO - utils -   CUDA 可用: True
+2026-04-25 02:56:58 - INFO - utils -   GPU 数量: 2
+2026-04-25 02:56:58 - INFO - utils -   GPU 型号: NVIDIA GeForce RTX 4090
+2026-04-25 02:56:58 - INFO - utils -   显存大小: 23.6 GB
+2026-04-25 02:56:58 - INFO - utils -   CUDA 版本: 11.8
+2026-04-25 02:56:58 - INFO - utils - ==================================================
+2026-04-25 02:56:58 - INFO - __main__ - 当前统一配置:
+2026-04-25 02:56:58 - INFO - __main__ -   W4A8, group_size=64, weight_scheme=int4, act_scheme=int8, act_granularity=per-channel, smoothquant=True
+2026-04-25 02:56:58 - INFO - __main__ -   SmoothQuant 校准数据源: local:/home/wuping/infra/test7_rtn/Qwen3_GPTQ_nf4/eval_data/wikitext2_train.txt/ (split=train, field=text)
+2026-04-25 02:56:58 - INFO - __main__ - 
+======================================================================
+2026-04-25 02:56:58 - INFO - __main__ -   阶段 1: GPTQ W4 权重量化
+2026-04-25 02:56:58 - INFO - __main__ - ======================================================================
+2026-04-25 02:56:58 - INFO - utils - [GPTQ 量化总耗时] 开始...
+/home/wuping/miniconda3/envs/gptq/lib/python3.10/site-packages/auto_gptq/nn_modules/triton_utils/kernels.py:411: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, input, qweight, scales, qzeros, g_idx, bits, maxq):
+/home/wuping/miniconda3/envs/gptq/lib/python3.10/site-packages/auto_gptq/nn_modules/triton_utils/kernels.py:419: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/home/wuping/miniconda3/envs/gptq/lib/python3.10/site-packages/auto_gptq/nn_modules/triton_utils/kernels.py:461: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd(cast_inputs=torch.float16)
+2026-04-25 02:57:00 - WARNING - auto_gptq.nn_modules.qlinear.qlinear_cuda - CUDA extension not installed.
+2026-04-25 02:57:00 - WARNING - auto_gptq.nn_modules.qlinear.qlinear_cuda_old - CUDA extension not installed.
+2026-04-25 02:57:00 - INFO - quantize_gptq - 已将 qwen3 添加到 auto_gptq SUPPORTED_MODELS
+2026-04-25 02:57:00 - INFO - quantize_gptq - 已将 qwen3 映射到 Qwen2GPTQForCausalLM
+2026-04-25 02:57:00 - INFO - utils - ==================================================
+2026-04-25 02:57:00 - INFO - utils - 设备信息:
+2026-04-25 02:57:00 - INFO - utils -   CUDA 可用: True
+2026-04-25 02:57:00 - INFO - utils -   GPU 数量: 2
+2026-04-25 02:57:00 - INFO - utils -   GPU 型号: NVIDIA GeForce RTX 4090
+2026-04-25 02:57:00 - INFO - utils -   显存大小: 23.6 GB
+2026-04-25 02:57:00 - INFO - utils -   CUDA 版本: 11.8
+2026-04-25 02:57:00 - INFO - utils - ==================================================
+2026-04-25 02:57:00 - INFO - quantize_gptq - Step 1: 配置 GPTQ 量化参数
+2026-04-25 02:57:00 - INFO - quantize_gptq - 量化配置:
+2026-04-25 02:57:00 - INFO - quantize_gptq -   位数 (bits): 4
+2026-04-25 02:57:00 - INFO - quantize_gptq -   分组大小 (group_size): 64
+2026-04-25 02:57:00 - INFO - quantize_gptq -   阻尼因子 (damp_percent): 0.01
+2026-04-25 02:57:00 - INFO - quantize_gptq -   对称量化 (sym): False
+2026-04-25 02:57:00 - INFO - quantize_gptq -   顺序量化 (true_sequential): True
+2026-04-25 02:57:00 - INFO - quantize_gptq -   激活排序 (desc_act): False
+2026-04-25 02:57:00 - INFO - quantize_gptq - 
+Step 2: 加载模型 /home/wuping/infra/dataset/Qwen3-1.7B
+2026-04-25 02:57:00 - INFO - utils - [模型加载] 开始...
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.80it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  3.09it/s]
+2026-04-25 02:57:01 - INFO - utils - [模型加载] 完成，耗时: 1.32s
+2026-04-25 02:57:01 - INFO - utils - GPU 0: 已分配 0.00GB / 已保留 0.00GB / 总计 23.6GB
+2026-04-25 02:57:01 - INFO - utils - GPU 1: 已分配 0.00GB / 已保留 0.00GB / 总计 23.6GB
+2026-04-25 02:57:01 - INFO - quantize_gptq - 
+Step 3: 准备校准数据
+2026-04-25 02:57:01 - INFO - utils - [校准数据准备] 开始...
+2026-04-25 02:57:01 - INFO - utils - 加载校准数据集 (auto-gptq 格式): wikitext/wikitext-2-raw-v1
+Token indices sequence length is longer than the specified maximum sequence length for this model (2517232 > 131072). Running this sequence through the model will result in indexing errors
+2026-04-25 02:57:21 - INFO - utils - 生成校准文本样本数: 128
+2026-04-25 02:57:22 - INFO - utils - [校准数据准备] 完成，耗时: 20.65s
+2026-04-25 02:57:22 - INFO - quantize_gptq - 校准数据集大小: 128 条
+2026-04-25 02:57:22 - INFO - quantize_gptq - 
+Step 4: 执行 GPTQ 量化（这可能需要较长时间）
+2026-04-25 02:57:22 - INFO - quantize_gptq - GPTQ 量化过程:
+2026-04-25 02:57:22 - INFO - quantize_gptq -   → 收集每层的激活值（前向传播校准数据）
+2026-04-25 02:57:22 - INFO - quantize_gptq -   → 逐层计算 Hessian 矩阵 H = 2X^TX
+2026-04-25 02:57:22 - INFO - quantize_gptq -   → 分组量化权重，使用 OBS 补偿量化误差
+2026-04-25 02:57:22 - INFO - quantize_gptq -   → 保存量化的权重和量化参数 (scale, zero_point)
+2026-04-25 02:57:22 - INFO - utils - [GPTQ 量化] 开始...
+INFO - Start quantizing layer 1/28
+2026-04-25 02:57:23 - INFO - auto_gptq.modeling._base - Start quantizing layer 1/28
+INFO - Quantizing self_attn.k_proj in layer 1/28...
+2026-04-25 02:57:24 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 1/28...
+2026-04-25 02:57:25 - INFO - auto_gptq.quantization.gptq - duration: 0.7984826564788818
+2026-04-25 02:57:25 - INFO - auto_gptq.quantization.gptq - avg loss: 1.2900949716567993
+INFO - Quantizing self_attn.v_proj in layer 1/28...
+2026-04-25 02:57:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 1/28...
+2026-04-25 02:57:25 - INFO - auto_gptq.quantization.gptq - duration: 0.6902859210968018
+2026-04-25 02:57:25 - INFO - auto_gptq.quantization.gptq - avg loss: 1.1293777227401733
+INFO - Quantizing self_attn.q_proj in layer 1/28...
+2026-04-25 02:57:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 1/28...
+2026-04-25 02:57:26 - INFO - auto_gptq.quantization.gptq - duration: 0.6938941478729248
+2026-04-25 02:57:26 - INFO - auto_gptq.quantization.gptq - avg loss: 2.588230609893799
+INFO - Quantizing self_attn.o_proj in layer 1/28...
+2026-04-25 02:57:26 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 1/28...
+2026-04-25 02:57:27 - INFO - auto_gptq.quantization.gptq - duration: 0.7192349433898926
+2026-04-25 02:57:27 - INFO - auto_gptq.quantization.gptq - avg loss: 2.905061960220337
+INFO - Quantizing mlp.up_proj in layer 1/28...
+2026-04-25 02:57:27 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 1/28...
+2026-04-25 02:57:28 - INFO - auto_gptq.quantization.gptq - duration: 0.7207646369934082
+2026-04-25 02:57:28 - INFO - auto_gptq.quantization.gptq - avg loss: 20.37125015258789
+INFO - Quantizing mlp.gate_proj in layer 1/28...
+2026-04-25 02:57:28 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 1/28...
+2026-04-25 02:57:29 - INFO - auto_gptq.quantization.gptq - duration: 0.6677634716033936
+2026-04-25 02:57:29 - INFO - auto_gptq.quantization.gptq - avg loss: 31.536087036132812
+INFO - Quantizing mlp.down_proj in layer 1/28...
+2026-04-25 02:57:29 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 1/28...
+2026-04-25 02:57:31 - INFO - auto_gptq.quantization.gptq - duration: 2.1612370014190674
+2026-04-25 02:57:31 - INFO - auto_gptq.quantization.gptq - avg loss: 5.296743869781494
+INFO - Start quantizing layer 2/28
+2026-04-25 02:57:32 - INFO - auto_gptq.modeling._base - Start quantizing layer 2/28
+INFO - Quantizing self_attn.k_proj in layer 2/28...
+2026-04-25 02:57:32 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 2/28...
+2026-04-25 02:57:33 - INFO - auto_gptq.quantization.gptq - duration: 0.7406847476959229
+2026-04-25 02:57:33 - INFO - auto_gptq.quantization.gptq - avg loss: 1.0017873048782349
+INFO - Quantizing self_attn.v_proj in layer 2/28...
+2026-04-25 02:57:33 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 2/28...
+2026-04-25 02:57:34 - INFO - auto_gptq.quantization.gptq - duration: 0.6769380569458008
+2026-04-25 02:57:34 - INFO - auto_gptq.quantization.gptq - avg loss: 1.0241656303405762
+INFO - Quantizing self_attn.q_proj in layer 2/28...
+2026-04-25 02:57:34 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 2/28...
+2026-04-25 02:57:34 - INFO - auto_gptq.quantization.gptq - duration: 0.6893892288208008
+2026-04-25 02:57:34 - INFO - auto_gptq.quantization.gptq - avg loss: 2.0689096450805664
+INFO - Quantizing self_attn.o_proj in layer 2/28...
+2026-04-25 02:57:35 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 2/28...
+2026-04-25 02:57:35 - INFO - auto_gptq.quantization.gptq - duration: 0.7177178859710693
+2026-04-25 02:57:35 - INFO - auto_gptq.quantization.gptq - avg loss: 0.9403488636016846
+INFO - Quantizing mlp.up_proj in layer 2/28...
+2026-04-25 02:57:36 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 2/28...
+2026-04-25 02:57:36 - INFO - auto_gptq.quantization.gptq - duration: 0.7122650146484375
+2026-04-25 02:57:36 - INFO - auto_gptq.quantization.gptq - avg loss: 281.7269287109375
+INFO - Quantizing mlp.gate_proj in layer 2/28...
+2026-04-25 02:57:36 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 2/28...
+2026-04-25 02:57:37 - INFO - auto_gptq.quantization.gptq - duration: 0.6842231750488281
+2026-04-25 02:57:37 - INFO - auto_gptq.quantization.gptq - avg loss: 716.59326171875
+INFO - Quantizing mlp.down_proj in layer 2/28...
+2026-04-25 02:57:38 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 2/28...
+2026-04-25 02:57:40 - INFO - auto_gptq.quantization.gptq - duration: 2.160581111907959
+2026-04-25 02:57:40 - INFO - auto_gptq.quantization.gptq - avg loss: 8.311164855957031
+INFO - Start quantizing layer 3/28
+2026-04-25 02:57:40 - INFO - auto_gptq.modeling._base - Start quantizing layer 3/28
+INFO - Quantizing self_attn.k_proj in layer 3/28...
+2026-04-25 02:57:41 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 3/28...
+2026-04-25 02:57:41 - INFO - auto_gptq.quantization.gptq - duration: 0.7324974536895752
+2026-04-25 02:57:41 - INFO - auto_gptq.quantization.gptq - avg loss: 2.17669677734375
+INFO - Quantizing self_attn.v_proj in layer 3/28...
+2026-04-25 02:57:41 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 3/28...
+2026-04-25 02:57:42 - INFO - auto_gptq.quantization.gptq - duration: 0.6774709224700928
+2026-04-25 02:57:42 - INFO - auto_gptq.quantization.gptq - avg loss: 2.206643581390381
+INFO - Quantizing self_attn.q_proj in layer 3/28...
+2026-04-25 02:57:42 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 3/28...
+2026-04-25 02:57:43 - INFO - auto_gptq.quantization.gptq - duration: 0.6959357261657715
+2026-04-25 02:57:43 - INFO - auto_gptq.quantization.gptq - avg loss: 4.577235221862793
+INFO - Quantizing self_attn.o_proj in layer 3/28...
+2026-04-25 02:57:43 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 3/28...
+2026-04-25 02:57:44 - INFO - auto_gptq.quantization.gptq - duration: 0.7229442596435547
+2026-04-25 02:57:44 - INFO - auto_gptq.quantization.gptq - avg loss: 1.6192021369934082
+INFO - Quantizing mlp.up_proj in layer 3/28...
+2026-04-25 02:57:44 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 3/28...
+2026-04-25 02:57:45 - INFO - auto_gptq.quantization.gptq - duration: 0.7306671142578125
+2026-04-25 02:57:45 - INFO - auto_gptq.quantization.gptq - avg loss: 195.1821746826172
+INFO - Quantizing mlp.gate_proj in layer 3/28...
+2026-04-25 02:57:45 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 3/28...
+2026-04-25 02:57:46 - INFO - auto_gptq.quantization.gptq - duration: 0.6756420135498047
+2026-04-25 02:57:46 - INFO - auto_gptq.quantization.gptq - avg loss: 509.91558837890625
+INFO - Quantizing mlp.down_proj in layer 3/28...
+2026-04-25 02:57:46 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 3/28...
+2026-04-25 02:57:48 - INFO - auto_gptq.quantization.gptq - duration: 2.1385083198547363
+2026-04-25 02:57:48 - INFO - auto_gptq.quantization.gptq - avg loss: 643.3905029296875
+INFO - Start quantizing layer 4/28
+2026-04-25 02:57:49 - INFO - auto_gptq.modeling._base - Start quantizing layer 4/28
+INFO - Quantizing self_attn.k_proj in layer 4/28...
+2026-04-25 02:57:49 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 4/28...
+2026-04-25 02:57:50 - INFO - auto_gptq.quantization.gptq - duration: 0.7095723152160645
+2026-04-25 02:57:50 - INFO - auto_gptq.quantization.gptq - avg loss: 15.033733367919922
+INFO - Quantizing self_attn.v_proj in layer 4/28...
+2026-04-25 02:57:50 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 4/28...
+2026-04-25 02:57:51 - INFO - auto_gptq.quantization.gptq - duration: 0.6845607757568359
+2026-04-25 02:57:51 - INFO - auto_gptq.quantization.gptq - avg loss: 16.315523147583008
+INFO - Quantizing self_attn.q_proj in layer 4/28...
+2026-04-25 02:57:51 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 4/28...
+2026-04-25 02:57:51 - INFO - auto_gptq.quantization.gptq - duration: 0.6618063449859619
+2026-04-25 02:57:51 - INFO - auto_gptq.quantization.gptq - avg loss: 30.563812255859375
+INFO - Quantizing self_attn.o_proj in layer 4/28...
+2026-04-25 02:57:52 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 4/28...
+2026-04-25 02:57:52 - INFO - auto_gptq.quantization.gptq - duration: 0.7140147686004639
+2026-04-25 02:57:52 - INFO - auto_gptq.quantization.gptq - avg loss: 3.2103819847106934
+INFO - Quantizing mlp.up_proj in layer 4/28...
+2026-04-25 02:57:53 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 4/28...
+2026-04-25 02:57:53 - INFO - auto_gptq.quantization.gptq - duration: 0.7068638801574707
+2026-04-25 02:57:53 - INFO - auto_gptq.quantization.gptq - avg loss: 278.7125244140625
+INFO - Quantizing mlp.gate_proj in layer 4/28...
+2026-04-25 02:57:53 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 4/28...
+2026-04-25 02:57:54 - INFO - auto_gptq.quantization.gptq - duration: 0.6900532245635986
+2026-04-25 02:57:54 - INFO - auto_gptq.quantization.gptq - avg loss: 665.914794921875
+INFO - Quantizing mlp.down_proj in layer 4/28...
+2026-04-25 02:57:55 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 4/28...
+2026-04-25 02:57:57 - INFO - auto_gptq.quantization.gptq - duration: 2.168674945831299
+2026-04-25 02:57:57 - INFO - auto_gptq.quantization.gptq - avg loss: 20.31134605407715
+INFO - Start quantizing layer 5/28
+2026-04-25 02:57:57 - INFO - auto_gptq.modeling._base - Start quantizing layer 5/28
+INFO - Quantizing self_attn.k_proj in layer 5/28...
+2026-04-25 02:57:58 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 5/28...
+2026-04-25 02:57:58 - INFO - auto_gptq.quantization.gptq - duration: 0.7393262386322021
+2026-04-25 02:57:58 - INFO - auto_gptq.quantization.gptq - avg loss: 14.68870735168457
+INFO - Quantizing self_attn.v_proj in layer 5/28...
+2026-04-25 02:57:58 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 5/28...
+2026-04-25 02:57:59 - INFO - auto_gptq.quantization.gptq - duration: 0.6835265159606934
+2026-04-25 02:57:59 - INFO - auto_gptq.quantization.gptq - avg loss: 16.408191680908203
+INFO - Quantizing self_attn.q_proj in layer 5/28...
+2026-04-25 02:57:59 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 5/28...
+2026-04-25 02:58:00 - INFO - auto_gptq.quantization.gptq - duration: 0.6553375720977783
+2026-04-25 02:58:00 - INFO - auto_gptq.quantization.gptq - avg loss: 30.119470596313477
+INFO - Quantizing self_attn.o_proj in layer 5/28...
+2026-04-25 02:58:00 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 5/28...
+2026-04-25 02:58:01 - INFO - auto_gptq.quantization.gptq - duration: 0.6982676982879639
+2026-04-25 02:58:01 - INFO - auto_gptq.quantization.gptq - avg loss: 5.167760372161865
+INFO - Quantizing mlp.up_proj in layer 5/28...
+2026-04-25 02:58:01 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 5/28...
+2026-04-25 02:58:02 - INFO - auto_gptq.quantization.gptq - duration: 0.7223141193389893
+2026-04-25 02:58:02 - INFO - auto_gptq.quantization.gptq - avg loss: 228.16494750976562
+INFO - Quantizing mlp.gate_proj in layer 5/28...
+2026-04-25 02:58:02 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 5/28...
+2026-04-25 02:58:02 - INFO - auto_gptq.quantization.gptq - duration: 0.6651599407196045
+2026-04-25 02:58:02 - INFO - auto_gptq.quantization.gptq - avg loss: 491.0641174316406
+INFO - Quantizing mlp.down_proj in layer 5/28...
+2026-04-25 02:58:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 5/28...
+2026-04-25 02:58:05 - INFO - auto_gptq.quantization.gptq - duration: 2.1354689598083496
+2026-04-25 02:58:05 - INFO - auto_gptq.quantization.gptq - avg loss: 27.0023193359375
+INFO - Start quantizing layer 6/28
+2026-04-25 02:58:06 - INFO - auto_gptq.modeling._base - Start quantizing layer 6/28
+INFO - Quantizing self_attn.k_proj in layer 6/28...
+2026-04-25 02:58:06 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 6/28...
+2026-04-25 02:58:07 - INFO - auto_gptq.quantization.gptq - duration: 0.7170393466949463
+2026-04-25 02:58:07 - INFO - auto_gptq.quantization.gptq - avg loss: 19.2661075592041
+INFO - Quantizing self_attn.v_proj in layer 6/28...
+2026-04-25 02:58:07 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 6/28...
+2026-04-25 02:58:07 - INFO - auto_gptq.quantization.gptq - duration: 0.6653141975402832
+2026-04-25 02:58:07 - INFO - auto_gptq.quantization.gptq - avg loss: 22.766357421875
+INFO - Quantizing self_attn.q_proj in layer 6/28...
+2026-04-25 02:58:07 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 6/28...
+2026-04-25 02:58:08 - INFO - auto_gptq.quantization.gptq - duration: 0.6633379459381104
+2026-04-25 02:58:08 - INFO - auto_gptq.quantization.gptq - avg loss: 43.67955017089844
+INFO - Quantizing self_attn.o_proj in layer 6/28...
+2026-04-25 02:58:08 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 6/28...
+2026-04-25 02:58:09 - INFO - auto_gptq.quantization.gptq - duration: 0.7113206386566162
+2026-04-25 02:58:09 - INFO - auto_gptq.quantization.gptq - avg loss: 7.636438369750977
+INFO - Quantizing mlp.up_proj in layer 6/28...
+2026-04-25 02:58:09 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 6/28...
+2026-04-25 02:58:10 - INFO - auto_gptq.quantization.gptq - duration: 0.7238771915435791
+2026-04-25 02:58:10 - INFO - auto_gptq.quantization.gptq - avg loss: 142.14315795898438
+INFO - Quantizing mlp.gate_proj in layer 6/28...
+2026-04-25 02:58:10 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 6/28...
+2026-04-25 02:58:11 - INFO - auto_gptq.quantization.gptq - duration: 0.6794850826263428
+2026-04-25 02:58:11 - INFO - auto_gptq.quantization.gptq - avg loss: 207.24484252929688
+INFO - Quantizing mlp.down_proj in layer 6/28...
+2026-04-25 02:58:11 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 6/28...
+2026-04-25 02:58:14 - INFO - auto_gptq.quantization.gptq - duration: 2.130715847015381
+2026-04-25 02:58:14 - INFO - auto_gptq.quantization.gptq - avg loss: 31.94283676147461
+INFO - Start quantizing layer 7/28
+2026-04-25 02:58:14 - INFO - auto_gptq.modeling._base - Start quantizing layer 7/28
+INFO - Quantizing self_attn.k_proj in layer 7/28...
+2026-04-25 02:58:14 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 7/28...
+2026-04-25 02:58:15 - INFO - auto_gptq.quantization.gptq - duration: 0.7294831275939941
+2026-04-25 02:58:15 - INFO - auto_gptq.quantization.gptq - avg loss: 14.849637031555176
+INFO - Quantizing self_attn.v_proj in layer 7/28...
+2026-04-25 02:58:15 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 7/28...
+2026-04-25 02:58:16 - INFO - auto_gptq.quantization.gptq - duration: 0.6801714897155762
+2026-04-25 02:58:16 - INFO - auto_gptq.quantization.gptq - avg loss: 16.677600860595703
+INFO - Quantizing self_attn.q_proj in layer 7/28...
+2026-04-25 02:58:16 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 7/28...
+2026-04-25 02:58:16 - INFO - auto_gptq.quantization.gptq - duration: 0.6789498329162598
+2026-04-25 02:58:16 - INFO - auto_gptq.quantization.gptq - avg loss: 31.799755096435547
+INFO - Quantizing self_attn.o_proj in layer 7/28...
+2026-04-25 02:58:17 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 7/28...
+2026-04-25 02:58:17 - INFO - auto_gptq.quantization.gptq - duration: 0.7269532680511475
+2026-04-25 02:58:17 - INFO - auto_gptq.quantization.gptq - avg loss: 8.829279899597168
+INFO - Quantizing mlp.up_proj in layer 7/28...
+2026-04-25 02:58:18 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 7/28...
+2026-04-25 02:58:19 - INFO - auto_gptq.quantization.gptq - duration: 0.7257547378540039
+2026-04-25 02:58:19 - INFO - auto_gptq.quantization.gptq - avg loss: 188.24200439453125
+INFO - Quantizing mlp.gate_proj in layer 7/28...
+2026-04-25 02:58:19 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 7/28...
+2026-04-25 02:58:19 - INFO - auto_gptq.quantization.gptq - duration: 0.679389476776123
+2026-04-25 02:58:19 - INFO - auto_gptq.quantization.gptq - avg loss: 264.8713073730469
+INFO - Quantizing mlp.down_proj in layer 7/28...
+2026-04-25 02:58:20 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 7/28...
+2026-04-25 02:58:22 - INFO - auto_gptq.quantization.gptq - duration: 2.1521458625793457
+2026-04-25 02:58:22 - INFO - auto_gptq.quantization.gptq - avg loss: 42.938682556152344
+INFO - Start quantizing layer 8/28
+2026-04-25 02:58:22 - INFO - auto_gptq.modeling._base - Start quantizing layer 8/28
+INFO - Quantizing self_attn.k_proj in layer 8/28...
+2026-04-25 02:58:23 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 8/28...
+2026-04-25 02:58:24 - INFO - auto_gptq.quantization.gptq - duration: 0.7146792411804199
+2026-04-25 02:58:24 - INFO - auto_gptq.quantization.gptq - avg loss: 30.390594482421875
+INFO - Quantizing self_attn.v_proj in layer 8/28...
+2026-04-25 02:58:24 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 8/28...
+2026-04-25 02:58:24 - INFO - auto_gptq.quantization.gptq - duration: 0.6775031089782715
+2026-04-25 02:58:24 - INFO - auto_gptq.quantization.gptq - avg loss: 36.81035614013672
+INFO - Quantizing self_attn.q_proj in layer 8/28...
+2026-04-25 02:58:24 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 8/28...
+2026-04-25 02:58:25 - INFO - auto_gptq.quantization.gptq - duration: 0.6742606163024902
+2026-04-25 02:58:25 - INFO - auto_gptq.quantization.gptq - avg loss: 68.43994140625
+INFO - Quantizing self_attn.o_proj in layer 8/28...
+2026-04-25 02:58:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 8/28...
+2026-04-25 02:58:26 - INFO - auto_gptq.quantization.gptq - duration: 0.7280123233795166
+2026-04-25 02:58:26 - INFO - auto_gptq.quantization.gptq - avg loss: 13.179882049560547
+INFO - Quantizing mlp.up_proj in layer 8/28...
+2026-04-25 02:58:26 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 8/28...
+2026-04-25 02:58:27 - INFO - auto_gptq.quantization.gptq - duration: 0.710132360458374
+2026-04-25 02:58:27 - INFO - auto_gptq.quantization.gptq - avg loss: 243.47691345214844
+INFO - Quantizing mlp.gate_proj in layer 8/28...
+2026-04-25 02:58:27 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 8/28...
+2026-04-25 02:58:28 - INFO - auto_gptq.quantization.gptq - duration: 0.6942472457885742
+2026-04-25 02:58:28 - INFO - auto_gptq.quantization.gptq - avg loss: 367.7802734375
+INFO - Quantizing mlp.down_proj in layer 8/28...
+2026-04-25 02:58:28 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 8/28...
+2026-04-25 02:58:31 - INFO - auto_gptq.quantization.gptq - duration: 2.2006006240844727
+2026-04-25 02:58:31 - INFO - auto_gptq.quantization.gptq - avg loss: 48.24042510986328
+INFO - Start quantizing layer 9/28
+2026-04-25 02:58:31 - INFO - auto_gptq.modeling._base - Start quantizing layer 9/28
+INFO - Quantizing self_attn.k_proj in layer 9/28...
+2026-04-25 02:58:31 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 9/28...
+2026-04-25 02:58:32 - INFO - auto_gptq.quantization.gptq - duration: 0.7485253810882568
+2026-04-25 02:58:32 - INFO - auto_gptq.quantization.gptq - avg loss: 39.44294738769531
+INFO - Quantizing self_attn.v_proj in layer 9/28...
+2026-04-25 02:58:32 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 9/28...
+2026-04-25 02:58:33 - INFO - auto_gptq.quantization.gptq - duration: 0.8065903186798096
+2026-04-25 02:58:33 - INFO - auto_gptq.quantization.gptq - avg loss: 44.06718444824219
+INFO - Quantizing self_attn.q_proj in layer 9/28...
+2026-04-25 02:58:33 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 9/28...
+2026-04-25 02:58:34 - INFO - auto_gptq.quantization.gptq - duration: 1.1225521564483643
+2026-04-25 02:58:34 - INFO - auto_gptq.quantization.gptq - avg loss: 85.58625793457031
+INFO - Quantizing self_attn.o_proj in layer 9/28...
+2026-04-25 02:58:34 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 9/28...
+2026-04-25 02:58:35 - INFO - auto_gptq.quantization.gptq - duration: 1.1484317779541016
+2026-04-25 02:58:35 - INFO - auto_gptq.quantization.gptq - avg loss: 11.658336639404297
+INFO - Quantizing mlp.up_proj in layer 9/28...
+2026-04-25 02:58:36 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 9/28...
+2026-04-25 02:58:37 - INFO - auto_gptq.quantization.gptq - duration: 1.1562731266021729
+2026-04-25 02:58:37 - INFO - auto_gptq.quantization.gptq - avg loss: 237.92881774902344
+INFO - Quantizing mlp.gate_proj in layer 9/28...
+2026-04-25 02:58:37 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 9/28...
+2026-04-25 02:58:38 - INFO - auto_gptq.quantization.gptq - duration: 1.1065599918365479
+2026-04-25 02:58:38 - INFO - auto_gptq.quantization.gptq - avg loss: 321.2755432128906
+INFO - Quantizing mlp.down_proj in layer 9/28...
+2026-04-25 02:58:39 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 9/28...
+2026-04-25 02:58:41 - INFO - auto_gptq.quantization.gptq - duration: 2.463587999343872
+2026-04-25 02:58:41 - INFO - auto_gptq.quantization.gptq - avg loss: 60.18064880371094
+INFO - Start quantizing layer 10/28
+2026-04-25 02:58:42 - INFO - auto_gptq.modeling._base - Start quantizing layer 10/28
+INFO - Quantizing self_attn.k_proj in layer 10/28...
+2026-04-25 02:58:42 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 10/28...
+2026-04-25 02:58:43 - INFO - auto_gptq.quantization.gptq - duration: 0.7482883930206299
+2026-04-25 02:58:43 - INFO - auto_gptq.quantization.gptq - avg loss: 73.49876403808594
+INFO - Quantizing self_attn.v_proj in layer 10/28...
+2026-04-25 02:58:43 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 10/28...
+2026-04-25 02:58:43 - INFO - auto_gptq.quantization.gptq - duration: 0.7015364170074463
+2026-04-25 02:58:43 - INFO - auto_gptq.quantization.gptq - avg loss: 79.48255920410156
+INFO - Quantizing self_attn.q_proj in layer 10/28...
+2026-04-25 02:58:43 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 10/28...
+2026-04-25 02:58:44 - INFO - auto_gptq.quantization.gptq - duration: 0.6960499286651611
+2026-04-25 02:58:44 - INFO - auto_gptq.quantization.gptq - avg loss: 164.80130004882812
+INFO - Quantizing self_attn.o_proj in layer 10/28...
+2026-04-25 02:58:44 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 10/28...
+2026-04-25 02:58:45 - INFO - auto_gptq.quantization.gptq - duration: 0.7409031391143799
+2026-04-25 02:58:45 - INFO - auto_gptq.quantization.gptq - avg loss: 33.00798034667969
+INFO - Quantizing mlp.up_proj in layer 10/28...
+2026-04-25 02:58:46 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 10/28...
+2026-04-25 02:58:46 - INFO - auto_gptq.quantization.gptq - duration: 0.7387280464172363
+2026-04-25 02:58:46 - INFO - auto_gptq.quantization.gptq - avg loss: 235.59600830078125
+INFO - Quantizing mlp.gate_proj in layer 10/28...
+2026-04-25 02:58:46 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 10/28...
+2026-04-25 02:58:47 - INFO - auto_gptq.quantization.gptq - duration: 0.6864757537841797
+2026-04-25 02:58:47 - INFO - auto_gptq.quantization.gptq - avg loss: 291.789794921875
+INFO - Quantizing mlp.down_proj in layer 10/28...
+2026-04-25 02:58:48 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 10/28...
+2026-04-25 02:58:50 - INFO - auto_gptq.quantization.gptq - duration: 2.208667278289795
+2026-04-25 02:58:50 - INFO - auto_gptq.quantization.gptq - avg loss: 76.27531433105469
+INFO - Start quantizing layer 11/28
+2026-04-25 02:58:50 - INFO - auto_gptq.modeling._base - Start quantizing layer 11/28
+INFO - Quantizing self_attn.k_proj in layer 11/28...
+2026-04-25 02:58:51 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 11/28...
+2026-04-25 02:58:51 - INFO - auto_gptq.quantization.gptq - duration: 0.7569239139556885
+2026-04-25 02:58:51 - INFO - auto_gptq.quantization.gptq - avg loss: 55.25383758544922
+INFO - Quantizing self_attn.v_proj in layer 11/28...
+2026-04-25 02:58:51 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 11/28...
+2026-04-25 02:58:52 - INFO - auto_gptq.quantization.gptq - duration: 0.6903126239776611
+2026-04-25 02:58:52 - INFO - auto_gptq.quantization.gptq - avg loss: 60.346431732177734
+INFO - Quantizing self_attn.q_proj in layer 11/28...
+2026-04-25 02:58:52 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 11/28...
+2026-04-25 02:58:53 - INFO - auto_gptq.quantization.gptq - duration: 0.7008285522460938
+2026-04-25 02:58:53 - INFO - auto_gptq.quantization.gptq - avg loss: 120.64784240722656
+INFO - Quantizing self_attn.o_proj in layer 11/28...
+2026-04-25 02:58:53 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 11/28...
+2026-04-25 02:58:54 - INFO - auto_gptq.quantization.gptq - duration: 0.7323732376098633
+2026-04-25 02:58:54 - INFO - auto_gptq.quantization.gptq - avg loss: 30.908668518066406
+INFO - Quantizing mlp.up_proj in layer 11/28...
+2026-04-25 02:58:54 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 11/28...
+2026-04-25 02:58:55 - INFO - auto_gptq.quantization.gptq - duration: 0.7360386848449707
+2026-04-25 02:58:55 - INFO - auto_gptq.quantization.gptq - avg loss: 237.94219970703125
+INFO - Quantizing mlp.gate_proj in layer 11/28...
+2026-04-25 02:58:55 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 11/28...
+2026-04-25 02:58:56 - INFO - auto_gptq.quantization.gptq - duration: 0.7025017738342285
+2026-04-25 02:58:56 - INFO - auto_gptq.quantization.gptq - avg loss: 286.7828063964844
+INFO - Quantizing mlp.down_proj in layer 11/28...
+2026-04-25 02:58:56 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 11/28...
+2026-04-25 02:58:58 - INFO - auto_gptq.quantization.gptq - duration: 2.180799961090088
+2026-04-25 02:58:58 - INFO - auto_gptq.quantization.gptq - avg loss: 120.36215209960938
+INFO - Start quantizing layer 12/28
+2026-04-25 02:58:59 - INFO - auto_gptq.modeling._base - Start quantizing layer 12/28
+INFO - Quantizing self_attn.k_proj in layer 12/28...
+2026-04-25 02:58:59 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 12/28...
+2026-04-25 02:59:00 - INFO - auto_gptq.quantization.gptq - duration: 0.7352099418640137
+2026-04-25 02:59:00 - INFO - auto_gptq.quantization.gptq - avg loss: 118.33457946777344
+INFO - Quantizing self_attn.v_proj in layer 12/28...
+2026-04-25 02:59:00 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 12/28...
+2026-04-25 02:59:01 - INFO - auto_gptq.quantization.gptq - duration: 0.7026350498199463
+2026-04-25 02:59:01 - INFO - auto_gptq.quantization.gptq - avg loss: 113.15354919433594
+INFO - Quantizing self_attn.q_proj in layer 12/28...
+2026-04-25 02:59:01 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 12/28...
+2026-04-25 02:59:01 - INFO - auto_gptq.quantization.gptq - duration: 0.6803169250488281
+2026-04-25 02:59:01 - INFO - auto_gptq.quantization.gptq - avg loss: 271.91082763671875
+INFO - Quantizing self_attn.o_proj in layer 12/28...
+2026-04-25 02:59:02 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 12/28...
+2026-04-25 02:59:02 - INFO - auto_gptq.quantization.gptq - duration: 0.7237715721130371
+2026-04-25 02:59:02 - INFO - auto_gptq.quantization.gptq - avg loss: 102.82897186279297
+INFO - Quantizing mlp.up_proj in layer 12/28...
+2026-04-25 02:59:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 12/28...
+2026-04-25 02:59:03 - INFO - auto_gptq.quantization.gptq - duration: 0.7270011901855469
+2026-04-25 02:59:03 - INFO - auto_gptq.quantization.gptq - avg loss: 222.87652587890625
+INFO - Quantizing mlp.gate_proj in layer 12/28...
+2026-04-25 02:59:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 12/28...
+2026-04-25 02:59:04 - INFO - auto_gptq.quantization.gptq - duration: 0.6906936168670654
+2026-04-25 02:59:04 - INFO - auto_gptq.quantization.gptq - avg loss: 232.81549072265625
+INFO - Quantizing mlp.down_proj in layer 12/28...
+2026-04-25 02:59:05 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 12/28...
+2026-04-25 02:59:07 - INFO - auto_gptq.quantization.gptq - duration: 2.2029364109039307
+2026-04-25 02:59:07 - INFO - auto_gptq.quantization.gptq - avg loss: 136.23019409179688
+INFO - Start quantizing layer 13/28
+2026-04-25 02:59:07 - INFO - auto_gptq.modeling._base - Start quantizing layer 13/28
+INFO - Quantizing self_attn.k_proj in layer 13/28...
+2026-04-25 02:59:08 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 13/28...
+2026-04-25 02:59:08 - INFO - auto_gptq.quantization.gptq - duration: 0.7479636669158936
+2026-04-25 02:59:08 - INFO - auto_gptq.quantization.gptq - avg loss: 97.57791137695312
+INFO - Quantizing self_attn.v_proj in layer 13/28...
+2026-04-25 02:59:08 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 13/28...
+2026-04-25 02:59:09 - INFO - auto_gptq.quantization.gptq - duration: 0.6900970935821533
+2026-04-25 02:59:09 - INFO - auto_gptq.quantization.gptq - avg loss: 103.25730895996094
+INFO - Quantizing self_attn.q_proj in layer 13/28...
+2026-04-25 02:59:09 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 13/28...
+2026-04-25 02:59:10 - INFO - auto_gptq.quantization.gptq - duration: 0.7005853652954102
+2026-04-25 02:59:10 - INFO - auto_gptq.quantization.gptq - avg loss: 220.22531127929688
+INFO - Quantizing self_attn.o_proj in layer 13/28...
+2026-04-25 02:59:10 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 13/28...
+2026-04-25 02:59:11 - INFO - auto_gptq.quantization.gptq - duration: 0.7340400218963623
+2026-04-25 02:59:11 - INFO - auto_gptq.quantization.gptq - avg loss: 57.060081481933594
+INFO - Quantizing mlp.up_proj in layer 13/28...
+2026-04-25 02:59:11 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 13/28...
+2026-04-25 02:59:12 - INFO - auto_gptq.quantization.gptq - duration: 0.7299907207489014
+2026-04-25 02:59:12 - INFO - auto_gptq.quantization.gptq - avg loss: 235.0205535888672
+INFO - Quantizing mlp.gate_proj in layer 13/28...
+2026-04-25 02:59:12 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 13/28...
+2026-04-25 02:59:13 - INFO - auto_gptq.quantization.gptq - duration: 0.7103853225708008
+2026-04-25 02:59:13 - INFO - auto_gptq.quantization.gptq - avg loss: 231.760009765625
+INFO - Quantizing mlp.down_proj in layer 13/28...
+2026-04-25 02:59:13 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 13/28...
+2026-04-25 02:59:16 - INFO - auto_gptq.quantization.gptq - duration: 2.2111124992370605
+2026-04-25 02:59:16 - INFO - auto_gptq.quantization.gptq - avg loss: 163.46066284179688
+INFO - Start quantizing layer 14/28
+2026-04-25 02:59:16 - INFO - auto_gptq.modeling._base - Start quantizing layer 14/28
+INFO - Quantizing self_attn.k_proj in layer 14/28...
+2026-04-25 02:59:16 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 14/28...
+2026-04-25 02:59:17 - INFO - auto_gptq.quantization.gptq - duration: 0.7252190113067627
+2026-04-25 02:59:17 - INFO - auto_gptq.quantization.gptq - avg loss: 129.66598510742188
+INFO - Quantizing self_attn.v_proj in layer 14/28...
+2026-04-25 02:59:17 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 14/28...
+2026-04-25 02:59:18 - INFO - auto_gptq.quantization.gptq - duration: 0.6994750499725342
+2026-04-25 02:59:18 - INFO - auto_gptq.quantization.gptq - avg loss: 148.42208862304688
+INFO - Quantizing self_attn.q_proj in layer 14/28...
+2026-04-25 02:59:18 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 14/28...
+2026-04-25 02:59:19 - INFO - auto_gptq.quantization.gptq - duration: 0.6924822330474854
+2026-04-25 02:59:19 - INFO - auto_gptq.quantization.gptq - avg loss: 330.459716796875
+INFO - Quantizing self_attn.o_proj in layer 14/28...
+2026-04-25 02:59:19 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 14/28...
+2026-04-25 02:59:20 - INFO - auto_gptq.quantization.gptq - duration: 0.7349288463592529
+2026-04-25 02:59:20 - INFO - auto_gptq.quantization.gptq - avg loss: 83.14073181152344
+INFO - Quantizing mlp.up_proj in layer 14/28...
+2026-04-25 02:59:20 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 14/28...
+2026-04-25 02:59:21 - INFO - auto_gptq.quantization.gptq - duration: 0.7295007705688477
+2026-04-25 02:59:21 - INFO - auto_gptq.quantization.gptq - avg loss: 259.9652099609375
+INFO - Quantizing mlp.gate_proj in layer 14/28...
+2026-04-25 02:59:21 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 14/28...
+2026-04-25 02:59:21 - INFO - auto_gptq.quantization.gptq - duration: 0.6925554275512695
+2026-04-25 02:59:21 - INFO - auto_gptq.quantization.gptq - avg loss: 256.31097412109375
+INFO - Quantizing mlp.down_proj in layer 14/28...
+2026-04-25 02:59:22 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 14/28...
+2026-04-25 02:59:24 - INFO - auto_gptq.quantization.gptq - duration: 2.209531307220459
+2026-04-25 02:59:24 - INFO - auto_gptq.quantization.gptq - avg loss: 203.01806640625
+INFO - Start quantizing layer 15/28
+2026-04-25 02:59:25 - INFO - auto_gptq.modeling._base - Start quantizing layer 15/28
+INFO - Quantizing self_attn.k_proj in layer 15/28...
+2026-04-25 02:59:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 15/28...
+2026-04-25 02:59:26 - INFO - auto_gptq.quantization.gptq - duration: 0.7492320537567139
+2026-04-25 02:59:26 - INFO - auto_gptq.quantization.gptq - avg loss: 227.11514282226562
+INFO - Quantizing self_attn.v_proj in layer 15/28...
+2026-04-25 02:59:26 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 15/28...
+2026-04-25 02:59:26 - INFO - auto_gptq.quantization.gptq - duration: 0.6933844089508057
+2026-04-25 02:59:26 - INFO - auto_gptq.quantization.gptq - avg loss: 245.7445068359375
+INFO - Quantizing self_attn.q_proj in layer 15/28...
+2026-04-25 02:59:26 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 15/28...
+2026-04-25 02:59:27 - INFO - auto_gptq.quantization.gptq - duration: 0.696845293045044
+2026-04-25 02:59:27 - INFO - auto_gptq.quantization.gptq - avg loss: 542.279296875
+INFO - Quantizing self_attn.o_proj in layer 15/28...
+2026-04-25 02:59:27 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 15/28...
+2026-04-25 02:59:28 - INFO - auto_gptq.quantization.gptq - duration: 0.7385838031768799
+2026-04-25 02:59:28 - INFO - auto_gptq.quantization.gptq - avg loss: 103.33698272705078
+INFO - Quantizing mlp.up_proj in layer 15/28...
+2026-04-25 02:59:28 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 15/28...
+2026-04-25 02:59:29 - INFO - auto_gptq.quantization.gptq - duration: 0.7317988872528076
+2026-04-25 02:59:29 - INFO - auto_gptq.quantization.gptq - avg loss: 296.05352783203125
+INFO - Quantizing mlp.gate_proj in layer 15/28...
+2026-04-25 02:59:29 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 15/28...
+2026-04-25 02:59:30 - INFO - auto_gptq.quantization.gptq - duration: 0.6988844871520996
+2026-04-25 02:59:30 - INFO - auto_gptq.quantization.gptq - avg loss: 285.4541320800781
+INFO - Quantizing mlp.down_proj in layer 15/28...
+2026-04-25 02:59:31 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 15/28...
+2026-04-25 02:59:33 - INFO - auto_gptq.quantization.gptq - duration: 2.2299020290374756
+2026-04-25 02:59:33 - INFO - auto_gptq.quantization.gptq - avg loss: 283.9678649902344
+INFO - Start quantizing layer 16/28
+2026-04-25 02:59:33 - INFO - auto_gptq.modeling._base - Start quantizing layer 16/28
+INFO - Quantizing self_attn.k_proj in layer 16/28...
+2026-04-25 02:59:34 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 16/28...
+2026-04-25 02:59:34 - INFO - auto_gptq.quantization.gptq - duration: 0.7360184192657471
+2026-04-25 02:59:34 - INFO - auto_gptq.quantization.gptq - avg loss: 409.2294006347656
+INFO - Quantizing self_attn.v_proj in layer 16/28...
+2026-04-25 02:59:34 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 16/28...
+2026-04-25 02:59:35 - INFO - auto_gptq.quantization.gptq - duration: 0.7013401985168457
+2026-04-25 02:59:35 - INFO - auto_gptq.quantization.gptq - avg loss: 535.73291015625
+INFO - Quantizing self_attn.q_proj in layer 16/28...
+2026-04-25 02:59:35 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 16/28...
+2026-04-25 02:59:36 - INFO - auto_gptq.quantization.gptq - duration: 0.6815907955169678
+2026-04-25 02:59:36 - INFO - auto_gptq.quantization.gptq - avg loss: 1174.8990478515625
+INFO - Quantizing self_attn.o_proj in layer 16/28...
+2026-04-25 02:59:36 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 16/28...
+2026-04-25 02:59:37 - INFO - auto_gptq.quantization.gptq - duration: 0.7210235595703125
+2026-04-25 02:59:37 - INFO - auto_gptq.quantization.gptq - avg loss: 171.60980224609375
+INFO - Quantizing mlp.up_proj in layer 16/28...
+2026-04-25 02:59:37 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 16/28...
+2026-04-25 02:59:38 - INFO - auto_gptq.quantization.gptq - duration: 0.7307453155517578
+2026-04-25 02:59:38 - INFO - auto_gptq.quantization.gptq - avg loss: 357.8456115722656
+INFO - Quantizing mlp.gate_proj in layer 16/28...
+2026-04-25 02:59:38 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 16/28...
+2026-04-25 02:59:38 - INFO - auto_gptq.quantization.gptq - duration: 0.6824424266815186
+2026-04-25 02:59:38 - INFO - auto_gptq.quantization.gptq - avg loss: 336.3727722167969
+INFO - Quantizing mlp.down_proj in layer 16/28...
+2026-04-25 02:59:39 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 16/28...
+2026-04-25 02:59:41 - INFO - auto_gptq.quantization.gptq - duration: 2.1757616996765137
+2026-04-25 02:59:41 - INFO - auto_gptq.quantization.gptq - avg loss: 419.1434631347656
+INFO - Start quantizing layer 17/28
+2026-04-25 02:59:42 - INFO - auto_gptq.modeling._base - Start quantizing layer 17/28
+INFO - Quantizing self_attn.k_proj in layer 17/28...
+2026-04-25 02:59:42 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 17/28...
+2026-04-25 02:59:43 - INFO - auto_gptq.quantization.gptq - duration: 0.7286713123321533
+2026-04-25 02:59:43 - INFO - auto_gptq.quantization.gptq - avg loss: 578.0387573242188
+INFO - Quantizing self_attn.v_proj in layer 17/28...
+2026-04-25 02:59:43 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 17/28...
+2026-04-25 02:59:44 - INFO - auto_gptq.quantization.gptq - duration: 0.6837019920349121
+2026-04-25 02:59:44 - INFO - auto_gptq.quantization.gptq - avg loss: 647.4736328125
+INFO - Quantizing self_attn.q_proj in layer 17/28...
+2026-04-25 02:59:44 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 17/28...
+2026-04-25 02:59:44 - INFO - auto_gptq.quantization.gptq - duration: 0.6979274749755859
+2026-04-25 02:59:44 - INFO - auto_gptq.quantization.gptq - avg loss: 1678.39892578125
+INFO - Quantizing self_attn.o_proj in layer 17/28...
+2026-04-25 02:59:44 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 17/28...
+2026-04-25 02:59:45 - INFO - auto_gptq.quantization.gptq - duration: 0.7415440082550049
+2026-04-25 02:59:45 - INFO - auto_gptq.quantization.gptq - avg loss: 277.256103515625
+INFO - Quantizing mlp.up_proj in layer 17/28...
+2026-04-25 02:59:46 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 17/28...
+2026-04-25 02:59:46 - INFO - auto_gptq.quantization.gptq - duration: 0.7388384342193604
+2026-04-25 02:59:46 - INFO - auto_gptq.quantization.gptq - avg loss: 457.05145263671875
+INFO - Quantizing mlp.gate_proj in layer 17/28...
+2026-04-25 02:59:46 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 17/28...
+2026-04-25 02:59:47 - INFO - auto_gptq.quantization.gptq - duration: 0.686699390411377
+2026-04-25 02:59:47 - INFO - auto_gptq.quantization.gptq - avg loss: 397.0245666503906
+INFO - Quantizing mlp.down_proj in layer 17/28...
+2026-04-25 02:59:48 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 17/28...
+2026-04-25 02:59:50 - INFO - auto_gptq.quantization.gptq - duration: 2.18001127243042
+2026-04-25 02:59:50 - INFO - auto_gptq.quantization.gptq - avg loss: 1145.2801513671875
+INFO - Start quantizing layer 18/28
+2026-04-25 02:59:50 - INFO - auto_gptq.modeling._base - Start quantizing layer 18/28
+INFO - Quantizing self_attn.k_proj in layer 18/28...
+2026-04-25 02:59:51 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 18/28...
+2026-04-25 02:59:51 - INFO - auto_gptq.quantization.gptq - duration: 0.7471609115600586
+2026-04-25 02:59:51 - INFO - auto_gptq.quantization.gptq - avg loss: 1558.351806640625
+INFO - Quantizing self_attn.v_proj in layer 18/28...
+2026-04-25 02:59:51 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 18/28...
+2026-04-25 02:59:52 - INFO - auto_gptq.quantization.gptq - duration: 0.6910710334777832
+2026-04-25 02:59:52 - INFO - auto_gptq.quantization.gptq - avg loss: 2014.466552734375
+INFO - Quantizing self_attn.q_proj in layer 18/28...
+2026-04-25 02:59:52 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 18/28...
+2026-04-25 02:59:53 - INFO - auto_gptq.quantization.gptq - duration: 0.6848616600036621
+2026-04-25 02:59:53 - INFO - auto_gptq.quantization.gptq - avg loss: 4413.77734375
+INFO - Quantizing self_attn.o_proj in layer 18/28...
+2026-04-25 02:59:53 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 18/28...
+2026-04-25 02:59:54 - INFO - auto_gptq.quantization.gptq - duration: 0.7266826629638672
+2026-04-25 02:59:54 - INFO - auto_gptq.quantization.gptq - avg loss: 604.864501953125
+INFO - Quantizing mlp.up_proj in layer 18/28...
+2026-04-25 02:59:54 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 18/28...
+2026-04-25 02:59:55 - INFO - auto_gptq.quantization.gptq - duration: 0.7415761947631836
+2026-04-25 02:59:55 - INFO - auto_gptq.quantization.gptq - avg loss: 678.5800170898438
+INFO - Quantizing mlp.gate_proj in layer 18/28...
+2026-04-25 02:59:55 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 18/28...
+2026-04-25 02:59:56 - INFO - auto_gptq.quantization.gptq - duration: 0.6886582374572754
+2026-04-25 02:59:56 - INFO - auto_gptq.quantization.gptq - avg loss: 564.0093994140625
+INFO - Quantizing mlp.down_proj in layer 18/28...
+2026-04-25 02:59:56 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 18/28...
+2026-04-25 02:59:58 - INFO - auto_gptq.quantization.gptq - duration: 2.1695382595062256
+2026-04-25 02:59:58 - INFO - auto_gptq.quantization.gptq - avg loss: 1398.4781494140625
+INFO - Start quantizing layer 19/28
+2026-04-25 02:59:59 - INFO - auto_gptq.modeling._base - Start quantizing layer 19/28
+INFO - Quantizing self_attn.k_proj in layer 19/28...
+2026-04-25 02:59:59 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 19/28...
+2026-04-25 03:00:00 - INFO - auto_gptq.quantization.gptq - duration: 0.7341220378875732
+2026-04-25 03:00:00 - INFO - auto_gptq.quantization.gptq - avg loss: 1885.354736328125
+INFO - Quantizing self_attn.v_proj in layer 19/28...
+2026-04-25 03:00:00 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 19/28...
+2026-04-25 03:00:01 - INFO - auto_gptq.quantization.gptq - duration: 0.6967053413391113
+2026-04-25 03:00:01 - INFO - auto_gptq.quantization.gptq - avg loss: 2246.4697265625
+INFO - Quantizing self_attn.q_proj in layer 19/28...
+2026-04-25 03:00:01 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 19/28...
+2026-04-25 03:00:01 - INFO - auto_gptq.quantization.gptq - duration: 0.6971633434295654
+2026-04-25 03:00:01 - INFO - auto_gptq.quantization.gptq - avg loss: 5746.671875
+INFO - Quantizing self_attn.o_proj in layer 19/28...
+2026-04-25 03:00:02 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 19/28...
+2026-04-25 03:00:02 - INFO - auto_gptq.quantization.gptq - duration: 0.7363457679748535
+2026-04-25 03:00:02 - INFO - auto_gptq.quantization.gptq - avg loss: 475.92529296875
+INFO - Quantizing mlp.up_proj in layer 19/28...
+2026-04-25 03:00:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 19/28...
+2026-04-25 03:00:03 - INFO - auto_gptq.quantization.gptq - duration: 0.7344832420349121
+2026-04-25 03:00:03 - INFO - auto_gptq.quantization.gptq - avg loss: 903.052001953125
+INFO - Quantizing mlp.gate_proj in layer 19/28...
+2026-04-25 03:00:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 19/28...
+2026-04-25 03:00:04 - INFO - auto_gptq.quantization.gptq - duration: 0.6789226531982422
+2026-04-25 03:00:04 - INFO - auto_gptq.quantization.gptq - avg loss: 760.9007568359375
+INFO - Quantizing mlp.down_proj in layer 19/28...
+2026-04-25 03:00:05 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 19/28...
+2026-04-25 03:00:07 - INFO - auto_gptq.quantization.gptq - duration: 2.181057929992676
+2026-04-25 03:00:07 - INFO - auto_gptq.quantization.gptq - avg loss: 2455.516357421875
+INFO - Start quantizing layer 20/28
+2026-04-25 03:00:07 - INFO - auto_gptq.modeling._base - Start quantizing layer 20/28
+INFO - Quantizing self_attn.k_proj in layer 20/28...
+2026-04-25 03:00:08 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 20/28...
+2026-04-25 03:00:09 - INFO - auto_gptq.quantization.gptq - duration: 0.7361044883728027
+2026-04-25 03:00:09 - INFO - auto_gptq.quantization.gptq - avg loss: 3309.79833984375
+INFO - Quantizing self_attn.v_proj in layer 20/28...
+2026-04-25 03:00:09 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 20/28...
+2026-04-25 03:00:09 - INFO - auto_gptq.quantization.gptq - duration: 0.7023255825042725
+2026-04-25 03:00:09 - INFO - auto_gptq.quantization.gptq - avg loss: 4152.9375
+INFO - Quantizing self_attn.q_proj in layer 20/28...
+2026-04-25 03:00:09 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 20/28...
+2026-04-25 03:00:10 - INFO - auto_gptq.quantization.gptq - duration: 0.6908705234527588
+2026-04-25 03:00:10 - INFO - auto_gptq.quantization.gptq - avg loss: 10615.6669921875
+INFO - Quantizing self_attn.o_proj in layer 20/28...
+2026-04-25 03:00:10 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 20/28...
+2026-04-25 03:00:11 - INFO - auto_gptq.quantization.gptq - duration: 0.727867841720581
+2026-04-25 03:00:11 - INFO - auto_gptq.quantization.gptq - avg loss: 833.40087890625
+INFO - Quantizing mlp.up_proj in layer 20/28...
+2026-04-25 03:00:11 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 20/28...
+2026-04-25 03:00:12 - INFO - auto_gptq.quantization.gptq - duration: 0.7256312370300293
+2026-04-25 03:00:12 - INFO - auto_gptq.quantization.gptq - avg loss: 1304.2958984375
+INFO - Quantizing mlp.gate_proj in layer 20/28...
+2026-04-25 03:00:12 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 20/28...
+2026-04-25 03:00:13 - INFO - auto_gptq.quantization.gptq - duration: 0.7064282894134521
+2026-04-25 03:00:13 - INFO - auto_gptq.quantization.gptq - avg loss: 1088.80615234375
+INFO - Quantizing mlp.down_proj in layer 20/28...
+2026-04-25 03:00:13 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 20/28...
+2026-04-25 03:00:16 - INFO - auto_gptq.quantization.gptq - duration: 2.198460102081299
+2026-04-25 03:00:16 - INFO - auto_gptq.quantization.gptq - avg loss: 5713.00390625
+INFO - Start quantizing layer 21/28
+2026-04-25 03:00:16 - INFO - auto_gptq.modeling._base - Start quantizing layer 21/28
+INFO - Quantizing self_attn.k_proj in layer 21/28...
+2026-04-25 03:00:16 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 21/28...
+2026-04-25 03:00:17 - INFO - auto_gptq.quantization.gptq - duration: 0.738072395324707
+2026-04-25 03:00:17 - INFO - auto_gptq.quantization.gptq - avg loss: 5965.1123046875
+INFO - Quantizing self_attn.v_proj in layer 21/28...
+2026-04-25 03:00:17 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 21/28...
+2026-04-25 03:00:18 - INFO - auto_gptq.quantization.gptq - duration: 0.7097868919372559
+2026-04-25 03:00:18 - INFO - auto_gptq.quantization.gptq - avg loss: 7295.05615234375
+INFO - Quantizing self_attn.q_proj in layer 21/28...
+2026-04-25 03:00:18 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 21/28...
+2026-04-25 03:00:19 - INFO - auto_gptq.quantization.gptq - duration: 0.6739027500152588
+2026-04-25 03:00:19 - INFO - auto_gptq.quantization.gptq - avg loss: 18140.623046875
+INFO - Quantizing self_attn.o_proj in layer 21/28...
+2026-04-25 03:00:19 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 21/28...
+2026-04-25 03:00:20 - INFO - auto_gptq.quantization.gptq - duration: 0.7324371337890625
+2026-04-25 03:00:20 - INFO - auto_gptq.quantization.gptq - avg loss: 1362.614013671875
+INFO - Quantizing mlp.up_proj in layer 21/28...
+2026-04-25 03:00:20 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 21/28...
+2026-04-25 03:00:21 - INFO - auto_gptq.quantization.gptq - duration: 0.7257242202758789
+2026-04-25 03:00:21 - INFO - auto_gptq.quantization.gptq - avg loss: 1719.126220703125
+INFO - Quantizing mlp.gate_proj in layer 21/28...
+2026-04-25 03:00:21 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 21/28...
+2026-04-25 03:00:21 - INFO - auto_gptq.quantization.gptq - duration: 0.6931507587432861
+2026-04-25 03:00:21 - INFO - auto_gptq.quantization.gptq - avg loss: 1460.0306396484375
+INFO - Quantizing mlp.down_proj in layer 21/28...
+2026-04-25 03:00:22 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 21/28...
+2026-04-25 03:00:24 - INFO - auto_gptq.quantization.gptq - duration: 2.195868492126465
+2026-04-25 03:00:24 - INFO - auto_gptq.quantization.gptq - avg loss: 8362.04296875
+INFO - Start quantizing layer 22/28
+2026-04-25 03:00:25 - INFO - auto_gptq.modeling._base - Start quantizing layer 22/28
+INFO - Quantizing self_attn.k_proj in layer 22/28...
+2026-04-25 03:00:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 22/28...
+2026-04-25 03:00:26 - INFO - auto_gptq.quantization.gptq - duration: 0.7479093074798584
+2026-04-25 03:00:26 - INFO - auto_gptq.quantization.gptq - avg loss: 9818.1552734375
+INFO - Quantizing self_attn.v_proj in layer 22/28...
+2026-04-25 03:00:26 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 22/28...
+2026-04-25 03:00:26 - INFO - auto_gptq.quantization.gptq - duration: 0.7022013664245605
+2026-04-25 03:00:26 - INFO - auto_gptq.quantization.gptq - avg loss: 13165.232421875
+INFO - Quantizing self_attn.q_proj in layer 22/28...
+2026-04-25 03:00:26 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 22/28...
+2026-04-25 03:00:27 - INFO - auto_gptq.quantization.gptq - duration: 0.6731600761413574
+2026-04-25 03:00:27 - INFO - auto_gptq.quantization.gptq - avg loss: 28401.189453125
+INFO - Quantizing self_attn.o_proj in layer 22/28...
+2026-04-25 03:00:27 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 22/28...
+2026-04-25 03:00:28 - INFO - auto_gptq.quantization.gptq - duration: 0.7216241359710693
+2026-04-25 03:00:28 - INFO - auto_gptq.quantization.gptq - avg loss: 1746.37060546875
+INFO - Quantizing mlp.up_proj in layer 22/28...
+2026-04-25 03:00:28 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 22/28...
+2026-04-25 03:00:29 - INFO - auto_gptq.quantization.gptq - duration: 0.7171015739440918
+2026-04-25 03:00:29 - INFO - auto_gptq.quantization.gptq - avg loss: 2145.0625
+INFO - Quantizing mlp.gate_proj in layer 22/28...
+2026-04-25 03:00:29 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 22/28...
+2026-04-25 03:00:30 - INFO - auto_gptq.quantization.gptq - duration: 0.6982526779174805
+2026-04-25 03:00:30 - INFO - auto_gptq.quantization.gptq - avg loss: 1820.8558349609375
+INFO - Quantizing mlp.down_proj in layer 22/28...
+2026-04-25 03:00:31 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 22/28...
+2026-04-25 03:00:33 - INFO - auto_gptq.quantization.gptq - duration: 2.138681650161743
+2026-04-25 03:00:33 - INFO - auto_gptq.quantization.gptq - avg loss: 12946.6650390625
+INFO - Start quantizing layer 23/28
+2026-04-25 03:00:33 - INFO - auto_gptq.modeling._base - Start quantizing layer 23/28
+INFO - Quantizing self_attn.k_proj in layer 23/28...
+2026-04-25 03:00:34 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 23/28...
+2026-04-25 03:00:35 - INFO - auto_gptq.quantization.gptq - duration: 1.1656765937805176
+2026-04-25 03:00:35 - INFO - auto_gptq.quantization.gptq - avg loss: 13604.2783203125
+INFO - Quantizing self_attn.v_proj in layer 23/28...
+2026-04-25 03:00:35 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 23/28...
+2026-04-25 03:00:36 - INFO - auto_gptq.quantization.gptq - duration: 1.100188970565796
+2026-04-25 03:00:36 - INFO - auto_gptq.quantization.gptq - avg loss: 17611.7890625
+INFO - Quantizing self_attn.q_proj in layer 23/28...
+2026-04-25 03:00:36 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 23/28...
+2026-04-25 03:00:37 - INFO - auto_gptq.quantization.gptq - duration: 1.107250690460205
+2026-04-25 03:00:37 - INFO - auto_gptq.quantization.gptq - avg loss: 38223.671875
+INFO - Quantizing self_attn.o_proj in layer 23/28...
+2026-04-25 03:00:37 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 23/28...
+2026-04-25 03:00:39 - INFO - auto_gptq.quantization.gptq - duration: 1.2434654235839844
+2026-04-25 03:00:39 - INFO - auto_gptq.quantization.gptq - avg loss: 2135.6142578125
+INFO - Quantizing mlp.up_proj in layer 23/28...
+2026-04-25 03:00:39 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 23/28...
+2026-04-25 03:00:40 - INFO - auto_gptq.quantization.gptq - duration: 0.965939998626709
+2026-04-25 03:00:40 - INFO - auto_gptq.quantization.gptq - avg loss: 2551.06591796875
+INFO - Quantizing mlp.gate_proj in layer 23/28...
+2026-04-25 03:00:40 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 23/28...
+2026-04-25 03:00:41 - INFO - auto_gptq.quantization.gptq - duration: 0.8512330055236816
+2026-04-25 03:00:41 - INFO - auto_gptq.quantization.gptq - avg loss: 2187.124267578125
+INFO - Quantizing mlp.down_proj in layer 23/28...
+2026-04-25 03:00:42 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 23/28...
+2026-04-25 03:00:44 - INFO - auto_gptq.quantization.gptq - duration: 2.861611843109131
+2026-04-25 03:00:44 - INFO - auto_gptq.quantization.gptq - avg loss: 16314.3486328125
+INFO - Start quantizing layer 24/28
+2026-04-25 03:00:45 - INFO - auto_gptq.modeling._base - Start quantizing layer 24/28
+INFO - Quantizing self_attn.k_proj in layer 24/28...
+2026-04-25 03:00:45 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 24/28...
+2026-04-25 03:00:47 - INFO - auto_gptq.quantization.gptq - duration: 1.3555150032043457
+2026-04-25 03:00:47 - INFO - auto_gptq.quantization.gptq - avg loss: 16180.583984375
+INFO - Quantizing self_attn.v_proj in layer 24/28...
+2026-04-25 03:00:47 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 24/28...
+2026-04-25 03:00:48 - INFO - auto_gptq.quantization.gptq - duration: 1.3516266345977783
+2026-04-25 03:00:48 - INFO - auto_gptq.quantization.gptq - avg loss: 20783.390625
+INFO - Quantizing self_attn.q_proj in layer 24/28...
+2026-04-25 03:00:48 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 24/28...
+2026-04-25 03:00:49 - INFO - auto_gptq.quantization.gptq - duration: 1.3780553340911865
+2026-04-25 03:00:49 - INFO - auto_gptq.quantization.gptq - avg loss: 40461.7890625
+INFO - Quantizing self_attn.o_proj in layer 24/28...
+2026-04-25 03:00:50 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 24/28...
+2026-04-25 03:00:51 - INFO - auto_gptq.quantization.gptq - duration: 1.4371147155761719
+2026-04-25 03:00:51 - INFO - auto_gptq.quantization.gptq - avg loss: 2666.0244140625
+INFO - Quantizing mlp.up_proj in layer 24/28...
+2026-04-25 03:00:52 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 24/28...
+2026-04-25 03:00:53 - INFO - auto_gptq.quantization.gptq - duration: 1.2491328716278076
+2026-04-25 03:00:53 - INFO - auto_gptq.quantization.gptq - avg loss: 3087.4462890625
+INFO - Quantizing mlp.gate_proj in layer 24/28...
+2026-04-25 03:00:53 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 24/28...
+2026-04-25 03:00:54 - INFO - auto_gptq.quantization.gptq - duration: 0.5994172096252441
+2026-04-25 03:00:54 - INFO - auto_gptq.quantization.gptq - avg loss: 2683.359619140625
+INFO - Quantizing mlp.down_proj in layer 24/28...
+2026-04-25 03:00:54 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 24/28...
+2026-04-25 03:00:56 - INFO - auto_gptq.quantization.gptq - duration: 2.1877248287200928
+2026-04-25 03:00:56 - INFO - auto_gptq.quantization.gptq - avg loss: 18574.521484375
+INFO - Start quantizing layer 25/28
+2026-04-25 03:00:57 - INFO - auto_gptq.modeling._base - Start quantizing layer 25/28
+INFO - Quantizing self_attn.k_proj in layer 25/28...
+2026-04-25 03:00:57 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 25/28...
+2026-04-25 03:00:58 - INFO - auto_gptq.quantization.gptq - duration: 0.7452538013458252
+2026-04-25 03:00:58 - INFO - auto_gptq.quantization.gptq - avg loss: 28746.794921875
+INFO - Quantizing self_attn.v_proj in layer 25/28...
+2026-04-25 03:00:58 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 25/28...
+2026-04-25 03:00:59 - INFO - auto_gptq.quantization.gptq - duration: 0.6986925601959229
+2026-04-25 03:00:59 - INFO - auto_gptq.quantization.gptq - avg loss: 35809.48046875
+INFO - Quantizing self_attn.q_proj in layer 25/28...
+2026-04-25 03:00:59 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 25/28...
+2026-04-25 03:00:59 - INFO - auto_gptq.quantization.gptq - duration: 0.6923689842224121
+2026-04-25 03:00:59 - INFO - auto_gptq.quantization.gptq - avg loss: 78780.734375
+INFO - Quantizing self_attn.o_proj in layer 25/28...
+2026-04-25 03:01:00 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 25/28...
+2026-04-25 03:01:00 - INFO - auto_gptq.quantization.gptq - duration: 0.7419018745422363
+2026-04-25 03:01:00 - INFO - auto_gptq.quantization.gptq - avg loss: 2704.820556640625
+INFO - Quantizing mlp.up_proj in layer 25/28...
+2026-04-25 03:01:01 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 25/28...
+2026-04-25 03:01:02 - INFO - auto_gptq.quantization.gptq - duration: 0.7467865943908691
+2026-04-25 03:01:02 - INFO - auto_gptq.quantization.gptq - avg loss: 3125.9228515625
+INFO - Quantizing mlp.gate_proj in layer 25/28...
+2026-04-25 03:01:02 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 25/28...
+2026-04-25 03:01:02 - INFO - auto_gptq.quantization.gptq - duration: 0.6904702186584473
+2026-04-25 03:01:02 - INFO - auto_gptq.quantization.gptq - avg loss: 2639.52880859375
+INFO - Quantizing mlp.down_proj in layer 25/28...
+2026-04-25 03:01:03 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 25/28...
+2026-04-25 03:01:05 - INFO - auto_gptq.quantization.gptq - duration: 2.2051517963409424
+2026-04-25 03:01:05 - INFO - auto_gptq.quantization.gptq - avg loss: 23518.23046875
+INFO - Start quantizing layer 26/28
+2026-04-25 03:01:05 - INFO - auto_gptq.modeling._base - Start quantizing layer 26/28
+INFO - Quantizing self_attn.k_proj in layer 26/28...
+2026-04-25 03:01:06 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 26/28...
+2026-04-25 03:01:07 - INFO - auto_gptq.quantization.gptq - duration: 0.7504475116729736
+2026-04-25 03:01:07 - INFO - auto_gptq.quantization.gptq - avg loss: 33384.49609375
+INFO - Quantizing self_attn.v_proj in layer 26/28...
+2026-04-25 03:01:07 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 26/28...
+2026-04-25 03:01:07 - INFO - auto_gptq.quantization.gptq - duration: 0.6965651512145996
+2026-04-25 03:01:07 - INFO - auto_gptq.quantization.gptq - avg loss: 54092.8046875
+INFO - Quantizing self_attn.q_proj in layer 26/28...
+2026-04-25 03:01:07 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 26/28...
+2026-04-25 03:01:08 - INFO - auto_gptq.quantization.gptq - duration: 0.6910443305969238
+2026-04-25 03:01:08 - INFO - auto_gptq.quantization.gptq - avg loss: 93671.9375
+INFO - Quantizing self_attn.o_proj in layer 26/28...
+2026-04-25 03:01:08 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 26/28...
+2026-04-25 03:01:09 - INFO - auto_gptq.quantization.gptq - duration: 0.7471725940704346
+2026-04-25 03:01:09 - INFO - auto_gptq.quantization.gptq - avg loss: 3708.80224609375
+INFO - Quantizing mlp.up_proj in layer 26/28...
+2026-04-25 03:01:09 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 26/28...
+2026-04-25 03:01:10 - INFO - auto_gptq.quantization.gptq - duration: 0.723806619644165
+2026-04-25 03:01:10 - INFO - auto_gptq.quantization.gptq - avg loss: 3130.601806640625
+INFO - Quantizing mlp.gate_proj in layer 26/28...
+2026-04-25 03:01:10 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 26/28...
+2026-04-25 03:01:11 - INFO - auto_gptq.quantization.gptq - duration: 0.6848111152648926
+2026-04-25 03:01:11 - INFO - auto_gptq.quantization.gptq - avg loss: 2561.22314453125
+INFO - Quantizing mlp.down_proj in layer 26/28...
+2026-04-25 03:01:11 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 26/28...
+2026-04-25 03:01:14 - INFO - auto_gptq.quantization.gptq - duration: 2.184446334838867
+2026-04-25 03:01:14 - INFO - auto_gptq.quantization.gptq - avg loss: 28507.234375
+INFO - Start quantizing layer 27/28
+2026-04-25 03:01:14 - INFO - auto_gptq.modeling._base - Start quantizing layer 27/28
+INFO - Quantizing self_attn.k_proj in layer 27/28...
+2026-04-25 03:01:14 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 27/28...
+2026-04-25 03:01:15 - INFO - auto_gptq.quantization.gptq - duration: 0.7329702377319336
+2026-04-25 03:01:15 - INFO - auto_gptq.quantization.gptq - avg loss: 33584.8828125
+INFO - Quantizing self_attn.v_proj in layer 27/28...
+2026-04-25 03:01:15 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 27/28...
+2026-04-25 03:01:16 - INFO - auto_gptq.quantization.gptq - duration: 0.6863317489624023
+2026-04-25 03:01:16 - INFO - auto_gptq.quantization.gptq - avg loss: 54021.5078125
+INFO - Quantizing self_attn.q_proj in layer 27/28...
+2026-04-25 03:01:16 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 27/28...
+2026-04-25 03:01:17 - INFO - auto_gptq.quantization.gptq - duration: 0.7016310691833496
+2026-04-25 03:01:17 - INFO - auto_gptq.quantization.gptq - avg loss: 116396.2109375
+INFO - Quantizing self_attn.o_proj in layer 27/28...
+2026-04-25 03:01:17 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 27/28...
+2026-04-25 03:01:18 - INFO - auto_gptq.quantization.gptq - duration: 0.7387967109680176
+2026-04-25 03:01:18 - INFO - auto_gptq.quantization.gptq - avg loss: 9679.4140625
+INFO - Quantizing mlp.up_proj in layer 27/28...
+2026-04-25 03:01:18 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 27/28...
+2026-04-25 03:01:19 - INFO - auto_gptq.quantization.gptq - duration: 0.7282071113586426
+2026-04-25 03:01:19 - INFO - auto_gptq.quantization.gptq - avg loss: 3275.42138671875
+INFO - Quantizing mlp.gate_proj in layer 27/28...
+2026-04-25 03:01:19 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 27/28...
+2026-04-25 03:01:19 - INFO - auto_gptq.quantization.gptq - duration: 0.6821849346160889
+2026-04-25 03:01:19 - INFO - auto_gptq.quantization.gptq - avg loss: 2684.7646484375
+INFO - Quantizing mlp.down_proj in layer 27/28...
+2026-04-25 03:01:20 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 27/28...
+2026-04-25 03:01:22 - INFO - auto_gptq.quantization.gptq - duration: 2.200162410736084
+2026-04-25 03:01:22 - INFO - auto_gptq.quantization.gptq - avg loss: 34906.390625
+INFO - Start quantizing layer 28/28
+2026-04-25 03:01:23 - INFO - auto_gptq.modeling._base - Start quantizing layer 28/28
+INFO - Quantizing self_attn.k_proj in layer 28/28...
+2026-04-25 03:01:23 - INFO - auto_gptq.modeling._base - Quantizing self_attn.k_proj in layer 28/28...
+2026-04-25 03:01:24 - INFO - auto_gptq.quantization.gptq - duration: 0.7449796199798584
+2026-04-25 03:01:24 - INFO - auto_gptq.quantization.gptq - avg loss: 16483.640625
+INFO - Quantizing self_attn.v_proj in layer 28/28...
+2026-04-25 03:01:24 - INFO - auto_gptq.modeling._base - Quantizing self_attn.v_proj in layer 28/28...
+2026-04-25 03:01:24 - INFO - auto_gptq.quantization.gptq - duration: 0.6840839385986328
+2026-04-25 03:01:24 - INFO - auto_gptq.quantization.gptq - avg loss: 20711.5390625
+INFO - Quantizing self_attn.q_proj in layer 28/28...
+2026-04-25 03:01:24 - INFO - auto_gptq.modeling._base - Quantizing self_attn.q_proj in layer 28/28...
+2026-04-25 03:01:25 - INFO - auto_gptq.quantization.gptq - duration: 0.6779844760894775
+2026-04-25 03:01:25 - INFO - auto_gptq.quantization.gptq - avg loss: 36122.65625
+INFO - Quantizing self_attn.o_proj in layer 28/28...
+2026-04-25 03:01:25 - INFO - auto_gptq.modeling._base - Quantizing self_attn.o_proj in layer 28/28...
+2026-04-25 03:01:26 - INFO - auto_gptq.quantization.gptq - duration: 0.7234838008880615
+2026-04-25 03:01:26 - INFO - auto_gptq.quantization.gptq - avg loss: 5975.41015625
+INFO - Quantizing mlp.up_proj in layer 28/28...
+2026-04-25 03:01:26 - INFO - auto_gptq.modeling._base - Quantizing mlp.up_proj in layer 28/28...
+2026-04-25 03:01:27 - INFO - auto_gptq.quantization.gptq - duration: 0.7162511348724365
+2026-04-25 03:01:27 - INFO - auto_gptq.quantization.gptq - avg loss: 4726.115234375
+INFO - Quantizing mlp.gate_proj in layer 28/28...
+2026-04-25 03:01:27 - INFO - auto_gptq.modeling._base - Quantizing mlp.gate_proj in layer 28/28...
+2026-04-25 03:01:28 - INFO - auto_gptq.quantization.gptq - duration: 0.6754457950592041
+2026-04-25 03:01:28 - INFO - auto_gptq.quantization.gptq - avg loss: 4498.78759765625
+INFO - Quantizing mlp.down_proj in layer 28/28...
+2026-04-25 03:01:29 - INFO - auto_gptq.modeling._base - Quantizing mlp.down_proj in layer 28/28...
+2026-04-25 03:01:31 - INFO - auto_gptq.quantization.gptq - duration: 2.1386494636535645
+2026-04-25 03:01:31 - INFO - auto_gptq.quantization.gptq - avg loss: 49546.3671875
+2026-04-25 03:01:31 - INFO - auto_gptq.modeling._utils - Packing model...
+2026-04-25 03:01:31 - INFO - auto_gptq.modeling._utils - model.layers.0.self_attn.q_proj
+2026-04-25 03:01:32 - INFO - auto_gptq.modeling._utils - model.layers.0.self_attn.k_proj
+2026-04-25 03:01:32 - INFO - auto_gptq.modeling._utils - model.layers.0.self_attn.v_proj
+2026-04-25 03:01:32 - INFO - auto_gptq.modeling._utils - model.layers.0.self_attn.o_proj
+2026-04-25 03:01:32 - INFO - auto_gptq.modeling._utils - model.layers.0.mlp.gate_proj
+2026-04-25 03:01:33 - INFO - auto_gptq.modeling._utils - model.layers.0.mlp.up_proj
+2026-04-25 03:01:33 - INFO - auto_gptq.modeling._utils - model.layers.0.mlp.down_proj
+2026-04-25 03:01:34 - INFO - auto_gptq.modeling._utils - model.layers.1.self_attn.q_proj
+2026-04-25 03:01:34 - INFO - auto_gptq.modeling._utils - model.layers.1.self_attn.k_proj
+2026-04-25 03:01:34 - INFO - auto_gptq.modeling._utils - model.layers.1.self_attn.v_proj
+2026-04-25 03:01:35 - INFO - auto_gptq.modeling._utils - model.layers.1.self_attn.o_proj
+2026-04-25 03:01:35 - INFO - auto_gptq.modeling._utils - model.layers.1.mlp.gate_proj
+2026-04-25 03:01:35 - INFO - auto_gptq.modeling._utils - model.layers.1.mlp.up_proj
+2026-04-25 03:01:36 - INFO - auto_gptq.modeling._utils - model.layers.1.mlp.down_proj
+2026-04-25 03:01:37 - INFO - auto_gptq.modeling._utils - model.layers.2.self_attn.q_proj
+2026-04-25 03:01:37 - INFO - auto_gptq.modeling._utils - model.layers.2.self_attn.k_proj
+2026-04-25 03:01:37 - INFO - auto_gptq.modeling._utils - model.layers.2.self_attn.v_proj
+2026-04-25 03:01:37 - INFO - auto_gptq.modeling._utils - model.layers.2.self_attn.o_proj
+2026-04-25 03:01:37 - INFO - auto_gptq.modeling._utils - model.layers.2.mlp.gate_proj
+2026-04-25 03:01:38 - INFO - auto_gptq.modeling._utils - model.layers.2.mlp.up_proj
+2026-04-25 03:01:39 - INFO - auto_gptq.modeling._utils - model.layers.2.mlp.down_proj
+2026-04-25 03:01:39 - INFO - auto_gptq.modeling._utils - model.layers.3.self_attn.q_proj
+2026-04-25 03:01:39 - INFO - auto_gptq.modeling._utils - model.layers.3.self_attn.k_proj
+2026-04-25 03:01:40 - INFO - auto_gptq.modeling._utils - model.layers.3.self_attn.v_proj
+2026-04-25 03:01:40 - INFO - auto_gptq.modeling._utils - model.layers.3.self_attn.o_proj
+2026-04-25 03:01:40 - INFO - auto_gptq.modeling._utils - model.layers.3.mlp.gate_proj
+2026-04-25 03:01:41 - INFO - auto_gptq.modeling._utils - model.layers.3.mlp.up_proj
+2026-04-25 03:01:41 - INFO - auto_gptq.modeling._utils - model.layers.3.mlp.down_proj
+2026-04-25 03:01:42 - INFO - auto_gptq.modeling._utils - model.layers.4.self_attn.q_proj
+2026-04-25 03:01:42 - INFO - auto_gptq.modeling._utils - model.layers.4.self_attn.k_proj
+2026-04-25 03:01:42 - INFO - auto_gptq.modeling._utils - model.layers.4.self_attn.v_proj
+2026-04-25 03:01:42 - INFO - auto_gptq.modeling._utils - model.layers.4.self_attn.o_proj
+2026-04-25 03:01:43 - INFO - auto_gptq.modeling._utils - model.layers.4.mlp.gate_proj
+2026-04-25 03:01:43 - INFO - auto_gptq.modeling._utils - model.layers.4.mlp.up_proj
+2026-04-25 03:01:44 - INFO - auto_gptq.modeling._utils - model.layers.4.mlp.down_proj
+2026-04-25 03:01:45 - INFO - auto_gptq.modeling._utils - model.layers.5.self_attn.q_proj
+2026-04-25 03:01:45 - INFO - auto_gptq.modeling._utils - model.layers.5.self_attn.k_proj
+2026-04-25 03:01:45 - INFO - auto_gptq.modeling._utils - model.layers.5.self_attn.v_proj
+2026-04-25 03:01:45 - INFO - auto_gptq.modeling._utils - model.layers.5.self_attn.o_proj
+2026-04-25 03:01:45 - INFO - auto_gptq.modeling._utils - model.layers.5.mlp.gate_proj
+2026-04-25 03:01:46 - INFO - auto_gptq.modeling._utils - model.layers.5.mlp.up_proj
+2026-04-25 03:01:47 - INFO - auto_gptq.modeling._utils - model.layers.5.mlp.down_proj
+2026-04-25 03:01:47 - INFO - auto_gptq.modeling._utils - model.layers.6.self_attn.q_proj
+2026-04-25 03:01:48 - INFO - auto_gptq.modeling._utils - model.layers.6.self_attn.k_proj
+2026-04-25 03:01:48 - INFO - auto_gptq.modeling._utils - model.layers.6.self_attn.v_proj
+2026-04-25 03:01:48 - INFO - auto_gptq.modeling._utils - model.layers.6.self_attn.o_proj
+2026-04-25 03:01:48 - INFO - auto_gptq.modeling._utils - model.layers.6.mlp.gate_proj
+2026-04-25 03:01:49 - INFO - auto_gptq.modeling._utils - model.layers.6.mlp.up_proj
+2026-04-25 03:01:49 - INFO - auto_gptq.modeling._utils - model.layers.6.mlp.down_proj
+2026-04-25 03:01:50 - INFO - auto_gptq.modeling._utils - model.layers.7.self_attn.q_proj
+2026-04-25 03:01:50 - INFO - auto_gptq.modeling._utils - model.layers.7.self_attn.k_proj
+2026-04-25 03:01:50 - INFO - auto_gptq.modeling._utils - model.layers.7.self_attn.v_proj
+2026-04-25 03:01:51 - INFO - auto_gptq.modeling._utils - model.layers.7.self_attn.o_proj
+2026-04-25 03:01:51 - INFO - auto_gptq.modeling._utils - model.layers.7.mlp.gate_proj
+2026-04-25 03:01:51 - INFO - auto_gptq.modeling._utils - model.layers.7.mlp.up_proj
+2026-04-25 03:01:52 - INFO - auto_gptq.modeling._utils - model.layers.7.mlp.down_proj
+2026-04-25 03:01:53 - INFO - auto_gptq.modeling._utils - model.layers.8.self_attn.q_proj
+2026-04-25 03:01:53 - INFO - auto_gptq.modeling._utils - model.layers.8.self_attn.k_proj
+2026-04-25 03:01:53 - INFO - auto_gptq.modeling._utils - model.layers.8.self_attn.v_proj
+2026-04-25 03:01:53 - INFO - auto_gptq.modeling._utils - model.layers.8.self_attn.o_proj
+2026-04-25 03:01:53 - INFO - auto_gptq.modeling._utils - model.layers.8.mlp.gate_proj
+2026-04-25 03:01:54 - INFO - auto_gptq.modeling._utils - model.layers.8.mlp.up_proj
+2026-04-25 03:01:55 - INFO - auto_gptq.modeling._utils - model.layers.8.mlp.down_proj
+2026-04-25 03:01:55 - INFO - auto_gptq.modeling._utils - model.layers.9.self_attn.q_proj
+2026-04-25 03:01:56 - INFO - auto_gptq.modeling._utils - model.layers.9.self_attn.k_proj
+2026-04-25 03:01:56 - INFO - auto_gptq.modeling._utils - model.layers.9.self_attn.v_proj
+2026-04-25 03:01:56 - INFO - auto_gptq.modeling._utils - model.layers.9.self_attn.o_proj
+2026-04-25 03:01:56 - INFO - auto_gptq.modeling._utils - model.layers.9.mlp.gate_proj
+2026-04-25 03:01:57 - INFO - auto_gptq.modeling._utils - model.layers.9.mlp.up_proj
+2026-04-25 03:01:57 - INFO - auto_gptq.modeling._utils - model.layers.9.mlp.down_proj
+2026-04-25 03:01:58 - INFO - auto_gptq.modeling._utils - model.layers.10.self_attn.q_proj
+2026-04-25 03:01:58 - INFO - auto_gptq.modeling._utils - model.layers.10.self_attn.k_proj
+2026-04-25 03:01:58 - INFO - auto_gptq.modeling._utils - model.layers.10.self_attn.v_proj
+2026-04-25 03:01:59 - INFO - auto_gptq.modeling._utils - model.layers.10.self_attn.o_proj
+2026-04-25 03:01:59 - INFO - auto_gptq.modeling._utils - model.layers.10.mlp.gate_proj
+2026-04-25 03:01:59 - INFO - auto_gptq.modeling._utils - model.layers.10.mlp.up_proj
+2026-04-25 03:02:00 - INFO - auto_gptq.modeling._utils - model.layers.10.mlp.down_proj
+2026-04-25 03:02:01 - INFO - auto_gptq.modeling._utils - model.layers.11.self_attn.q_proj
+2026-04-25 03:02:01 - INFO - auto_gptq.modeling._utils - model.layers.11.self_attn.k_proj
+2026-04-25 03:02:01 - INFO - auto_gptq.modeling._utils - model.layers.11.self_attn.v_proj
+2026-04-25 03:02:01 - INFO - auto_gptq.modeling._utils - model.layers.11.self_attn.o_proj
+2026-04-25 03:02:01 - INFO - auto_gptq.modeling._utils - model.layers.11.mlp.gate_proj
+2026-04-25 03:02:02 - INFO - auto_gptq.modeling._utils - model.layers.11.mlp.up_proj
+2026-04-25 03:02:03 - INFO - auto_gptq.modeling._utils - model.layers.11.mlp.down_proj
+2026-04-25 03:02:04 - INFO - auto_gptq.modeling._utils - model.layers.12.self_attn.q_proj
+2026-04-25 03:02:04 - INFO - auto_gptq.modeling._utils - model.layers.12.self_attn.k_proj
+2026-04-25 03:02:04 - INFO - auto_gptq.modeling._utils - model.layers.12.self_attn.v_proj
+2026-04-25 03:02:04 - INFO - auto_gptq.modeling._utils - model.layers.12.self_attn.o_proj
+2026-04-25 03:02:05 - INFO - auto_gptq.modeling._utils - model.layers.12.mlp.gate_proj
+2026-04-25 03:02:05 - INFO - auto_gptq.modeling._utils - model.layers.12.mlp.up_proj
+2026-04-25 03:02:06 - INFO - auto_gptq.modeling._utils - model.layers.12.mlp.down_proj
+2026-04-25 03:02:06 - INFO - auto_gptq.modeling._utils - model.layers.13.self_attn.q_proj
+2026-04-25 03:02:07 - INFO - auto_gptq.modeling._utils - model.layers.13.self_attn.k_proj
+2026-04-25 03:02:07 - INFO - auto_gptq.modeling._utils - model.layers.13.self_attn.v_proj
+2026-04-25 03:02:07 - INFO - auto_gptq.modeling._utils - model.layers.13.self_attn.o_proj
+2026-04-25 03:02:07 - INFO - auto_gptq.modeling._utils - model.layers.13.mlp.gate_proj
+2026-04-25 03:02:08 - INFO - auto_gptq.modeling._utils - model.layers.13.mlp.up_proj
+2026-04-25 03:02:08 - INFO - auto_gptq.modeling._utils - model.layers.13.mlp.down_proj
+2026-04-25 03:02:09 - INFO - auto_gptq.modeling._utils - model.layers.14.self_attn.q_proj
+2026-04-25 03:02:09 - INFO - auto_gptq.modeling._utils - model.layers.14.self_attn.k_proj
+2026-04-25 03:02:09 - INFO - auto_gptq.modeling._utils - model.layers.14.self_attn.v_proj
+2026-04-25 03:02:10 - INFO - auto_gptq.modeling._utils - model.layers.14.self_attn.o_proj
+2026-04-25 03:02:10 - INFO - auto_gptq.modeling._utils - model.layers.14.mlp.gate_proj
+2026-04-25 03:02:10 - INFO - auto_gptq.modeling._utils - model.layers.14.mlp.up_proj
+2026-04-25 03:02:11 - INFO - auto_gptq.modeling._utils - model.layers.14.mlp.down_proj
+2026-04-25 03:02:12 - INFO - auto_gptq.modeling._utils - model.layers.15.self_attn.q_proj
+2026-04-25 03:02:12 - INFO - auto_gptq.modeling._utils - model.layers.15.self_attn.k_proj
+2026-04-25 03:02:12 - INFO - auto_gptq.modeling._utils - model.layers.15.self_attn.v_proj
+2026-04-25 03:02:12 - INFO - auto_gptq.modeling._utils - model.layers.15.self_attn.o_proj
+2026-04-25 03:02:12 - INFO - auto_gptq.modeling._utils - model.layers.15.mlp.gate_proj
+2026-04-25 03:02:13 - INFO - auto_gptq.modeling._utils - model.layers.15.mlp.up_proj
+2026-04-25 03:02:14 - INFO - auto_gptq.modeling._utils - model.layers.15.mlp.down_proj
+2026-04-25 03:02:14 - INFO - auto_gptq.modeling._utils - model.layers.16.self_attn.q_proj
+2026-04-25 03:02:15 - INFO - auto_gptq.modeling._utils - model.layers.16.self_attn.k_proj
+2026-04-25 03:02:15 - INFO - auto_gptq.modeling._utils - model.layers.16.self_attn.v_proj
+2026-04-25 03:02:15 - INFO - auto_gptq.modeling._utils - model.layers.16.self_attn.o_proj
+2026-04-25 03:02:15 - INFO - auto_gptq.modeling._utils - model.layers.16.mlp.gate_proj
+2026-04-25 03:02:16 - INFO - auto_gptq.modeling._utils - model.layers.16.mlp.up_proj
+2026-04-25 03:02:16 - INFO - auto_gptq.modeling._utils - model.layers.16.mlp.down_proj
+2026-04-25 03:02:17 - INFO - auto_gptq.modeling._utils - model.layers.17.self_attn.q_proj
+2026-04-25 03:02:17 - INFO - auto_gptq.modeling._utils - model.layers.17.self_attn.k_proj
+2026-04-25 03:02:17 - INFO - auto_gptq.modeling._utils - model.layers.17.self_attn.v_proj
+2026-04-25 03:02:17 - INFO - auto_gptq.modeling._utils - model.layers.17.self_attn.o_proj
+2026-04-25 03:02:18 - INFO - auto_gptq.modeling._utils - model.layers.17.mlp.gate_proj
+2026-04-25 03:02:18 - INFO - auto_gptq.modeling._utils - model.layers.17.mlp.up_proj
+2026-04-25 03:02:19 - INFO - auto_gptq.modeling._utils - model.layers.17.mlp.down_proj
+2026-04-25 03:02:20 - INFO - auto_gptq.modeling._utils - model.layers.18.self_attn.q_proj
+2026-04-25 03:02:20 - INFO - auto_gptq.modeling._utils - model.layers.18.self_attn.k_proj
+2026-04-25 03:02:20 - INFO - auto_gptq.modeling._utils - model.layers.18.self_attn.v_proj
+2026-04-25 03:02:20 - INFO - auto_gptq.modeling._utils - model.layers.18.self_attn.o_proj
+2026-04-25 03:02:20 - INFO - auto_gptq.modeling._utils - model.layers.18.mlp.gate_proj
+2026-04-25 03:02:21 - INFO - auto_gptq.modeling._utils - model.layers.18.mlp.up_proj
+2026-04-25 03:02:22 - INFO - auto_gptq.modeling._utils - model.layers.18.mlp.down_proj
+2026-04-25 03:02:22 - INFO - auto_gptq.modeling._utils - model.layers.19.self_attn.q_proj
+2026-04-25 03:02:23 - INFO - auto_gptq.modeling._utils - model.layers.19.self_attn.k_proj
+2026-04-25 03:02:23 - INFO - auto_gptq.modeling._utils - model.layers.19.self_attn.v_proj
+2026-04-25 03:02:23 - INFO - auto_gptq.modeling._utils - model.layers.19.self_attn.o_proj
+2026-04-25 03:02:23 - INFO - auto_gptq.modeling._utils - model.layers.19.mlp.gate_proj
+2026-04-25 03:02:24 - INFO - auto_gptq.modeling._utils - model.layers.19.mlp.up_proj
+2026-04-25 03:02:24 - INFO - auto_gptq.modeling._utils - model.layers.19.mlp.down_proj
+2026-04-25 03:02:25 - INFO - auto_gptq.modeling._utils - model.layers.20.self_attn.q_proj
+2026-04-25 03:02:25 - INFO - auto_gptq.modeling._utils - model.layers.20.self_attn.k_proj
+2026-04-25 03:02:26 - INFO - auto_gptq.modeling._utils - model.layers.20.self_attn.v_proj
+2026-04-25 03:02:26 - INFO - auto_gptq.modeling._utils - model.layers.20.self_attn.o_proj
+2026-04-25 03:02:26 - INFO - auto_gptq.modeling._utils - model.layers.20.mlp.gate_proj
+2026-04-25 03:02:27 - INFO - auto_gptq.modeling._utils - model.layers.20.mlp.up_proj
+2026-04-25 03:02:27 - INFO - auto_gptq.modeling._utils - model.layers.20.mlp.down_proj
+2026-04-25 03:02:28 - INFO - auto_gptq.modeling._utils - model.layers.21.self_attn.q_proj
+2026-04-25 03:02:28 - INFO - auto_gptq.modeling._utils - model.layers.21.self_attn.k_proj
+2026-04-25 03:02:28 - INFO - auto_gptq.modeling._utils - model.layers.21.self_attn.v_proj
+2026-04-25 03:02:29 - INFO - auto_gptq.modeling._utils - model.layers.21.self_attn.o_proj
+2026-04-25 03:02:29 - INFO - auto_gptq.modeling._utils - model.layers.21.mlp.gate_proj
+2026-04-25 03:02:29 - INFO - auto_gptq.modeling._utils - model.layers.21.mlp.up_proj
+2026-04-25 03:02:30 - INFO - auto_gptq.modeling._utils - model.layers.21.mlp.down_proj
+2026-04-25 03:02:31 - INFO - auto_gptq.modeling._utils - model.layers.22.self_attn.q_proj
+2026-04-25 03:02:31 - INFO - auto_gptq.modeling._utils - model.layers.22.self_attn.k_proj
+2026-04-25 03:02:31 - INFO - auto_gptq.modeling._utils - model.layers.22.self_attn.v_proj
+2026-04-25 03:02:31 - INFO - auto_gptq.modeling._utils - model.layers.22.self_attn.o_proj
+2026-04-25 03:02:32 - INFO - auto_gptq.modeling._utils - model.layers.22.mlp.gate_proj
+2026-04-25 03:02:32 - INFO - auto_gptq.modeling._utils - model.layers.22.mlp.up_proj
+2026-04-25 03:02:33 - INFO - auto_gptq.modeling._utils - model.layers.22.mlp.down_proj
+2026-04-25 03:02:34 - INFO - auto_gptq.modeling._utils - model.layers.23.self_attn.q_proj
+2026-04-25 03:02:34 - INFO - auto_gptq.modeling._utils - model.layers.23.self_attn.k_proj
+2026-04-25 03:02:34 - INFO - auto_gptq.modeling._utils - model.layers.23.self_attn.v_proj
+2026-04-25 03:02:34 - INFO - auto_gptq.modeling._utils - model.layers.23.self_attn.o_proj
+2026-04-25 03:02:35 - INFO - auto_gptq.modeling._utils - model.layers.23.mlp.gate_proj
+2026-04-25 03:02:35 - INFO - auto_gptq.modeling._utils - model.layers.23.mlp.up_proj
+2026-04-25 03:02:36 - INFO - auto_gptq.modeling._utils - model.layers.23.mlp.down_proj
+2026-04-25 03:02:37 - INFO - auto_gptq.modeling._utils - model.layers.24.self_attn.q_proj
+2026-04-25 03:02:37 - INFO - auto_gptq.modeling._utils - model.layers.24.self_attn.k_proj
+2026-04-25 03:02:37 - INFO - auto_gptq.modeling._utils - model.layers.24.self_attn.v_proj
+2026-04-25 03:02:37 - INFO - auto_gptq.modeling._utils - model.layers.24.self_attn.o_proj
+2026-04-25 03:02:38 - INFO - auto_gptq.modeling._utils - model.layers.24.mlp.gate_proj
+2026-04-25 03:02:38 - INFO - auto_gptq.modeling._utils - model.layers.24.mlp.up_proj
+2026-04-25 03:02:39 - INFO - auto_gptq.modeling._utils - model.layers.24.mlp.down_proj
+2026-04-25 03:02:40 - INFO - auto_gptq.modeling._utils - model.layers.25.self_attn.q_proj
+2026-04-25 03:02:40 - INFO - auto_gptq.modeling._utils - model.layers.25.self_attn.k_proj
+2026-04-25 03:02:40 - INFO - auto_gptq.modeling._utils - model.layers.25.self_attn.v_proj
+2026-04-25 03:02:40 - INFO - auto_gptq.modeling._utils - model.layers.25.self_attn.o_proj
+2026-04-25 03:02:40 - INFO - auto_gptq.modeling._utils - model.layers.25.mlp.gate_proj
+2026-04-25 03:02:41 - INFO - auto_gptq.modeling._utils - model.layers.25.mlp.up_proj
+2026-04-25 03:02:42 - INFO - auto_gptq.modeling._utils - model.layers.25.mlp.down_proj
+2026-04-25 03:02:42 - INFO - auto_gptq.modeling._utils - model.layers.26.self_attn.q_proj
+2026-04-25 03:02:43 - INFO - auto_gptq.modeling._utils - model.layers.26.self_attn.k_proj
+2026-04-25 03:02:43 - INFO - auto_gptq.modeling._utils - model.layers.26.self_attn.v_proj
+2026-04-25 03:02:43 - INFO - auto_gptq.modeling._utils - model.layers.26.self_attn.o_proj
+2026-04-25 03:02:43 - INFO - auto_gptq.modeling._utils - model.layers.26.mlp.gate_proj
+2026-04-25 03:02:44 - INFO - auto_gptq.modeling._utils - model.layers.26.mlp.up_proj
+2026-04-25 03:02:45 - INFO - auto_gptq.modeling._utils - model.layers.26.mlp.down_proj
+2026-04-25 03:02:45 - INFO - auto_gptq.modeling._utils - model.layers.27.self_attn.q_proj
+2026-04-25 03:02:46 - INFO - auto_gptq.modeling._utils - model.layers.27.self_attn.k_proj
+2026-04-25 03:02:46 - INFO - auto_gptq.modeling._utils - model.layers.27.self_attn.v_proj
+2026-04-25 03:02:46 - INFO - auto_gptq.modeling._utils - model.layers.27.self_attn.o_proj
+2026-04-25 03:02:46 - INFO - auto_gptq.modeling._utils - model.layers.27.mlp.gate_proj
+2026-04-25 03:02:47 - INFO - auto_gptq.modeling._utils - model.layers.27.mlp.up_proj
+2026-04-25 03:02:48 - INFO - auto_gptq.modeling._utils - model.layers.27.mlp.down_proj
+2026-04-25 03:02:48 - INFO - auto_gptq.modeling._utils - Model packed.
+2026-04-25 03:02:48 - INFO - utils - [GPTQ 量化] 完成，耗时: 326.50s
+2026-04-25 03:02:48 - INFO - utils - GPU 0: 已分配 1.13GB / 已保留 1.20GB / 总计 23.6GB
+2026-04-25 03:02:48 - INFO - utils - GPU 1: 已分配 0.00GB / 已保留 0.00GB / 总计 23.6GB
+2026-04-25 03:02:48 - INFO - quantize_gptq - 
+Step 5: 保存量化模型到 ./Qwen3-1.7B_w4a8_gptq
+2026-04-25 03:02:48 - INFO - utils - [模型保存] 开始...
+2026-04-25 03:02:52 - INFO - utils - [模型保存] 完成，耗时: 3.07s
+2026-04-25 03:02:52 - INFO - quantize_gptq - 
+量化完成!
+2026-04-25 03:02:52 - INFO - quantize_gptq -   量化模型大小: 1.87 GB
+2026-04-25 03:02:52 - INFO - quantize_gptq -   保存路径: ./Qwen3-1.7B_w4a8_gptq
+2026-04-25 03:02:52 - INFO - utils - [GPTQ 量化总耗时] 完成，耗时: 353.05s
+2026-04-25 03:02:52 - INFO - utils - GPU 0: 已分配 1.13GB / 已保留 1.20GB / 总计 23.6GB
+2026-04-25 03:02:52 - INFO - utils - GPU 1: 已分配 0.00GB / 已保留 0.00GB / 总计 23.6GB
+2026-04-25 03:02:52 - INFO - __main__ - 
+======================================================================
+2026-04-25 03:02:52 - INFO - __main__ -   阶段 2: 困惑度评估
+2026-04-25 03:02:52 - INFO - __main__ - ======================================================================
+2026-04-25 03:02:52 - INFO - __main__ - 
+######################################################################
+2026-04-25 03:02:52 - INFO - __main__ -   数据集: wikitext2
+2026-04-25 03:02:52 - INFO - __main__ -   WikiText-2 (经典小型LM评估集, ~2MB, 长文本)
+2026-04-25 03:02:52 - INFO - __main__ - ######################################################################
+2026-04-25 03:02:52 - INFO - __main__ - 
+--- 评估 FP16 原始模型 ---
+2026-04-25 03:02:52 - INFO - utils - [FP16 评估] 开始...
+2026-04-25 03:02:52 - INFO - evaluate_ppl - 加载 FP16 模型: /home/wuping/infra/dataset/Qwen3-1.7B
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.82it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  3.15it/s]
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 评估 FP16 (Qwen3-1.7B) 的困惑度
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 数据集: wikitext/wikitext-2-raw-v1
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 序列长度: 2048, 步长: 512
+2026-04-25 03:02:54 - INFO - evaluate_ppl - ============================================================
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 推理设备: cuda:0
+2026-04-25 03:02:54 - INFO - evaluate_ppl - 加载评估数据集: wikitext/wikitext-2-raw-v1 (split=test, field=text)
+2026-04-25 03:02:58 - INFO - evaluate_ppl - 评估文本长度: 1291402 字符
+Token indices sequence length is longer than the specified maximum sequence length for this model (298938 > 131072). Running this sequence through the model will result in indexing errors
+2026-04-25 03:02:59 - INFO - evaluate_ppl - 总 token 数: 298938
+2026-04-25 03:02:59 - INFO - evaluate_ppl - 滑动窗口数: 580
+评估中:   0%|          | 0/584 [00:00<?, ?window/s]评估中:   1%|          | 3/584 [00:00<00:32, 18.11window/s]评估中:   1%|          | 5/584 [00:00<00:38, 15.20window/s]评估中:   1%|          | 7/584 [00:00<00:39, 14.71window/s]评估中:   2%|▏         | 9/584 [00:00<00:40, 14.37window/s]评估中:   2%|▏         | 11/584 [00:00<00:41, 13.94window/s]评估中:   2%|▏         | 13/584 [00:00<00:41, 13.87window/s]评估中:   3%|▎         | 15/584 [00:01<00:40, 13.96window/s]评估中:   3%|▎         | 17/584 [00:01<00:41, 13.79window/s]评估中:   3%|▎         | 19/584 [00:01<00:41, 13.63window/s]评估中:   4%|▎         | 21/584 [00:01<00:40, 13.76window/s]评估中:   4%|▍         | 23/584 [00:01<00:40, 13.80window/s]评估中:   4%|▍         | 25/584 [00:01<00:41, 13.62window/s]评估中:   5%|▍         | 27/584 [00:01<00:40, 13.64window/s]评估中:   5%|▍         | 29/584 [00:02<00:40, 13.78window/s]评估中:   5%|▌         | 31/584 [00:02<00:40, 13.73window/s]评估中:   6%|▌         | 33/584 [00:02<00:40, 13.65window/s]评估中:   6%|▌         | 35/584 [00:02<00:39, 13.86window/s]评估中:   6%|▋         | 37/584 [00:02<00:39, 13.75window/s]评估中:   7%|▋         | 39/584 [00:02<00:39, 13.66window/s]评估中:   7%|▋         | 41/584 [00:02<00:38, 13.95window/s]评估中:   7%|▋         | 43/584 [00:03<00:39, 13.76window/s]评估中:   8%|▊         | 45/584 [00:03<00:39, 13.72window/s]评估中:   8%|▊         | 47/584 [00:03<00:38, 13.85window/s]评估中:   8%|▊         | 49/584 [00:03<00:38, 13.78window/s]评估中:   9%|▊         | 51/584 [00:03<00:39, 13.61window/s]评估中:   9%|▉         | 53/584 [00:03<00:38, 13.83window/s]评估中:   9%|▉         | 55/584 [00:03<00:38, 13.78window/s]评估中:  10%|▉         | 57/584 [00:04<00:38, 13.65window/s]评估中:  10%|█         | 59/584 [00:04<00:38, 13.76window/s]评估中:  10%|█         | 61/584 [00:04<00:37, 13.82window/s]评估中:  11%|█         | 63/584 [00:04<00:38, 13.64window/s]评估中:  11%|█         | 65/584 [00:04<00:37, 13.66window/s]评估中:  11%|█▏        | 67/584 [00:04<00:37, 13.77window/s]评估中:  12%|█▏        | 69/584 [00:04<00:37, 13.75window/s]评估中:  12%|█▏        | 71/584 [00:05<00:37, 13.60window/s]评估中:  12%|█▎        | 73/584 [00:05<00:37, 13.71window/s]评估中:  13%|█▎        | 75/584 [00:05<00:36, 13.77window/s]评估中:  13%|█▎        | 77/584 [00:05<00:37, 13.61window/s]评估中:  14%|█▎        | 79/584 [00:05<00:37, 13.62window/s]评估中:  14%|█▍        | 81/584 [00:05<00:36, 13.77window/s]评估中:  14%|█▍        | 83/584 [00:06<00:36, 13.72window/s]评估中:  15%|█▍        | 85/584 [00:06<00:36, 13.63window/s]评估中:  15%|█▍        | 87/584 [00:06<00:35, 13.84window/s]评估中:  15%|█▌        | 89/584 [00:06<00:35, 13.76window/s]评估中:  16%|█▌        | 91/584 [00:06<00:36, 13.59window/s]评估中:  16%|█▌        | 93/584 [00:06<00:35, 13.68window/s]评估中:  16%|█▋        | 95/584 [00:06<00:35, 13.82window/s]评估中:  17%|█▋        | 97/584 [00:07<00:35, 13.63window/s]评估中:  17%|█▋        | 99/584 [00:07<00:35, 13.58window/s]评估中:  17%|█▋        | 101/584 [00:07<00:35, 13.70window/s]评估中:  18%|█▊        | 103/584 [00:07<00:34, 13.76window/s]评估中:  18%|█▊        | 105/584 [00:07<00:35, 13.59window/s]评估中:  18%|█▊        | 107/584 [00:07<00:35, 13.60window/s]评估中:  19%|█▊        | 109/584 [00:07<00:34, 13.72window/s]评估中:  19%|█▉        | 111/584 [00:08<00:34, 13.71window/s]评估中:  19%|█▉        | 113/584 [00:08<00:34, 13.57window/s]评估中:  20%|█▉        | 115/584 [00:08<00:34, 13.65window/s]评估中:  20%|██        | 117/584 [00:08<00:33, 13.79window/s]评估中:  20%|██        | 119/584 [00:08<00:34, 13.67window/s]评估中:  21%|██        | 121/584 [00:08<00:34, 13.54window/s]评估中:  21%|██        | 123/584 [00:08<00:33, 13.67window/s]评估中:  21%|██▏       | 125/584 [00:09<00:33, 13.79window/s]评估中:  22%|██▏       | 127/584 [00:09<00:33, 13.61window/s]评估中:  22%|██▏       | 129/584 [00:09<00:33, 13.55window/s]评估中:  22%|██▏       | 131/584 [00:09<00:32, 13.82window/s]评估中:  23%|██▎       | 133/584 [00:09<00:32, 13.70window/s]评估中:  23%|██▎       | 135/584 [00:09<00:32, 13.64window/s]评估中:  23%|██▎       | 137/584 [00:09<00:32, 13.74window/s]评估中:  24%|██▍       | 139/584 [00:10<00:32, 13.79window/s]评估中:  24%|██▍       | 141/584 [00:10<00:32, 13.61window/s]评估中:  24%|██▍       | 143/584 [00:10<00:32, 13.62window/s]评估中:  25%|██▍       | 145/584 [00:10<00:31, 13.74window/s]评估中:  25%|██▌       | 147/584 [00:10<00:31, 13.72window/s]评估中:  26%|██▌       | 149/584 [00:10<00:32, 13.55window/s]评估中:  26%|██▌       | 151/584 [00:10<00:31, 13.67window/s]评估中:  26%|██▌       | 153/584 [00:11<00:31, 13.81window/s]评估中:  27%|██▋       | 155/584 [00:11<00:31, 13.61window/s]评估中:  27%|██▋       | 157/584 [00:11<00:31, 13.57window/s]评估中:  27%|██▋       | 159/584 [00:11<00:31, 13.69window/s]评估中:  28%|██▊       | 161/584 [00:11<00:30, 13.74window/s]评估中:  28%|██▊       | 163/584 [00:11<00:31, 13.57window/s]评估中:  28%|██▊       | 165/584 [00:12<00:30, 13.66window/s]评估中:  29%|██▊       | 167/584 [00:12<00:30, 13.77window/s]评估中:  29%|██▉       | 169/584 [00:12<00:30, 13.68window/s]评估中:  29%|██▉       | 171/584 [00:12<00:30, 13.52window/s]评估中:  30%|██▉       | 173/584 [00:12<00:30, 13.66window/s]评估中:  30%|██▉       | 175/584 [00:12<00:29, 13.78window/s]评估中:  30%|███       | 177/584 [00:12<00:29, 13.63window/s]评估中:  31%|███       | 179/584 [00:13<00:29, 13.55window/s]评估中:  31%|███       | 181/584 [00:13<00:29, 13.67window/s]评估中:  31%|███▏      | 183/584 [00:13<00:29, 13.77window/s]评估中:  32%|███▏      | 185/584 [00:13<00:29, 13.60window/s]评估中:  32%|███▏      | 187/584 [00:13<00:29, 13.60window/s]评估中:  32%|███▏      | 189/584 [00:13<00:28, 13.75window/s]评估中:  33%|███▎      | 191/584 [00:13<00:28, 13.67window/s]评估中:  33%|███▎      | 193/584 [00:14<00:28, 13.50window/s]评估中:  33%|███▎      | 195/584 [00:14<00:28, 13.61window/s]评估中:  34%|███▎      | 197/584 [00:14<00:28, 13.74window/s]评估中:  34%|███▍      | 199/584 [00:14<00:28, 13.55window/s]评估中:  34%|███▍      | 201/584 [00:14<00:28, 13.52window/s]评估中:  35%|███▍      | 203/584 [00:14<00:27, 13.65window/s]评估中:  35%|███▌      | 205/584 [00:14<00:27, 13.68window/s]评估中:  35%|███▌      | 207/584 [00:15<00:27, 13.51window/s]评估中:  36%|███▌      | 209/584 [00:15<00:27, 13.52window/s]评估中:  36%|███▌      | 211/584 [00:15<00:27, 13.65window/s]评估中:  36%|███▋      | 213/584 [00:15<00:27, 13.64window/s]评估中:  37%|███▋      | 215/584 [00:15<00:27, 13.49window/s]评估中:  37%|███▋      | 217/584 [00:15<00:27, 13.58window/s]评估中:  38%|███▊      | 219/584 [00:15<00:26, 13.73window/s]评估中:  38%|███▊      | 221/584 [00:16<00:26, 13.55window/s]评估中:  38%|███▊      | 223/584 [00:16<00:26, 13.52window/s]评估中:  39%|███▊      | 225/584 [00:16<00:26, 13.63window/s]评估中:  39%|███▉      | 227/584 [00:16<00:26, 13.68window/s]评估中:  39%|███▉      | 229/584 [00:16<00:26, 13.52window/s]评估中:  40%|███▉      | 231/584 [00:16<00:25, 13.63window/s]评估中:  40%|███▉      | 233/584 [00:16<00:25, 13.76window/s]评估中:  40%|████      | 235/584 [00:17<00:25, 13.58window/s]评估中:  41%|████      | 237/584 [00:17<00:25, 13.66window/s]评估中:  41%|████      | 239/584 [00:17<00:25, 13.77window/s]评估中:  41%|████▏     | 241/584 [00:17<00:25, 13.58window/s]评估中:  42%|████▏     | 243/584 [00:17<00:25, 13.53window/s]评估中:  42%|████▏     | 245/584 [00:17<00:24, 13.66window/s]评估中:  42%|████▏     | 247/584 [00:18<00:24, 13.70window/s]评估中:  43%|████▎     | 249/584 [00:18<00:24, 13.54window/s]评估中:  43%|████▎     | 251/584 [00:18<00:24, 13.56window/s]评估中:  43%|████▎     | 253/584 [00:18<00:24, 13.70window/s]评估中:  44%|████▎     | 255/584 [00:18<00:24, 13.66window/s]评估中:  44%|████▍     | 257/584 [00:18<00:24, 13.52window/s]评估中:  44%|████▍     | 259/584 [00:18<00:23, 13.61window/s]评估中:  45%|████▍     | 261/584 [00:19<00:23, 13.73window/s]评估中:  45%|████▌     | 263/584 [00:19<00:23, 13.63window/s]评估中:  45%|████▌     | 265/584 [00:19<00:23, 13.53window/s]评估中:  46%|████▌     | 267/584 [00:19<00:23, 13.67window/s]评估中:  46%|████▌     | 269/584 [00:19<00:22, 13.71window/s]评估中:  46%|████▋     | 271/584 [00:19<00:23, 13.52window/s]评估中:  47%|████▋     | 273/584 [00:19<00:22, 13.55window/s]评估中:  47%|████▋     | 275/584 [00:20<00:22, 13.75window/s]评估中:  47%|████▋     | 277/584 [00:20<00:22, 13.56window/s]评估中:  48%|████▊     | 279/584 [00:20<00:22, 13.50window/s]评估中:  48%|████▊     | 281/584 [00:20<00:22, 13.63window/s]评估中:  48%|████▊     | 283/584 [00:20<00:22, 13.65window/s]评估中:  49%|████▉     | 285/584 [00:20<00:22, 13.48window/s]评估中:  49%|████▉     | 287/584 [00:20<00:21, 13.53window/s]评估中:  49%|████▉     | 289/584 [00:21<00:21, 13.69window/s]评估中:  50%|████▉     | 291/584 [00:21<00:21, 13.59window/s]评估中:  50%|█████     | 293/584 [00:21<00:21, 13.46window/s]评估中:  51%|█████     | 295/584 [00:21<00:21, 13.69window/s]评估中:  51%|█████     | 297/584 [00:21<00:21, 13.65window/s]评估中:  51%|█████     | 299/584 [00:21<00:21, 13.53window/s]评估中:  52%|█████▏    | 301/584 [00:21<00:20, 13.67window/s]评估中:  52%|█████▏    | 303/584 [00:22<00:20, 13.71window/s]评估中:  52%|█████▏    | 305/584 [00:22<00:20, 13.54window/s]评估中:  53%|█████▎    | 307/584 [00:22<00:20, 13.56window/s]评估中:  53%|█████▎    | 309/584 [00:22<00:20, 13.70window/s]评估中:  53%|█████▎    | 311/584 [00:22<00:20, 13.63window/s]评估中:  54%|█████▎    | 313/584 [00:22<00:20, 13.52window/s]评估中:  54%|█████▍    | 315/584 [00:23<00:19, 13.67window/s]评估中:  54%|█████▍    | 317/584 [00:23<00:19, 13.72window/s]评估中:  55%|█████▍    | 319/584 [00:23<00:19, 13.54window/s]评估中:  55%|█████▍    | 321/584 [00:23<00:19, 13.53window/s]评估中:  55%|█████▌    | 323/584 [00:23<00:19, 13.65window/s]评估中:  56%|█████▌    | 325/584 [00:23<00:19, 13.63window/s]评估中:  56%|█████▌    | 327/584 [00:23<00:19, 13.45window/s]评估中:  56%|█████▋    | 329/584 [00:24<00:18, 13.61window/s]评估中:  57%|█████▋    | 331/584 [00:24<00:18, 13.69window/s]评估中:  57%|█████▋    | 333/584 [00:24<00:18, 13.52window/s]评估中:  57%|█████▋    | 335/584 [00:24<00:18, 13.52window/s]评估中:  58%|█████▊    | 337/584 [00:24<00:18, 13.65window/s]评估中:  58%|█████▊    | 339/584 [00:24<00:17, 13.65window/s]评估中:  58%|█████▊    | 341/584 [00:24<00:18, 13.49window/s]评估中:  59%|█████▊    | 343/584 [00:25<00:17, 13.59window/s]评估中:  59%|█████▉    | 345/584 [00:25<00:17, 13.72window/s]评估中:  59%|█████▉    | 347/584 [00:25<00:17, 13.59window/s]评估中:  60%|█████▉    | 349/584 [00:25<00:17, 13.48window/s]评估中:  60%|██████    | 351/584 [00:25<00:17, 13.61window/s]评估中:  60%|██████    | 353/584 [00:25<00:16, 13.71window/s]评估中:  61%|██████    | 355/584 [00:25<00:16, 13.54window/s]评估中:  61%|██████    | 357/584 [00:26<00:16, 13.49window/s]评估中:  61%|██████▏   | 359/584 [00:26<00:16, 13.63window/s]评估中:  62%|██████▏   | 361/584 [00:26<00:16, 13.67window/s]评估中:  62%|██████▏   | 363/584 [00:26<00:16, 13.52window/s]评估中:  62%|██████▎   | 365/584 [00:26<00:16, 13.55window/s]评估中:  63%|██████▎   | 367/584 [00:26<00:15, 13.70window/s]评估中:  63%|██████▎   | 369/584 [00:26<00:15, 13.59window/s]评估中:  64%|██████▎   | 371/584 [00:27<00:15, 13.45window/s]评估中:  64%|██████▍   | 373/584 [00:27<00:15, 13.57window/s]评估中:  64%|██████▍   | 375/584 [00:27<00:15, 13.69window/s]评估中:  65%|██████▍   | 377/584 [00:27<00:15, 13.51window/s]评估中:  65%|██████▍   | 379/584 [00:27<00:15, 13.48window/s]评估中:  65%|██████▌   | 381/584 [00:27<00:14, 13.61window/s]评估中:  66%|██████▌   | 383/584 [00:28<00:14, 13.67window/s]评估中:  66%|██████▌   | 385/584 [00:28<00:14, 13.51window/s]评估中:  66%|██████▋   | 387/584 [00:28<00:14, 13.56window/s]评估中:  67%|██████▋   | 389/584 [00:28<00:14, 13.72window/s]评估中:  67%|██████▋   | 391/584 [00:28<00:14, 13.55window/s]评估中:  67%|██████▋   | 393/584 [00:28<00:14, 13.47window/s]评估中:  68%|██████▊   | 395/584 [00:28<00:13, 13.60window/s]评估中:  68%|██████▊   | 397/584 [00:29<00:13, 13.70window/s]评估中:  68%|██████▊   | 399/584 [00:29<00:13, 13.53window/s]评估中:  69%|██████▊   | 401/584 [00:29<00:13, 13.48window/s]评估中:  69%|██████▉   | 403/584 [00:29<00:13, 13.63window/s]评估中:  69%|██████▉   | 405/584 [00:29<00:13, 13.65window/s]评估中:  70%|██████▉   | 407/584 [00:29<00:13, 13.50window/s]评估中:  70%|███████   | 409/584 [00:29<00:12, 13.52window/s]评估中:  70%|███████   | 411/584 [00:30<00:12, 13.63window/s]评估中:  71%|███████   | 413/584 [00:30<00:12, 13.57window/s]评估中:  71%|███████   | 415/584 [00:30<00:12, 13.43window/s]评估中:  71%|███████▏  | 417/584 [00:30<00:12, 13.52window/s]评估中:  72%|███████▏  | 419/584 [00:30<00:12, 13.65window/s]评估中:  72%|███████▏  | 421/584 [00:30<00:11, 13.59window/s]评估中:  72%|███████▏  | 423/584 [00:30<00:11, 13.47window/s]评估中:  73%|███████▎  | 425/584 [00:31<00:11, 13.55window/s]评估中:  73%|███████▎  | 427/584 [00:31<00:11, 13.70window/s]评估中:  73%|███████▎  | 429/584 [00:31<00:11, 13.56window/s]评估中:  74%|███████▍  | 431/584 [00:31<00:11, 13.49window/s]评估中:  74%|███████▍  | 433/584 [00:31<00:11, 13.62window/s]评估中:  74%|███████▍  | 435/584 [00:31<00:10, 13.70window/s]评估中:  75%|███████▍  | 437/584 [00:32<00:10, 13.53window/s]评估中:  75%|███████▌  | 439/584 [00:32<00:10, 13.52window/s]评估中:  76%|███████▌  | 441/584 [00:32<00:10, 13.63window/s]评估中:  76%|███████▌  | 443/584 [00:32<00:10, 13.67window/s]评估中:  76%|███████▌  | 445/584 [00:32<00:10, 13.51window/s]评估中:  77%|███████▋  | 447/584 [00:32<00:10, 13.55window/s]评估中:  77%|███████▋  | 449/584 [00:32<00:09, 13.68window/s]评估中:  77%|███████▋  | 451/584 [00:33<00:09, 13.62window/s]评估中:  78%|███████▊  | 453/584 [00:33<00:09, 13.48window/s]评估中:  78%|███████▊  | 455/584 [00:33<00:09, 13.54window/s]评估中:  78%|███████▊  | 457/584 [00:33<00:09, 13.67window/s]评估中:  79%|███████▊  | 459/584 [00:33<00:09, 13.60window/s]评估中:  79%|███████▉  | 461/584 [00:33<00:09, 13.48window/s]评估中:  79%|███████▉  | 463/584 [00:33<00:08, 13.60window/s]评估中:  80%|███████▉  | 465/584 [00:34<00:08, 13.73window/s]评估中:  80%|███████▉  | 467/584 [00:34<00:08, 13.55window/s]评估中:  80%|████████  | 469/584 [00:34<00:08, 13.50window/s]评估中:  81%|████████  | 471/584 [00:34<00:08, 13.63window/s]评估中:  81%|████████  | 473/584 [00:34<00:08, 13.64window/s]评估中:  81%|████████▏ | 475/584 [00:34<00:08, 13.48window/s]评估中:  82%|████████▏ | 477/584 [00:34<00:07, 13.50window/s]评估中:  82%|████████▏ | 479/584 [00:35<00:07, 13.65window/s]评估中:  82%|████████▏ | 481/584 [00:35<00:07, 13.60window/s]评估中:  83%|████████▎ | 483/584 [00:35<00:07, 13.47window/s]评估中:  83%|████████▎ | 485/584 [00:35<00:07, 13.55window/s]评估中:  83%|████████▎ | 487/584 [00:35<00:07, 13.68window/s]评估中:  84%|████████▎ | 489/584 [00:35<00:06, 13.57window/s]评估中:  84%|████████▍ | 491/584 [00:35<00:06, 13.44window/s]评估中:  84%|████████▍ | 493/584 [00:36<00:06, 13.58window/s]评估中:  85%|████████▍ | 495/584 [00:36<00:06, 13.67window/s]评估中:  85%|████████▌ | 497/584 [00:36<00:06, 13.50window/s]评估中:  85%|████████▌ | 499/584 [00:36<00:06, 13.49window/s]评估中:  86%|████████▌ | 501/584 [00:36<00:06, 13.64window/s]评估中:  86%|████████▌ | 503/584 [00:36<00:05, 13.61window/s]评估中:  86%|████████▋ | 505/584 [00:37<00:05, 13.46window/s]评估中:  87%|████████▋ | 507/584 [00:37<00:05, 13.55window/s]评估中:  87%|████████▋ | 509/584 [00:37<00:05, 13.67window/s]评估中:  88%|████████▊ | 511/584 [00:37<00:05, 13.55window/s]评估中:  88%|████████▊ | 513/584 [00:37<00:05, 13.45window/s]评估中:  88%|████████▊ | 515/584 [00:37<00:05, 13.58window/s]评估中:  89%|████████▊ | 517/584 [00:37<00:04, 13.68window/s]评估中:  89%|████████▉ | 519/584 [00:38<00:04, 13.51window/s]评估中:  89%|████████▉ | 521/584 [00:38<00:04, 13.46window/s]评估中:  90%|████████▉ | 523/584 [00:38<00:04, 13.57window/s]评估中:  90%|████████▉ | 525/584 [00:38<00:04, 13.66window/s]评估中:  90%|█████████ | 527/584 [00:38<00:04, 13.49window/s]评估中:  91%|█████████ | 529/584 [00:38<00:04, 13.46window/s]评估中:  91%|█████████ | 531/584 [00:38<00:03, 13.59window/s]评估中:  91%|█████████▏| 533/584 [00:39<00:03, 13.65window/s]评估中:  92%|█████████▏| 535/584 [00:39<00:03, 13.50window/s]评估中:  92%|█████████▏| 537/584 [00:39<00:03, 13.46window/s]评估中:  92%|█████████▏| 539/584 [00:39<00:03, 13.60window/s]评估中:  93%|█████████▎| 541/584 [00:39<00:03, 13.68window/s]评估中:  93%|█████████▎| 543/584 [00:39<00:03, 13.51window/s]评估中:  93%|█████████▎| 545/584 [00:39<00:02, 13.52window/s]评估中:  94%|█████████▎| 547/584 [00:40<00:02, 13.66window/s]评估中:  94%|█████████▍| 549/584 [00:40<00:02, 13.63window/s]评估中:  94%|█████████▍| 551/584 [00:40<00:02, 13.48window/s]评估中:  95%|█████████▍| 553/584 [00:40<00:02, 13.54window/s]评估中:  95%|█████████▌| 555/584 [00:40<00:02, 13.69window/s]评估中:  95%|█████████▌| 557/584 [00:40<00:01, 13.52window/s]评估中:  96%|█████████▌| 559/584 [00:40<00:01, 13.48window/s]评估中:  96%|█████████▌| 561/584 [00:41<00:01, 13.59window/s]评估中:  96%|█████████▋| 563/584 [00:41<00:01, 13.65window/s]评估中:  97%|█████████▋| 565/584 [00:41<00:01, 13.48window/s]评估中:  97%|█████████▋| 567/584 [00:41<00:01, 13.56window/s]评估中:  97%|█████████▋| 569/584 [00:41<00:01, 13.69window/s]评估中:  98%|█████████▊| 571/584 [00:41<00:00, 13.50window/s]评估中:  98%|█████████▊| 573/584 [00:42<00:00, 13.58window/s]评估中:  98%|█████████▊| 575/584 [00:42<00:00, 13.72window/s]评估中:  99%|█████████▉| 577/584 [00:42<00:00, 13.55window/s]评估中:  99%|█████████▉| 579/584 [00:42<00:00, 13.45window/s]评估中:  99%|█████████▉| 581/584 [00:42<00:00, 13.60window/s]评估中: 100%|█████████▉| 583/584 [00:42<00:00, 13.63window/s]评估中: 100%|█████████▉| 583/584 [00:42<00:00, 13.61window/s]
+2026-04-25 03:03:42 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:03:42 - INFO - evaluate_ppl -   FP16 (Qwen3-1.7B) 评估结果:
+2026-04-25 03:03:42 - INFO - evaluate_ppl -   困惑度 (PPL): 15.0485
+2026-04-25 03:03:42 - INFO - evaluate_ppl -   平均 NLL Loss: 2.711280
+2026-04-25 03:03:42 - INFO - evaluate_ppl -   评估 Token 数: 298938
+2026-04-25 03:03:42 - INFO - evaluate_ppl - ============================================================
+
+2026-04-25 03:03:42 - INFO - utils - [FP16 评估] 完成，耗时: 50.98s
+2026-04-25 03:03:42 - INFO - __main__ - 
+--- 评估 W4A16 量化模型 ---
+2026-04-25 03:03:42 - INFO - utils - [W4A16 评估] 开始...
+2026-04-25 03:03:42 - INFO - evaluate_ppl - 加载 W4A16 模型 (GPTQ W4 + FP16 激活): ./Qwen3-1.7B_w4a8_gptq
+WARNING - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+2026-04-25 03:03:43 - WARNING - auto_gptq.modeling._base - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+WARNING - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+2026-04-25 03:03:43 - WARNING - auto_gptq.modeling._base - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+WARNING - ignoring unknown parameter in quantize_config.json: quant_method.
+2026-04-25 03:03:43 - WARNING - auto_gptq.modeling._base - ignoring unknown parameter in quantize_config.json: quant_method.
+INFO - The layer lm_head is not quantized.
+2026-04-25 03:03:43 - INFO - auto_gptq.modeling._base - The layer lm_head is not quantized.
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 评估 W4A16/GPTQ-W4 (Qwen3-1.7B_w4a8_gptq) 的困惑度
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 数据集: wikitext/wikitext-2-raw-v1
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 序列长度: 2048, 步长: 512
+2026-04-25 03:03:44 - INFO - evaluate_ppl - ============================================================
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 推理设备: cuda:0
+2026-04-25 03:03:44 - INFO - evaluate_ppl - 加载评估数据集: wikitext/wikitext-2-raw-v1 (split=test, field=text)
+2026-04-25 03:03:48 - INFO - evaluate_ppl - 评估文本长度: 1291402 字符
+Token indices sequence length is longer than the specified maximum sequence length for this model (298938 > 131072). Running this sequence through the model will result in indexing errors
+2026-04-25 03:03:49 - INFO - evaluate_ppl - 总 token 数: 298938
+2026-04-25 03:03:49 - INFO - evaluate_ppl - 滑动窗口数: 580
+评估中:   0%|          | 0/584 [00:00<?, ?window/s]评估中:   0%|          | 1/584 [00:00<00:59,  9.87window/s]评估中:   1%|          | 3/584 [00:00<00:50, 11.49window/s]评估中:   1%|          | 5/584 [00:00<00:54, 10.60window/s]评估中:   1%|          | 7/584 [00:00<00:55, 10.37window/s]评估中:   2%|▏         | 9/584 [00:00<00:56, 10.26window/s]评估中:   2%|▏         | 11/584 [00:01<00:56, 10.19window/s]评估中:   2%|▏         | 13/584 [00:01<00:56, 10.14window/s]评估中:   3%|▎         | 15/584 [00:01<00:56, 10.09window/s]评估中:   3%|▎         | 17/584 [00:01<00:56, 10.06window/s]评估中:   3%|▎         | 19/584 [00:01<00:56, 10.05window/s]评估中:   4%|▎         | 21/584 [00:02<00:56, 10.03window/s]评估中:   4%|▍         | 23/584 [00:02<00:55, 10.03window/s]评估中:   4%|▍         | 25/584 [00:02<00:55, 10.04window/s]评估中:   5%|▍         | 27/584 [00:02<00:55, 10.05window/s]评估中:   5%|▍         | 29/584 [00:02<00:54, 10.11window/s]评估中:   5%|▌         | 31/584 [00:03<00:54, 10.10window/s]评估中:   6%|▌         | 33/584 [00:03<00:54, 10.11window/s]评估中:   6%|▌         | 35/584 [00:03<00:54, 10.10window/s]评估中:   6%|▋         | 37/584 [00:03<00:54, 10.10window/s]评估中:   7%|▋         | 39/584 [00:03<00:54, 10.09window/s]评估中:   7%|▋         | 41/584 [00:04<00:53, 10.08window/s]评估中:   7%|▋         | 43/584 [00:04<00:53, 10.08window/s]评估中:   8%|▊         | 45/584 [00:04<00:53, 10.08window/s]评估中:   8%|▊         | 47/584 [00:04<00:53, 10.07window/s]评估中:   8%|▊         | 49/584 [00:04<00:53, 10.07window/s]评估中:   9%|▊         | 51/584 [00:05<00:52, 10.06window/s]评估中:   9%|▉         | 53/584 [00:05<00:52, 10.06window/s]评估中:   9%|▉         | 55/584 [00:05<00:52, 10.08window/s]评估中:  10%|▉         | 57/584 [00:05<00:52, 10.07window/s]评估中:  10%|█         | 59/584 [00:05<00:52, 10.04window/s]评估中:  10%|█         | 61/584 [00:06<00:52, 10.05window/s]评估中:  11%|█         | 63/584 [00:06<00:51, 10.08window/s]评估中:  11%|█         | 65/584 [00:06<00:51, 10.07window/s]评估中:  11%|█▏        | 67/584 [00:06<00:51, 10.08window/s]评估中:  12%|█▏        | 69/584 [00:06<00:51, 10.08window/s]评估中:  12%|█▏        | 71/584 [00:07<00:50, 10.08window/s]评估中:  12%|█▎        | 73/584 [00:07<00:50, 10.09window/s]评估中:  13%|█▎        | 75/584 [00:07<00:50, 10.10window/s]评估中:  13%|█▎        | 77/584 [00:07<00:50, 10.10window/s]评估中:  14%|█▎        | 79/584 [00:07<00:50, 10.10window/s]评估中:  14%|█▍        | 81/584 [00:08<00:49, 10.11window/s]评估中:  14%|█▍        | 83/584 [00:08<00:49, 10.11window/s]评估中:  15%|█▍        | 85/584 [00:08<00:49, 10.12window/s]评估中:  15%|█▍        | 87/584 [00:08<00:49, 10.10window/s]评估中:  15%|█▌        | 89/584 [00:08<00:49, 10.10window/s]评估中:  16%|█▌        | 91/584 [00:09<00:48, 10.10window/s]评估中:  16%|█▌        | 93/584 [00:09<00:48, 10.11window/s]评估中:  16%|█▋        | 95/584 [00:09<00:48, 10.11window/s]评估中:  17%|█▋        | 97/584 [00:09<00:48, 10.10window/s]评估中:  17%|█▋        | 99/584 [00:09<00:48, 10.06window/s]评估中:  17%|█▋        | 101/584 [00:09<00:47, 10.07window/s]评估中:  18%|█▊        | 103/584 [00:10<00:47, 10.08window/s]评估中:  18%|█▊        | 105/584 [00:10<00:47, 10.08window/s]评估中:  18%|█▊        | 107/584 [00:10<00:47, 10.09window/s]评估中:  19%|█▊        | 109/584 [00:10<00:47, 10.09window/s]评估中:  19%|█▉        | 111/584 [00:10<00:46, 10.07window/s]评估中:  19%|█▉        | 113/584 [00:11<00:46, 10.08window/s]评估中:  20%|█▉        | 115/584 [00:11<00:46, 10.07window/s]评估中:  20%|██        | 117/584 [00:11<00:46, 10.07window/s]评估中:  20%|██        | 119/584 [00:11<00:46, 10.07window/s]评估中:  21%|██        | 121/584 [00:11<00:45, 10.08window/s]评估中:  21%|██        | 123/584 [00:12<00:45, 10.07window/s]评估中:  21%|██▏       | 125/584 [00:12<00:45, 10.07window/s]评估中:  22%|██▏       | 127/584 [00:12<00:45, 10.06window/s]评估中:  22%|██▏       | 129/584 [00:12<00:45, 10.06window/s]评估中:  22%|██▏       | 131/584 [00:12<00:45, 10.05window/s]评估中:  23%|██▎       | 133/584 [00:13<00:44, 10.07window/s]评估中:  23%|██▎       | 135/584 [00:13<00:44, 10.06window/s]评估中:  23%|██▎       | 137/584 [00:13<00:44, 10.06window/s]评估中:  24%|██▍       | 139/584 [00:13<00:44, 10.06window/s]评估中:  24%|██▍       | 141/584 [00:13<00:44, 10.05window/s]评估中:  24%|██▍       | 143/584 [00:14<00:43, 10.06window/s]评估中:  25%|██▍       | 145/584 [00:14<00:43, 10.07window/s]评估中:  25%|██▌       | 147/584 [00:14<00:43, 10.07window/s]评估中:  26%|██▌       | 149/584 [00:14<00:43, 10.08window/s]评估中:  26%|██▌       | 151/584 [00:14<00:42, 10.09window/s]评估中:  26%|██▌       | 153/584 [00:15<00:42, 10.09window/s]评估中:  27%|██▋       | 155/584 [00:15<00:42, 10.08window/s]评估中:  27%|██▋       | 157/584 [00:15<00:42, 10.08window/s]评估中:  27%|██▋       | 159/584 [00:15<00:42, 10.07window/s]评估中:  28%|██▊       | 161/584 [00:15<00:41, 10.09window/s]评估中:  28%|██▊       | 163/584 [00:16<00:41, 10.08window/s]评估中:  28%|██▊       | 165/584 [00:16<00:41, 10.07window/s]评估中:  29%|██▊       | 167/584 [00:16<00:41, 10.09window/s]评估中:  29%|██▉       | 169/584 [00:16<00:41, 10.08window/s]评估中:  29%|██▉       | 171/584 [00:16<00:40, 10.13window/s]评估中:  30%|██▉       | 173/584 [00:17<00:40, 10.14window/s]评估中:  30%|██▉       | 175/584 [00:17<00:40, 10.16window/s]评估中:  30%|███       | 177/584 [00:17<00:40, 10.17window/s]评估中:  31%|███       | 179/584 [00:17<00:39, 10.15window/s]评估中:  31%|███       | 181/584 [00:17<00:39, 10.14window/s]评估中:  31%|███▏      | 183/584 [00:18<00:39, 10.13window/s]评估中:  32%|███▏      | 185/584 [00:18<00:39, 10.10window/s]评估中:  32%|███▏      | 187/584 [00:18<00:39, 10.10window/s]评估中:  32%|███▏      | 189/584 [00:18<00:39, 10.09window/s]评估中:  33%|███▎      | 191/584 [00:18<00:38, 10.10window/s]评估中:  33%|███▎      | 193/584 [00:19<00:38, 10.10window/s]评估中:  33%|███▎      | 195/584 [00:19<00:38, 10.09window/s]评估中:  34%|███▎      | 197/584 [00:19<00:38, 10.04window/s]评估中:  34%|███▍      | 199/584 [00:19<00:38, 10.06window/s]评估中:  34%|███▍      | 201/584 [00:19<00:38, 10.07window/s]评估中:  35%|███▍      | 203/584 [00:20<00:37, 10.06window/s]评估中:  35%|███▌      | 205/584 [00:20<00:37, 10.05window/s]评估中:  35%|███▌      | 207/584 [00:20<00:37, 10.05window/s]评估中:  36%|███▌      | 209/584 [00:20<00:37, 10.04window/s]评估中:  36%|███▌      | 211/584 [00:20<00:37, 10.03window/s]评估中:  36%|███▋      | 213/584 [00:21<00:36, 10.03window/s]评估中:  37%|███▋      | 215/584 [00:21<00:36, 10.04window/s]评估中:  37%|███▋      | 217/584 [00:21<00:36, 10.04window/s]评估中:  38%|███▊      | 219/584 [00:21<00:36, 10.04window/s]评估中:  38%|███▊      | 221/584 [00:21<00:36, 10.04window/s]评估中:  38%|███▊      | 223/584 [00:22<00:35, 10.04window/s]评估中:  39%|███▊      | 225/584 [00:22<00:35, 10.05window/s]评估中:  39%|███▉      | 227/584 [00:22<00:35, 10.04window/s]评估中:  39%|███▉      | 229/584 [00:22<00:35, 10.04window/s]评估中:  40%|███▉      | 231/584 [00:22<00:35, 10.04window/s]评估中:  40%|███▉      | 233/584 [00:23<00:34, 10.04window/s]评估中:  40%|████      | 235/584 [00:23<00:34, 10.04window/s]评估中:  41%|████      | 237/584 [00:23<00:34, 10.04window/s]评估中:  41%|████      | 239/584 [00:23<00:34, 10.04window/s]评估中:  41%|████▏     | 241/584 [00:23<00:34, 10.04window/s]评估中:  42%|████▏     | 243/584 [00:24<00:33, 10.04window/s]评估中:  42%|████▏     | 245/584 [00:24<00:33, 10.04window/s]评估中:  42%|████▏     | 247/584 [00:24<00:33, 10.04window/s]评估中:  43%|████▎     | 249/584 [00:24<00:33, 10.04window/s]评估中:  43%|████▎     | 251/584 [00:24<00:33, 10.04window/s]评估中:  43%|████▎     | 253/584 [00:25<00:32, 10.05window/s]评估中:  44%|████▎     | 255/584 [00:25<00:32, 10.04window/s]评估中:  44%|████▍     | 257/584 [00:25<00:32, 10.04window/s]评估中:  44%|████▍     | 259/584 [00:25<00:32, 10.04window/s]评估中:  45%|████▍     | 261/584 [00:25<00:32, 10.04window/s]评估中:  45%|████▌     | 263/584 [00:26<00:31, 10.05window/s]评估中:  45%|████▌     | 265/584 [00:26<00:31, 10.04window/s]评估中:  46%|████▌     | 267/584 [00:26<00:31, 10.04window/s]评估中:  46%|████▌     | 269/584 [00:26<00:31, 10.04window/s]评估中:  46%|████▋     | 271/584 [00:26<00:31, 10.04window/s]评估中:  47%|████▋     | 273/584 [00:27<00:31, 10.03window/s]评估中:  47%|████▋     | 275/584 [00:27<00:30, 10.03window/s]评估中:  47%|████▋     | 277/584 [00:27<00:30, 10.03window/s]评估中:  48%|████▊     | 279/584 [00:27<00:30, 10.02window/s]评估中:  48%|████▊     | 281/584 [00:27<00:30, 10.02window/s]评估中:  48%|████▊     | 283/584 [00:28<00:30, 10.01window/s]评估中:  49%|████▉     | 285/584 [00:28<00:29, 10.00window/s]评估中:  49%|████▉     | 287/584 [00:28<00:29, 10.01window/s]评估中:  49%|████▉     | 289/584 [00:28<00:29, 10.01window/s]评估中:  50%|████▉     | 291/584 [00:28<00:29, 10.01window/s]评估中:  50%|█████     | 293/584 [00:29<00:29, 10.01window/s]评估中:  51%|█████     | 295/584 [00:29<00:28, 10.02window/s]评估中:  51%|█████     | 297/584 [00:29<00:28, 10.01window/s]评估中:  51%|█████     | 299/584 [00:29<00:28, 10.00window/s]评估中:  52%|█████▏    | 301/584 [00:29<00:28, 10.02window/s]评估中:  52%|█████▏    | 303/584 [00:30<00:28, 10.02window/s]评估中:  52%|█████▏    | 305/584 [00:30<00:27, 10.04window/s]评估中:  53%|█████▎    | 307/584 [00:30<00:27, 10.03window/s]评估中:  53%|█████▎    | 309/584 [00:30<00:27, 10.05window/s]评估中:  53%|█████▎    | 311/584 [00:30<00:27, 10.04window/s]评估中:  54%|█████▎    | 313/584 [00:31<00:26, 10.04window/s]评估中:  54%|█████▍    | 315/584 [00:31<00:26, 10.04window/s]评估中:  54%|█████▍    | 317/584 [00:31<00:26, 10.04window/s]评估中:  55%|█████▍    | 319/584 [00:31<00:26, 10.05window/s]评估中:  55%|█████▍    | 321/584 [00:31<00:26, 10.04window/s]评估中:  55%|█████▌    | 323/584 [00:32<00:26, 10.03window/s]评估中:  56%|█████▌    | 325/584 [00:32<00:25, 10.03window/s]评估中:  56%|█████▌    | 327/584 [00:32<00:25, 10.03window/s]评估中:  56%|█████▋    | 329/584 [00:32<00:25, 10.03window/s]评估中:  57%|█████▋    | 331/584 [00:32<00:25, 10.02window/s]评估中:  57%|█████▋    | 333/584 [00:33<00:25, 10.02window/s]评估中:  57%|█████▋    | 335/584 [00:33<00:24, 10.02window/s]评估中:  58%|█████▊    | 337/584 [00:33<00:24, 10.03window/s]评估中:  58%|█████▊    | 339/584 [00:33<00:24, 10.02window/s]评估中:  58%|█████▊    | 341/584 [00:33<00:24, 10.03window/s]评估中:  59%|█████▊    | 343/584 [00:34<00:24, 10.03window/s]评估中:  59%|█████▉    | 345/584 [00:34<00:23, 10.02window/s]评估中:  59%|█████▉    | 347/584 [00:34<00:23, 10.04window/s]评估中:  60%|█████▉    | 349/584 [00:34<00:23, 10.04window/s]评估中:  60%|██████    | 351/584 [00:34<00:23, 10.03window/s]评估中:  60%|██████    | 353/584 [00:35<00:23, 10.03window/s]评估中:  61%|██████    | 355/584 [00:35<00:22, 10.04window/s]评估中:  61%|██████    | 357/584 [00:35<00:22, 10.04window/s]评估中:  61%|██████▏   | 359/584 [00:35<00:22, 10.03window/s]评估中:  62%|██████▏   | 361/584 [00:35<00:22, 10.04window/s]评估中:  62%|██████▏   | 363/584 [00:36<00:22, 10.04window/s]评估中:  62%|██████▎   | 365/584 [00:36<00:21, 10.04window/s]评估中:  63%|██████▎   | 367/584 [00:36<00:21, 10.03window/s]评估中:  63%|██████▎   | 369/584 [00:36<00:21, 10.03window/s]评估中:  64%|██████▎   | 371/584 [00:36<00:21, 10.02window/s]评估中:  64%|██████▍   | 373/584 [00:37<00:21, 10.03window/s]评估中:  64%|██████▍   | 375/584 [00:37<00:21,  9.95window/s]评估中:  64%|██████▍   | 376/584 [00:37<00:21,  9.80window/s]评估中:  65%|██████▍   | 377/584 [00:37<00:21,  9.81window/s]评估中:  65%|██████▍   | 379/584 [00:37<00:20,  9.89window/s]评估中:  65%|██████▌   | 381/584 [00:37<00:20,  9.92window/s]评估中:  66%|██████▌   | 383/584 [00:38<00:20,  9.97window/s]评估中:  66%|██████▌   | 385/584 [00:38<00:19, 10.03window/s]评估中:  66%|██████▋   | 387/584 [00:38<00:19, 10.08window/s]评估中:  67%|██████▋   | 389/584 [00:38<00:19, 10.08window/s]评估中:  67%|██████▋   | 391/584 [00:38<00:19, 10.08window/s]评估中:  67%|██████▋   | 393/584 [00:39<00:18, 10.08window/s]评估中:  68%|██████▊   | 395/584 [00:39<00:18, 10.12window/s]评估中:  68%|██████▊   | 397/584 [00:39<00:18, 10.14window/s]评估中:  68%|██████▊   | 399/584 [00:39<00:18, 10.12window/s]评估中:  69%|██████▊   | 401/584 [00:39<00:18, 10.08window/s]评估中:  69%|██████▉   | 403/584 [00:40<00:17, 10.06window/s]评估中:  69%|██████▉   | 405/584 [00:40<00:18,  9.90window/s]评估中:  70%|██████▉   | 407/584 [00:40<00:17,  9.96window/s]评估中:  70%|███████   | 409/584 [00:40<00:17, 10.04window/s]评估中:  70%|███████   | 411/584 [00:40<00:17,  9.92window/s]评估中:  71%|███████   | 413/584 [00:41<00:17, 10.04window/s]评估中:  71%|███████   | 415/584 [00:41<00:16, 10.02window/s]评估中:  71%|███████▏  | 417/584 [00:41<00:17,  9.77window/s]评估中:  72%|███████▏  | 418/584 [00:41<00:17,  9.66window/s]评估中:  72%|███████▏  | 419/584 [00:41<00:16,  9.72window/s]评估中:  72%|███████▏  | 420/584 [00:41<00:17,  9.64window/s]评估中:  72%|███████▏  | 422/584 [00:41<00:16,  9.87window/s]评估中:  73%|███████▎  | 424/584 [00:42<00:16,  9.87window/s]评估中:  73%|███████▎  | 426/584 [00:42<00:16,  9.73window/s]评估中:  73%|███████▎  | 428/584 [00:42<00:15,  9.80window/s]评估中:  74%|███████▎  | 430/584 [00:42<00:15,  9.89window/s]评估中:  74%|███████▍  | 432/584 [00:42<00:15,  9.95window/s]评估中:  74%|███████▍  | 434/584 [00:43<00:15,  9.98window/s]评估中:  75%|███████▍  | 436/584 [00:43<00:14, 10.02window/s]评估中:  75%|███████▌  | 438/584 [00:43<00:14, 10.02window/s]评估中:  75%|███████▌  | 440/584 [00:43<00:14,  9.95window/s]评估中:  76%|███████▌  | 442/584 [00:43<00:14,  9.99window/s]评估中:  76%|███████▌  | 444/584 [00:44<00:13, 10.02window/s]评估中:  76%|███████▋  | 446/584 [00:44<00:13, 10.05window/s]评估中:  77%|███████▋  | 448/584 [00:44<00:13, 10.05window/s]评估中:  77%|███████▋  | 450/584 [00:44<00:13, 10.06window/s]评估中:  77%|███████▋  | 452/584 [00:44<00:13, 10.06window/s]评估中:  78%|███████▊  | 454/584 [00:45<00:12, 10.07window/s]评估中:  78%|███████▊  | 456/584 [00:45<00:12, 10.07window/s]评估中:  78%|███████▊  | 458/584 [00:45<00:12, 10.10window/s]评估中:  79%|███████▉  | 460/584 [00:45<00:12, 10.12window/s]评估中:  79%|███████▉  | 462/584 [00:45<00:12, 10.10window/s]评估中:  79%|███████▉  | 464/584 [00:46<00:11, 10.06window/s]评估中:  80%|███████▉  | 466/584 [00:46<00:11, 10.04window/s]评估中:  80%|████████  | 468/584 [00:46<00:11, 10.03window/s]评估中:  80%|████████  | 470/584 [00:46<00:11, 10.03window/s]评估中:  81%|████████  | 472/584 [00:46<00:11, 10.02window/s]评估中:  81%|████████  | 474/584 [00:47<00:10, 10.02window/s]评估中:  82%|████████▏ | 476/584 [00:47<00:10, 10.01window/s]评估中:  82%|████████▏ | 478/584 [00:47<00:10, 10.02window/s]评估中:  82%|████████▏ | 480/584 [00:47<00:10, 10.02window/s]评估中:  83%|████████▎ | 482/584 [00:47<00:10, 10.03window/s]评估中:  83%|████████▎ | 484/584 [00:48<00:09, 10.02window/s]评估中:  83%|████████▎ | 486/584 [00:48<00:09, 10.03window/s]评估中:  84%|████████▎ | 488/584 [00:48<00:09, 10.03window/s]评估中:  84%|████████▍ | 490/584 [00:48<00:09, 10.03window/s]评估中:  84%|████████▍ | 492/584 [00:48<00:09, 10.00window/s]评估中:  85%|████████▍ | 494/584 [00:49<00:09, 10.00window/s]评估中:  85%|████████▍ | 496/584 [00:49<00:08, 10.00window/s]评估中:  85%|████████▌ | 498/584 [00:49<00:08, 10.01window/s]评估中:  86%|████████▌ | 500/584 [00:49<00:08, 10.00window/s]评估中:  86%|████████▌ | 502/584 [00:49<00:08, 10.01window/s]评估中:  86%|████████▋ | 504/584 [00:50<00:07, 10.03window/s]评估中:  87%|████████▋ | 506/584 [00:50<00:07, 10.05window/s]评估中:  87%|████████▋ | 508/584 [00:50<00:07, 10.06window/s]评估中:  87%|████████▋ | 510/584 [00:50<00:07, 10.06window/s]评估中:  88%|████████▊ | 512/584 [00:50<00:07, 10.06window/s]评估中:  88%|████████▊ | 514/584 [00:51<00:06, 10.08window/s]评估中:  88%|████████▊ | 516/584 [00:51<00:06, 10.08window/s]评估中:  89%|████████▊ | 518/584 [00:51<00:06, 10.08window/s]评估中:  89%|████████▉ | 520/584 [00:51<00:06, 10.08window/s]评估中:  89%|████████▉ | 522/584 [00:51<00:06, 10.08window/s]评估中:  90%|████████▉ | 524/584 [00:52<00:05, 10.07window/s]评估中:  90%|█████████ | 526/584 [00:52<00:05, 10.06window/s]评估中:  90%|█████████ | 528/584 [00:52<00:05, 10.06window/s]评估中:  91%|█████████ | 530/584 [00:52<00:05, 10.07window/s]评估中:  91%|█████████ | 532/584 [00:52<00:05, 10.06window/s]评估中:  91%|█████████▏| 534/584 [00:53<00:04, 10.06window/s]评估中:  92%|█████████▏| 536/584 [00:53<00:04, 10.06window/s]评估中:  92%|█████████▏| 538/584 [00:53<00:04, 10.07window/s]评估中:  92%|█████████▏| 540/584 [00:53<00:04, 10.07window/s]评估中:  93%|█████████▎| 542/584 [00:53<00:04, 10.08window/s]评估中:  93%|█████████▎| 544/584 [00:54<00:03, 10.08window/s]评估中:  93%|█████████▎| 546/584 [00:54<00:03, 10.07window/s]评估中:  94%|█████████▍| 548/584 [00:54<00:03, 10.07window/s]评估中:  94%|█████████▍| 550/584 [00:54<00:03, 10.08window/s]评估中:  95%|█████████▍| 552/584 [00:54<00:03, 10.09window/s]评估中:  95%|█████████▍| 554/584 [00:55<00:02, 10.12window/s]评估中:  95%|█████████▌| 556/584 [00:55<00:02, 10.11window/s]评估中:  96%|█████████▌| 558/584 [00:55<00:02, 10.08window/s]评估中:  96%|█████████▌| 560/584 [00:55<00:02, 10.08window/s]评估中:  96%|█████████▌| 562/584 [00:55<00:02, 10.07window/s]评估中:  97%|█████████▋| 564/584 [00:56<00:01, 10.08window/s]评估中:  97%|█████████▋| 566/584 [00:56<00:01, 10.10window/s]评估中:  97%|█████████▋| 568/584 [00:56<00:01, 10.08window/s]评估中:  98%|█████████▊| 570/584 [00:56<00:01, 10.08window/s]评估中:  98%|█████████▊| 572/584 [00:56<00:01, 10.08window/s]评估中:  98%|█████████▊| 574/584 [00:57<00:00, 10.07window/s]评估中:  99%|█████████▊| 576/584 [00:57<00:00, 10.06window/s]评估中:  99%|█████████▉| 578/584 [00:57<00:00, 10.06window/s]评估中:  99%|█████████▉| 580/584 [00:57<00:00, 10.07window/s]评估中: 100%|█████████▉| 582/584 [00:57<00:00, 10.07window/s]评估中: 100%|█████████▉| 583/584 [00:58<00:00, 10.03window/s]
+2026-04-25 03:04:47 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:04:47 - INFO - evaluate_ppl -   W4A16/GPTQ-W4 (Qwen3-1.7B_w4a8_gptq) 评估结果:
+2026-04-25 03:04:47 - INFO - evaluate_ppl -   困惑度 (PPL): 16.2733
+2026-04-25 03:04:47 - INFO - evaluate_ppl -   平均 NLL Loss: 2.789526
+2026-04-25 03:04:47 - INFO - evaluate_ppl -   评估 Token 数: 298938
+2026-04-25 03:04:47 - INFO - evaluate_ppl - ============================================================
+
+2026-04-25 03:04:48 - INFO - utils - [W4A16 评估] 完成，耗时: 65.05s
+2026-04-25 03:04:48 - INFO - __main__ - 
+--- 评估 W4A8 量化模型 ---
+2026-04-25 03:04:48 - INFO - utils - [W4A8 评估] 开始...
+2026-04-25 03:04:48 - INFO - evaluate_ppl - 加载 W4A8 模型: ./Qwen3-1.7B_w4a8_gptq
+2026-04-25 03:04:48 - INFO - w4a8_inference - 加载 GPTQ W4 量化模型: ./Qwen3-1.7B_w4a8_gptq
+WARNING - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+2026-04-25 03:04:48 - WARNING - auto_gptq.modeling._base - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+WARNING - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+2026-04-25 03:04:48 - WARNING - auto_gptq.modeling._base - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+WARNING - ignoring unknown parameter in quantize_config.json: quant_method.
+2026-04-25 03:04:48 - WARNING - auto_gptq.modeling._base - ignoring unknown parameter in quantize_config.json: quant_method.
+INFO - The layer lm_head is not quantized.
+2026-04-25 03:04:48 - INFO - auto_gptq.modeling._base - The layer lm_head is not quantized.
+2026-04-25 03:04:49 - INFO - w4a8_inference - 添加 A8 激活量化层...
+2026-04-25 03:04:49 - INFO - w4a8_inference - 已对 196 个线性层添加 A8 激活量化
+2026-04-25 03:04:49 - INFO - w4a8_inference - 开始 SmoothQuant 校准: dataset=local:/home/wuping/infra/test7_rtn/Qwen3_GPTQ_nf4/eval_data/wikitext2_train.txt/, samples=128, alpha=0.85
+2026-04-25 03:04:49 - INFO - utils - 加载校准数据集 (auto-gptq 格式): local:/home/wuping/infra/test7_rtn/Qwen3_GPTQ_nf4/eval_data/wikitext2_train.txt/
+2026-04-25 03:04:49 - INFO - utils - 从本地文本加载 auto-gptq 校准数据: /home/wuping/infra/test7_rtn/Qwen3_GPTQ_nf4/eval_data/wikitext2_train.txt
+Token indices sequence length is longer than the specified maximum sequence length for this model (211031 > 131072). Running this sequence through the model will result in indexing errors
+2026-04-25 03:04:50 - INFO - utils - 生成校准文本样本数: 128
+2026-04-25 03:05:47 - INFO - w4a8_inference - SmoothQuant 校准完成: 0/196 层使用了权重统计，其余层退化为激活平滑
+2026-04-25 03:05:47 - INFO - w4a8_inference - 已同时导出 smooth_scale / input_scale / output_scale
+2026-04-25 03:05:47 - INFO - w4a8_inference - 激活量化 scales 已保存到: ./Qwen3-1.7B_w4a8_gptq/smoothquant_scales_int8_a8_per-channel_asym_alpha0.85.pt
+2026-04-25 03:05:47 - INFO - w4a8_inference - W4A8 模型加载完成
+2026-04-25 03:05:47 - INFO - w4a8_inference -   权重量化: W4 (GPTQ INT4)
+2026-04-25 03:05:47 - INFO - w4a8_inference -   激活量化: INT8 (A8, dynamic, per-channel)
+2026-04-25 03:05:47 - INFO - w4a8_inference -   SmoothQuant: enabled (alpha=0.85)
+2026-04-25 03:05:47 - INFO - w4a8_inference -   Activation scale export: enabled
+2026-04-25 03:05:47 - INFO - w4a8_inference -   量化层数: 196
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 评估 W4A8/INT8 (Qwen3-1.7B_w4a8_gptq) 的困惑度
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 数据集: wikitext/wikitext-2-raw-v1
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 序列长度: 2048, 步长: 512
+2026-04-25 03:05:47 - INFO - evaluate_ppl - ============================================================
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 推理设备: cuda:0
+2026-04-25 03:05:47 - INFO - evaluate_ppl - 加载评估数据集: wikitext/wikitext-2-raw-v1 (split=test, field=text)
+2026-04-25 03:05:51 - INFO - evaluate_ppl - 评估文本长度: 1291402 字符
+2026-04-25 03:05:52 - INFO - evaluate_ppl - 总 token 数: 298938
+2026-04-25 03:05:52 - INFO - evaluate_ppl - 滑动窗口数: 580
+评估中:   0%|          | 0/584 [00:00<?, ?window/s]评估中:   0%|          | 1/584 [00:00<01:20,  7.27window/s]评估中:   0%|          | 2/584 [00:00<01:19,  7.35window/s]评估中:   1%|          | 3/584 [00:00<01:21,  7.16window/s]评估中:   1%|          | 4/584 [00:00<01:22,  7.06window/s]评估中:   1%|          | 5/584 [00:00<01:24,  6.84window/s]评估中:   1%|          | 6/584 [00:00<01:27,  6.63window/s]评估中:   1%|          | 7/584 [00:01<01:27,  6.59window/s]评估中:   1%|▏         | 8/584 [00:01<01:26,  6.64window/s]评估中:   2%|▏         | 9/584 [00:01<01:27,  6.59window/s]评估中:   2%|▏         | 10/584 [00:01<01:28,  6.49window/s]评估中:   2%|▏         | 11/584 [00:01<01:28,  6.48window/s]评估中:   2%|▏         | 12/584 [00:01<01:27,  6.53window/s]评估中:   2%|▏         | 13/584 [00:01<01:27,  6.54window/s]评估中:   2%|▏         | 14/584 [00:02<01:28,  6.46window/s]评估中:   3%|▎         | 15/584 [00:02<01:28,  6.45window/s]评估中:   3%|▎         | 16/584 [00:02<01:27,  6.48window/s]评估中:   3%|▎         | 17/584 [00:02<01:26,  6.56window/s]评估中:   3%|▎         | 18/584 [00:02<01:26,  6.52window/s]评估中:   3%|▎         | 19/584 [00:02<01:28,  6.42window/s]评估中:   3%|▎         | 20/584 [00:03<01:27,  6.42window/s]评估中:   4%|▎         | 21/584 [00:03<01:26,  6.52window/s]评估中:   4%|▍         | 22/584 [00:03<01:26,  6.53window/s]评估中:   4%|▍         | 23/584 [00:03<01:26,  6.45window/s]评估中:   4%|▍         | 24/584 [00:03<01:27,  6.42window/s]评估中:   4%|▍         | 25/584 [00:03<01:26,  6.46window/s]评估中:   4%|▍         | 26/584 [00:03<01:25,  6.55window/s]评估中:   5%|▍         | 27/584 [00:04<01:25,  6.48window/s]评估中:   5%|▍         | 28/584 [00:04<01:25,  6.49window/s]评估中:   5%|▍         | 29/584 [00:04<01:24,  6.56window/s]评估中:   5%|▌         | 30/584 [00:04<01:24,  6.55window/s]评估中:   5%|▌         | 31/584 [00:04<01:25,  6.47window/s]评估中:   5%|▌         | 32/584 [00:04<01:25,  6.46window/s]评估中:   6%|▌         | 33/584 [00:05<01:24,  6.52window/s]评估中:   6%|▌         | 34/584 [00:05<01:24,  6.54window/s]评估中:   6%|▌         | 35/584 [00:05<01:24,  6.46window/s]评估中:   6%|▌         | 36/584 [00:05<01:25,  6.44window/s]评估中:   6%|▋         | 37/584 [00:05<01:24,  6.50window/s]评估中:   7%|▋         | 38/584 [00:05<01:22,  6.58window/s]评估中:   7%|▋         | 39/584 [00:05<01:23,  6.53window/s]评估中:   7%|▋         | 40/584 [00:06<01:24,  6.45window/s]评估中:   7%|▋         | 41/584 [00:06<01:23,  6.49window/s]评估中:   7%|▋         | 42/584 [00:06<01:22,  6.58window/s]评估中:   7%|▋         | 43/584 [00:06<01:22,  6.55window/s]评估中:   8%|▊         | 44/584 [00:06<01:23,  6.47window/s]评估中:   8%|▊         | 45/584 [00:06<01:23,  6.49window/s]评估中:   8%|▊         | 46/584 [00:07<01:22,  6.51window/s]评估中:   8%|▊         | 47/584 [00:07<01:21,  6.58window/s]评估中:   8%|▊         | 48/584 [00:07<01:22,  6.48window/s]评估中:   8%|▊         | 49/584 [00:07<01:23,  6.43window/s]评估中:   9%|▊         | 50/584 [00:07<01:22,  6.46window/s]评估中:   9%|▊         | 51/584 [00:07<01:21,  6.56window/s]评估中:   9%|▉         | 52/584 [00:07<01:21,  6.53window/s]评估中:   9%|▉         | 53/584 [00:08<01:22,  6.45window/s]评估中:   9%|▉         | 54/584 [00:08<01:21,  6.49window/s]评估中:   9%|▉         | 55/584 [00:08<01:20,  6.54window/s]评估中:  10%|▉         | 56/584 [00:08<01:20,  6.58window/s]评估中:  10%|▉         | 57/584 [00:08<01:21,  6.49window/s]评估中:  10%|▉         | 58/584 [00:08<01:21,  6.45window/s]评估中:  10%|█         | 59/584 [00:09<01:21,  6.47window/s]评估中:  10%|█         | 60/584 [00:09<01:19,  6.56window/s]评估中:  10%|█         | 61/584 [00:09<01:20,  6.50window/s]评估中:  11%|█         | 62/584 [00:09<01:21,  6.42window/s]评估中:  11%|█         | 63/584 [00:09<01:20,  6.46window/s]评估中:  11%|█         | 64/584 [00:09<01:19,  6.55window/s]评估中:  11%|█         | 65/584 [00:09<01:19,  6.53window/s]评估中:  11%|█▏        | 66/584 [00:10<01:20,  6.45window/s]评估中:  11%|█▏        | 67/584 [00:10<01:19,  6.48window/s]评估中:  12%|█▏        | 68/584 [00:10<01:18,  6.57window/s]评估中:  12%|█▏        | 69/584 [00:10<01:18,  6.54window/s]评估中:  12%|█▏        | 70/584 [00:10<01:19,  6.46window/s]评估中:  12%|█▏        | 71/584 [00:10<01:19,  6.48window/s]评估中:  12%|█▏        | 72/584 [00:11<01:18,  6.53window/s]评估中:  12%|█▎        | 73/584 [00:11<01:18,  6.52window/s]评估中:  13%|█▎        | 74/584 [00:11<01:19,  6.45window/s]评估中:  13%|█▎        | 75/584 [00:11<01:18,  6.46window/s]评估中:  13%|█▎        | 76/584 [00:11<01:17,  6.51window/s]评估中:  13%|█▎        | 77/584 [00:11<01:17,  6.54window/s]评估中:  13%|█▎        | 78/584 [00:11<01:18,  6.46window/s]评估中:  14%|█▎        | 79/584 [00:12<01:18,  6.46window/s]评估中:  14%|█▎        | 80/584 [00:12<01:17,  6.48window/s]评估中:  14%|█▍        | 81/584 [00:12<01:16,  6.56window/s]评估中:  14%|█▍        | 82/584 [00:12<01:17,  6.52window/s]评估中:  14%|█▍        | 83/584 [00:12<01:17,  6.44window/s]评估中:  14%|█▍        | 84/584 [00:12<01:17,  6.47window/s]评估中:  15%|█▍        | 85/584 [00:13<01:16,  6.55window/s]评估中:  15%|█▍        | 86/584 [00:13<01:16,  6.53window/s]评估中:  15%|█▍        | 87/584 [00:13<01:16,  6.46window/s]评估中:  15%|█▌        | 88/584 [00:13<01:16,  6.47window/s]评估中:  15%|█▌        | 89/584 [00:13<01:15,  6.55window/s]评估中:  15%|█▌        | 90/584 [00:13<01:15,  6.55window/s]评估中:  16%|█▌        | 91/584 [00:13<01:16,  6.47window/s]评估中:  16%|█▌        | 92/584 [00:14<01:15,  6.47window/s]评估中:  16%|█▌        | 93/584 [00:14<01:15,  6.51window/s]评估中:  16%|█▌        | 94/584 [00:14<01:15,  6.52window/s]评估中:  16%|█▋        | 95/584 [00:14<01:15,  6.45window/s]评估中:  16%|█▋        | 96/584 [00:14<01:15,  6.46window/s]评估中:  17%|█▋        | 97/584 [00:14<01:14,  6.51window/s]评估中:  17%|█▋        | 98/584 [00:15<01:13,  6.58window/s]评估中:  17%|█▋        | 99/584 [00:15<01:14,  6.50window/s]评估中:  17%|█▋        | 100/584 [00:15<01:15,  6.43window/s]评估中:  17%|█▋        | 101/584 [00:15<01:14,  6.50window/s]评估中:  17%|█▋        | 102/584 [00:15<01:13,  6.57window/s]评估中:  18%|█▊        | 103/584 [00:15<01:13,  6.54window/s]评估中:  18%|█▊        | 104/584 [00:15<01:14,  6.46window/s]评估中:  18%|█▊        | 105/584 [00:16<01:13,  6.48window/s]评估中:  18%|█▊        | 106/584 [00:16<01:13,  6.52window/s]评估中:  18%|█▊        | 107/584 [00:16<01:12,  6.56window/s]评估中:  18%|█▊        | 108/584 [00:16<01:13,  6.47window/s]评估中:  19%|█▊        | 109/584 [00:16<01:13,  6.46window/s]评估中:  19%|█▉        | 110/584 [00:16<01:12,  6.51window/s]评估中:  19%|█▉        | 111/584 [00:17<01:12,  6.57window/s]评估中:  19%|█▉        | 112/584 [00:17<01:12,  6.53window/s]评估中:  19%|█▉        | 113/584 [00:17<01:13,  6.43window/s]评估中:  20%|█▉        | 114/584 [00:17<01:12,  6.46window/s]评估中:  20%|█▉        | 115/584 [00:17<01:12,  6.49window/s]评估中:  20%|█▉        | 116/584 [00:17<01:11,  6.50window/s]评估中:  20%|██        | 117/584 [00:17<01:12,  6.44window/s]评估中:  20%|██        | 118/584 [00:18<01:12,  6.45window/s]评估中:  20%|██        | 119/584 [00:18<01:11,  6.51window/s]评估中:  21%|██        | 120/584 [00:18<01:10,  6.58window/s]评估中:  21%|██        | 121/584 [00:18<01:11,  6.48window/s]评估中:  21%|██        | 122/584 [00:18<01:11,  6.43window/s]评估中:  21%|██        | 123/584 [00:18<01:11,  6.47window/s]评估中:  21%|██        | 124/584 [00:19<01:10,  6.55window/s]评估中:  21%|██▏       | 125/584 [00:19<01:10,  6.53window/s]评估中:  22%|██▏       | 126/584 [00:19<01:11,  6.45window/s]评估中:  22%|██▏       | 127/584 [00:19<01:10,  6.44window/s]评估中:  22%|██▏       | 128/584 [00:19<01:09,  6.52window/s]评估中:  22%|██▏       | 129/584 [00:19<01:09,  6.52window/s]评估中:  22%|██▏       | 130/584 [00:19<01:10,  6.45window/s]评估中:  22%|██▏       | 131/584 [00:20<01:10,  6.45window/s]评估中:  23%|██▎       | 132/584 [00:20<01:09,  6.51window/s]评估中:  23%|██▎       | 133/584 [00:20<01:08,  6.57window/s]评估中:  23%|██▎       | 134/584 [00:20<01:09,  6.48window/s]评估中:  23%|██▎       | 135/584 [00:20<01:09,  6.44window/s]评估中:  23%|██▎       | 136/584 [00:20<01:08,  6.50window/s]评估中:  23%|██▎       | 137/584 [00:21<01:07,  6.58window/s]评估中:  24%|██▎       | 138/584 [00:21<01:08,  6.53window/s]评估中:  24%|██▍       | 139/584 [00:21<01:08,  6.46window/s]评估中:  24%|██▍       | 140/584 [00:21<01:08,  6.45window/s]评估中:  24%|██▍       | 141/584 [00:21<01:07,  6.54window/s]评估中:  24%|██▍       | 142/584 [00:21<01:07,  6.52window/s]评估中:  24%|██▍       | 143/584 [00:21<01:08,  6.43window/s]评估中:  25%|██▍       | 144/584 [00:22<01:08,  6.44window/s]评估中:  25%|██▍       | 145/584 [00:22<01:07,  6.51window/s]评估中:  25%|██▌       | 146/584 [00:22<01:07,  6.50window/s]评估中:  25%|██▌       | 147/584 [00:22<01:07,  6.43window/s]评估中:  25%|██▌       | 148/584 [00:22<01:07,  6.46window/s]评估中:  26%|██▌       | 149/584 [00:22<01:06,  6.53window/s]评估中:  26%|██▌       | 150/584 [00:23<01:06,  6.54window/s]评估中:  26%|██▌       | 151/584 [00:23<01:07,  6.43window/s]评估中:  26%|██▌       | 152/584 [00:23<01:07,  6.43window/s]评估中:  26%|██▌       | 153/584 [00:23<01:06,  6.49window/s]评估中:  26%|██▋       | 154/584 [00:23<01:05,  6.53window/s]评估中:  27%|██▋       | 155/584 [00:23<01:06,  6.45window/s]评估中:  27%|██▋       | 156/584 [00:23<01:06,  6.43window/s]评估中:  27%|██▋       | 157/584 [00:24<01:05,  6.48window/s]评估中:  27%|██▋       | 158/584 [00:24<01:05,  6.54window/s]评估中:  27%|██▋       | 159/584 [00:24<01:05,  6.50window/s]评估中:  27%|██▋       | 160/584 [00:24<01:05,  6.43window/s]评估中:  28%|██▊       | 161/584 [00:24<01:05,  6.45window/s]评估中:  28%|██▊       | 162/584 [00:24<01:04,  6.52window/s]评估中:  28%|██▊       | 163/584 [00:25<01:04,  6.54window/s]评估中:  28%|██▊       | 164/584 [00:25<01:05,  6.46window/s]评估中:  28%|██▊       | 165/584 [00:25<01:05,  6.43window/s]评估中:  28%|██▊       | 166/584 [00:25<01:04,  6.49window/s]评估中:  29%|██▊       | 167/584 [00:25<01:03,  6.55window/s]评估中:  29%|██▉       | 168/584 [00:25<01:03,  6.51window/s]评估中:  29%|██▉       | 169/584 [00:25<01:04,  6.43window/s]评估中:  29%|██▉       | 170/584 [00:26<01:04,  6.44window/s]评估中:  29%|██▉       | 171/584 [00:26<01:03,  6.51window/s]评估中:  29%|██▉       | 172/584 [00:26<01:03,  6.50window/s]评估中:  30%|██▉       | 173/584 [00:26<01:03,  6.43window/s]评估中:  30%|██▉       | 174/584 [00:26<01:03,  6.45window/s]评估中:  30%|██▉       | 175/584 [00:26<01:02,  6.54window/s]评估中:  30%|███       | 176/584 [00:27<01:02,  6.51window/s]评估中:  30%|███       | 177/584 [00:27<01:03,  6.43window/s]评估中:  30%|███       | 178/584 [00:27<01:03,  6.43window/s]评估中:  31%|███       | 179/584 [00:27<01:02,  6.49window/s]评估中:  31%|███       | 180/584 [00:27<01:02,  6.51window/s]评估中:  31%|███       | 181/584 [00:27<01:02,  6.43window/s]评估中:  31%|███       | 182/584 [00:27<01:02,  6.42window/s]评估中:  31%|███▏      | 183/584 [00:28<01:01,  6.48window/s]评估中:  32%|███▏      | 184/584 [00:28<01:01,  6.48window/s]评估中:  32%|███▏      | 185/584 [00:28<01:02,  6.38window/s]评估中:  32%|███▏      | 186/584 [00:28<01:02,  6.35window/s]评估中:  32%|███▏      | 187/584 [00:28<01:01,  6.46window/s]评估中:  32%|███▏      | 188/584 [00:28<01:01,  6.46window/s]评估中:  32%|███▏      | 189/584 [00:29<01:01,  6.38window/s]评估中:  33%|███▎      | 190/584 [00:29<01:01,  6.41window/s]评估中:  33%|███▎      | 191/584 [00:29<01:00,  6.50window/s]评估中:  33%|███▎      | 192/584 [00:29<01:00,  6.46window/s]评估中:  33%|███▎      | 193/584 [00:29<01:01,  6.37window/s]评估中:  33%|███▎      | 194/584 [00:29<01:01,  6.37window/s]评估中:  33%|███▎      | 195/584 [00:30<01:00,  6.48window/s]评估中:  34%|███▎      | 196/584 [00:30<01:00,  6.47window/s]评估中:  34%|███▎      | 197/584 [00:30<01:00,  6.37window/s]评估中:  34%|███▍      | 198/584 [00:30<01:00,  6.38window/s]评估中:  34%|███▍      | 199/584 [00:30<00:59,  6.48window/s]评估中:  34%|███▍      | 200/584 [00:30<00:59,  6.47window/s]评估中:  34%|███▍      | 201/584 [00:30<00:59,  6.40window/s]评估中:  35%|███▍      | 202/584 [00:31<00:59,  6.41window/s]评估中:  35%|███▍      | 203/584 [00:31<00:58,  6.48window/s]评估中:  35%|███▍      | 204/584 [00:31<00:58,  6.47window/s]评估中:  35%|███▌      | 205/584 [00:31<00:59,  6.39window/s]评估中:  35%|███▌      | 206/584 [00:31<00:59,  6.40window/s]评估中:  35%|███▌      | 207/584 [00:31<00:58,  6.44window/s]评估中:  36%|███▌      | 208/584 [00:32<00:58,  6.45window/s]评估中:  36%|███▌      | 209/584 [00:32<00:58,  6.36window/s]评估中:  36%|███▌      | 210/584 [00:32<00:58,  6.40window/s]评估中:  36%|███▌      | 211/584 [00:32<00:57,  6.49window/s]评估中:  36%|███▋      | 212/584 [00:32<00:57,  6.48window/s]评估中:  36%|███▋      | 213/584 [00:32<00:57,  6.40window/s]评估中:  37%|███▋      | 214/584 [00:32<00:57,  6.43window/s]评估中:  37%|███▋      | 215/584 [00:33<00:56,  6.49window/s]评估中:  37%|███▋      | 216/584 [00:33<00:56,  6.48window/s]评估中:  37%|███▋      | 217/584 [00:33<00:57,  6.38window/s]评估中:  37%|███▋      | 218/584 [00:33<00:57,  6.40window/s]评估中:  38%|███▊      | 219/584 [00:33<00:56,  6.48window/s]评估中:  38%|███▊      | 220/584 [00:33<00:56,  6.48window/s]评估中:  38%|███▊      | 221/584 [00:34<00:57,  6.27window/s]评估中:  38%|███▊      | 222/584 [00:34<00:59,  6.04window/s]评估中:  38%|███▊      | 223/584 [00:34<01:00,  5.99window/s]评估中:  38%|███▊      | 224/584 [00:34<00:59,  6.10window/s]评估中:  39%|███▊      | 225/584 [00:34<00:58,  6.14window/s]评估中:  39%|███▊      | 226/584 [00:34<01:00,  5.91window/s]评估中:  39%|███▉      | 227/584 [00:35<00:59,  5.98window/s]评估中:  39%|███▉      | 228/584 [00:35<00:57,  6.14window/s]评估中:  39%|███▉      | 229/584 [00:35<00:57,  6.16window/s]评估中:  39%|███▉      | 230/584 [00:35<00:57,  6.20window/s]评估中:  40%|███▉      | 231/584 [00:35<00:56,  6.29window/s]评估中:  40%|███▉      | 232/584 [00:35<00:55,  6.34window/s]评估中:  40%|███▉      | 233/584 [00:36<00:55,  6.29window/s]评估中:  40%|████      | 234/584 [00:36<00:54,  6.39window/s]评估中:  40%|████      | 235/584 [00:36<00:54,  6.41window/s]评估中:  40%|████      | 236/584 [00:36<00:54,  6.37window/s]评估中:  41%|████      | 237/584 [00:36<00:53,  6.45window/s]评估中:  41%|████      | 238/584 [00:36<00:53,  6.47window/s]评估中:  41%|████      | 239/584 [00:36<00:53,  6.39window/s]评估中:  41%|████      | 240/584 [00:37<00:53,  6.42window/s]评估中:  41%|████▏     | 241/584 [00:37<00:52,  6.47window/s]评估中:  41%|████▏     | 242/584 [00:37<00:52,  6.48window/s]评估中:  42%|████▏     | 243/584 [00:37<00:53,  6.40window/s]评估中:  42%|████▏     | 244/584 [00:37<00:53,  6.41window/s]评估中:  42%|████▏     | 245/584 [00:37<00:52,  6.49window/s]评估中:  42%|████▏     | 246/584 [00:38<00:51,  6.51window/s]评估中:  42%|████▏     | 247/584 [00:38<00:52,  6.42window/s]评估中:  42%|████▏     | 248/584 [00:38<00:52,  6.42window/s]评估中:  43%|████▎     | 249/584 [00:38<00:51,  6.54window/s]评估中:  43%|████▎     | 250/584 [00:38<00:51,  6.52window/s]评估中:  43%|████▎     | 251/584 [00:38<00:51,  6.48window/s]评估中:  43%|████▎     | 252/584 [00:38<00:50,  6.52window/s]评估中:  43%|████▎     | 253/584 [00:39<00:50,  6.55window/s]评估中:  43%|████▎     | 254/584 [00:39<00:51,  6.45window/s]评估中:  44%|████▎     | 255/584 [00:39<00:51,  6.40window/s]评估中:  44%|████▍     | 256/584 [00:39<00:50,  6.46window/s]评估中:  44%|████▍     | 257/584 [00:39<00:50,  6.42window/s]评估中:  44%|████▍     | 258/584 [00:39<00:50,  6.42window/s]评估中:  44%|████▍     | 259/584 [00:40<00:51,  6.36window/s]评估中:  45%|████▍     | 260/584 [00:40<00:50,  6.37window/s]评估中:  45%|████▍     | 261/584 [00:40<00:50,  6.45window/s]评估中:  45%|████▍     | 262/584 [00:40<00:52,  6.13window/s]评估中:  45%|████▌     | 263/584 [00:40<00:51,  6.27window/s]评估中:  45%|████▌     | 264/584 [00:40<00:51,  6.25window/s]评估中:  45%|████▌     | 265/584 [00:41<00:51,  6.20window/s]评估中:  46%|████▌     | 266/584 [00:41<00:51,  6.16window/s]评估中:  46%|████▌     | 267/584 [00:41<00:50,  6.31window/s]评估中:  46%|████▌     | 268/584 [00:41<00:49,  6.35window/s]评估中:  46%|████▌     | 269/584 [00:41<00:50,  6.28window/s]评估中:  46%|████▌     | 270/584 [00:41<00:49,  6.31window/s]评估中:  46%|████▋     | 271/584 [00:41<00:48,  6.43window/s]评估中:  47%|████▋     | 272/584 [00:42<00:48,  6.41window/s]评估中:  47%|████▋     | 273/584 [00:42<00:49,  6.35window/s]评估中:  47%|████▋     | 274/584 [00:42<00:48,  6.41window/s]评估中:  47%|████▋     | 275/584 [00:42<00:47,  6.50window/s]评估中:  47%|████▋     | 276/584 [00:42<00:47,  6.47window/s]评估中:  47%|████▋     | 277/584 [00:42<00:47,  6.41window/s]评估中:  48%|████▊     | 278/584 [00:43<00:47,  6.47window/s]评估中:  48%|████▊     | 279/584 [00:43<00:46,  6.54window/s]评估中:  48%|████▊     | 280/584 [00:43<00:46,  6.47window/s]评估中:  48%|████▊     | 281/584 [00:43<00:47,  6.42window/s]评估中:  48%|████▊     | 282/584 [00:43<00:46,  6.46window/s]评估中:  48%|████▊     | 283/584 [00:43<00:46,  6.54window/s]评估中:  49%|████▊     | 284/584 [00:43<00:46,  6.44window/s]评估中:  49%|████▉     | 285/584 [00:44<00:46,  6.43window/s]评估中:  49%|████▉     | 286/584 [00:44<00:46,  6.47window/s]评估中:  49%|████▉     | 287/584 [00:44<00:45,  6.50window/s]评估中:  49%|████▉     | 288/584 [00:44<00:46,  6.42window/s]评估中:  49%|████▉     | 289/584 [00:44<00:45,  6.42window/s]评估中:  50%|████▉     | 290/584 [00:44<00:45,  6.48window/s]评估中:  50%|████▉     | 291/584 [00:45<00:44,  6.53window/s]评估中:  50%|█████     | 292/584 [00:45<00:45,  6.45window/s]评估中:  50%|█████     | 293/584 [00:45<00:45,  6.45window/s]评估中:  50%|█████     | 294/584 [00:45<00:44,  6.53window/s]评估中:  51%|█████     | 295/584 [00:45<00:44,  6.53window/s]评估中:  51%|█████     | 296/584 [00:45<00:44,  6.46window/s]评估中:  51%|█████     | 297/584 [00:45<00:44,  6.48window/s]评估中:  51%|█████     | 298/584 [00:46<00:43,  6.60window/s]评估中:  51%|█████     | 299/584 [00:46<00:43,  6.50window/s]评估中:  51%|█████▏    | 300/584 [00:46<00:43,  6.48window/s]评估中:  52%|█████▏    | 301/584 [00:46<00:43,  6.54window/s]评估中:  52%|█████▏    | 302/584 [00:46<00:43,  6.52window/s]评估中:  52%|█████▏    | 303/584 [00:46<00:43,  6.43window/s]评估中:  52%|█████▏    | 304/584 [00:47<00:43,  6.48window/s]评估中:  52%|█████▏    | 305/584 [00:47<00:42,  6.53window/s]评估中:  52%|█████▏    | 306/584 [00:47<00:42,  6.47window/s]评估中:  53%|█████▎    | 307/584 [00:47<00:43,  6.40window/s]评估中:  53%|█████▎    | 308/584 [00:47<00:42,  6.46window/s]评估中:  53%|█████▎    | 309/584 [00:47<00:42,  6.53window/s]评估中:  53%|█████▎    | 310/584 [00:47<00:42,  6.45window/s]评估中:  53%|█████▎    | 311/584 [00:48<00:42,  6.42window/s]评估中:  53%|█████▎    | 312/584 [00:48<00:41,  6.48window/s]评估中:  54%|█████▎    | 313/584 [00:48<00:41,  6.54window/s]评估中:  54%|█████▍    | 314/584 [00:48<00:41,  6.46window/s]评估中:  54%|█████▍    | 315/584 [00:48<00:41,  6.43window/s]评估中:  54%|█████▍    | 316/584 [00:48<00:41,  6.50window/s]评估中:  54%|█████▍    | 317/584 [00:49<00:40,  6.55window/s]评估中:  54%|█████▍    | 318/584 [00:49<00:41,  6.46window/s]评估中:  55%|█████▍    | 319/584 [00:49<00:41,  6.43window/s]评估中:  55%|█████▍    | 320/584 [00:49<00:40,  6.49window/s]评估中:  55%|█████▍    | 321/584 [00:49<00:40,  6.57window/s]评估中:  55%|█████▌    | 322/584 [00:49<00:40,  6.52window/s]评估中:  55%|█████▌    | 323/584 [00:49<00:40,  6.43window/s]评估中:  55%|█████▌    | 324/584 [00:50<00:40,  6.46window/s]评估中:  56%|█████▌    | 325/584 [00:50<00:39,  6.53window/s]评估中:  56%|█████▌    | 326/584 [00:50<00:39,  6.51window/s]评估中:  56%|█████▌    | 327/584 [00:50<00:39,  6.43window/s]评估中:  56%|█████▌    | 328/584 [00:50<00:39,  6.52window/s]评估中:  56%|█████▋    | 329/584 [00:50<00:39,  6.51window/s]评估中:  57%|█████▋    | 330/584 [00:51<00:39,  6.43window/s]评估中:  57%|█████▋    | 331/584 [00:51<00:39,  6.42window/s]评估中:  57%|█████▋    | 332/584 [00:51<00:38,  6.48window/s]评估中:  57%|█████▋    | 333/584 [00:51<00:38,  6.53window/s]评估中:  57%|█████▋    | 334/584 [00:51<00:38,  6.45window/s]评估中:  57%|█████▋    | 335/584 [00:51<00:38,  6.43window/s]评估中:  58%|█████▊    | 336/584 [00:51<00:38,  6.40window/s]评估中:  58%|█████▊    | 337/584 [00:52<00:38,  6.38window/s]评估中:  58%|█████▊    | 338/584 [00:52<00:38,  6.42window/s]评估中:  58%|█████▊    | 339/584 [00:52<00:38,  6.34window/s]评估中:  58%|█████▊    | 340/584 [00:52<00:38,  6.26window/s]评估中:  58%|█████▊    | 341/584 [00:52<00:38,  6.37window/s]评估中:  59%|█████▊    | 342/584 [00:52<00:37,  6.44window/s]评估中:  59%|█████▊    | 343/584 [00:53<00:37,  6.39window/s]评估中:  59%|█████▉    | 344/584 [00:53<00:37,  6.38window/s]评估中:  59%|█████▉    | 345/584 [00:53<00:37,  6.43window/s]评估中:  59%|█████▉    | 346/584 [00:53<00:36,  6.53window/s]评估中:  59%|█████▉    | 347/584 [00:53<00:36,  6.48window/s]评估中:  60%|█████▉    | 348/584 [00:53<00:36,  6.41window/s]评估中:  60%|█████▉    | 349/584 [00:54<00:36,  6.44window/s]评估中:  60%|█████▉    | 350/584 [00:54<00:35,  6.51window/s]评估中:  60%|██████    | 351/584 [00:54<00:35,  6.49window/s]评估中:  60%|██████    | 352/584 [00:54<00:36,  6.41window/s]评估中:  60%|██████    | 353/584 [00:54<00:36,  6.38window/s]评估中:  61%|██████    | 354/584 [00:54<00:35,  6.46window/s]评估中:  61%|██████    | 355/584 [00:54<00:35,  6.47window/s]评估中:  61%|██████    | 356/584 [00:55<00:35,  6.42window/s]评估中:  61%|██████    | 357/584 [00:55<00:35,  6.41window/s]评估中:  61%|██████▏   | 358/584 [00:55<00:34,  6.48window/s]评估中:  61%|██████▏   | 359/584 [00:55<00:34,  6.50window/s]评估中:  62%|██████▏   | 360/584 [00:55<00:34,  6.41window/s]评估中:  62%|██████▏   | 361/584 [00:55<00:34,  6.40window/s]评估中:  62%|██████▏   | 362/584 [00:56<00:34,  6.46window/s]评估中:  62%|██████▏   | 363/584 [00:56<00:33,  6.52window/s]评估中:  62%|██████▏   | 364/584 [00:56<00:33,  6.48window/s]评估中:  62%|██████▎   | 365/584 [00:56<00:34,  6.41window/s]评估中:  63%|██████▎   | 366/584 [00:56<00:34,  6.41window/s]评估中:  63%|██████▎   | 367/584 [00:56<00:33,  6.46window/s]评估中:  63%|██████▎   | 368/584 [00:56<00:33,  6.47window/s]评估中:  63%|██████▎   | 369/584 [00:57<00:33,  6.38window/s]评估中:  63%|██████▎   | 370/584 [00:57<00:33,  6.38window/s]评估中:  64%|██████▎   | 371/584 [00:57<00:33,  6.43window/s]评估中:  64%|██████▎   | 372/584 [00:57<00:32,  6.52window/s]评估中:  64%|██████▍   | 373/584 [00:57<00:32,  6.48window/s]评估中:  64%|██████▍   | 374/584 [00:57<00:32,  6.41window/s]评估中:  64%|██████▍   | 375/584 [00:58<00:32,  6.44window/s]评估中:  64%|██████▍   | 376/584 [00:58<00:32,  6.49window/s]评估中:  65%|██████▍   | 377/584 [00:58<00:31,  6.50window/s]评估中:  65%|██████▍   | 378/584 [00:58<00:32,  6.42window/s]评估中:  65%|██████▍   | 379/584 [00:58<00:32,  6.40window/s]评估中:  65%|██████▌   | 380/584 [00:58<00:31,  6.42window/s]评估中:  65%|██████▌   | 381/584 [00:58<00:31,  6.44window/s]评估中:  65%|██████▌   | 382/584 [00:59<00:31,  6.44window/s]评估中:  66%|██████▌   | 383/584 [00:59<00:31,  6.36window/s]评估中:  66%|██████▌   | 384/584 [00:59<00:31,  6.30window/s]评估中:  66%|██████▌   | 385/584 [00:59<00:31,  6.32window/s]评估中:  66%|██████▌   | 386/584 [00:59<00:30,  6.39window/s]评估中:  66%|██████▋   | 387/584 [00:59<00:30,  6.42window/s]评估中:  66%|██████▋   | 388/584 [01:00<00:30,  6.34window/s]评估中:  67%|██████▋   | 389/584 [01:00<00:30,  6.30window/s]评估中:  67%|██████▋   | 390/584 [01:00<00:30,  6.29window/s]评估中:  67%|██████▋   | 391/584 [01:00<00:30,  6.33window/s]评估中:  67%|██████▋   | 392/584 [01:00<00:30,  6.36window/s]评估中:  67%|██████▋   | 393/584 [01:00<00:30,  6.28window/s]评估中:  67%|██████▋   | 394/584 [01:01<00:29,  6.34window/s]评估中:  68%|██████▊   | 395/584 [01:01<00:29,  6.43window/s]评估中:  68%|██████▊   | 396/584 [01:01<00:29,  6.45window/s]评估中:  68%|██████▊   | 397/584 [01:01<00:29,  6.38window/s]评估中:  68%|██████▊   | 398/584 [01:01<00:29,  6.41window/s]评估中:  68%|██████▊   | 399/584 [01:01<00:28,  6.48window/s]评估中:  68%|██████▊   | 400/584 [01:01<00:28,  6.51window/s]评估中:  69%|██████▊   | 401/584 [01:02<00:28,  6.44window/s]评估中:  69%|██████▉   | 402/584 [01:02<00:28,  6.41window/s]评估中:  69%|██████▉   | 403/584 [01:02<00:27,  6.47window/s]评估中:  69%|██████▉   | 404/584 [01:02<00:27,  6.53window/s]评估中:  69%|██████▉   | 405/584 [01:02<00:27,  6.51window/s]评估中:  70%|██████▉   | 406/584 [01:02<00:27,  6.42window/s]评估中:  70%|██████▉   | 407/584 [01:03<00:27,  6.42window/s]评估中:  70%|██████▉   | 408/584 [01:03<00:27,  6.49window/s]评估中:  70%|███████   | 409/584 [01:03<00:26,  6.53window/s]评估中:  70%|███████   | 410/584 [01:03<00:27,  6.44window/s]评估中:  70%|███████   | 411/584 [01:03<00:26,  6.43window/s]评估中:  71%|███████   | 412/584 [01:03<00:26,  6.48window/s]评估中:  71%|███████   | 413/584 [01:03<00:26,  6.54window/s]评估中:  71%|███████   | 414/584 [01:04<00:26,  6.51window/s]评估中:  71%|███████   | 415/584 [01:04<00:26,  6.42window/s]评估中:  71%|███████   | 416/584 [01:04<00:26,  6.45window/s]评估中:  71%|███████▏  | 417/584 [01:04<00:25,  6.50window/s]评估中:  72%|███████▏  | 418/584 [01:04<00:25,  6.53window/s]评估中:  72%|███████▏  | 419/584 [01:04<00:25,  6.46window/s]评估中:  72%|███████▏  | 420/584 [01:05<00:25,  6.37window/s]评估中:  72%|███████▏  | 421/584 [01:05<00:25,  6.45window/s]评估中:  72%|███████▏  | 422/584 [01:05<00:24,  6.52window/s]评估中:  72%|███████▏  | 423/584 [01:05<00:24,  6.46window/s]评估中:  73%|███████▎  | 424/584 [01:05<00:25,  6.35window/s]评估中:  73%|███████▎  | 425/584 [01:05<00:25,  6.27window/s]评估中:  73%|███████▎  | 426/584 [01:06<00:24,  6.33window/s]评估中:  73%|███████▎  | 427/584 [01:06<00:24,  6.32window/s]评估中:  73%|███████▎  | 428/584 [01:06<00:24,  6.29window/s]评估中:  73%|███████▎  | 429/584 [01:06<00:24,  6.27window/s]评估中:  74%|███████▎  | 430/584 [01:06<00:24,  6.31window/s]评估中:  74%|███████▍  | 431/584 [01:06<00:24,  6.26window/s]评估中:  74%|███████▍  | 432/584 [01:06<00:24,  6.25window/s]评估中:  74%|███████▍  | 433/584 [01:07<00:24,  6.22window/s]评估中:  74%|███████▍  | 434/584 [01:07<00:23,  6.26window/s]评估中:  74%|███████▍  | 435/584 [01:07<00:23,  6.32window/s]评估中:  75%|███████▍  | 436/584 [01:07<00:23,  6.28window/s]评估中:  75%|███████▍  | 437/584 [01:07<00:23,  6.32window/s]评估中:  75%|███████▌  | 438/584 [01:07<00:22,  6.42window/s]评估中:  75%|███████▌  | 439/584 [01:08<00:22,  6.50window/s]评估中:  75%|███████▌  | 440/584 [01:08<00:22,  6.43window/s]评估中:  76%|███████▌  | 441/584 [01:08<00:22,  6.36window/s]评估中:  76%|███████▌  | 442/584 [01:08<00:22,  6.43window/s]评估中:  76%|███████▌  | 443/584 [01:08<00:21,  6.50window/s]评估中:  76%|███████▌  | 444/584 [01:08<00:21,  6.48window/s]评估中:  76%|███████▌  | 445/584 [01:08<00:21,  6.40window/s]评估中:  76%|███████▋  | 446/584 [01:09<00:21,  6.43window/s]评估中:  77%|███████▋  | 447/584 [01:09<00:21,  6.48window/s]评估中:  77%|███████▋  | 448/584 [01:09<00:21,  6.41window/s]评估中:  77%|███████▋  | 449/584 [01:09<00:21,  6.40window/s]评估中:  77%|███████▋  | 450/584 [01:09<00:20,  6.46window/s]评估中:  77%|███████▋  | 451/584 [01:09<00:20,  6.52window/s]评估中:  77%|███████▋  | 452/584 [01:10<00:20,  6.49window/s]评估中:  78%|███████▊  | 453/584 [01:10<00:20,  6.41window/s]评估中:  78%|███████▊  | 454/584 [01:10<00:20,  6.40window/s]评估中:  78%|███████▊  | 455/584 [01:10<00:19,  6.52window/s]评估中:  78%|███████▊  | 456/584 [01:10<00:19,  6.50window/s]评估中:  78%|███████▊  | 457/584 [01:10<00:19,  6.41window/s]评估中:  78%|███████▊  | 458/584 [01:11<00:19,  6.44window/s]评估中:  79%|███████▊  | 459/584 [01:11<00:19,  6.49window/s]评估中:  79%|███████▉  | 460/584 [01:11<00:19,  6.48window/s]评估中:  79%|███████▉  | 461/584 [01:11<00:19,  6.42window/s]评估中:  79%|███████▉  | 462/584 [01:11<00:19,  6.42window/s]评估中:  79%|███████▉  | 463/584 [01:11<00:18,  6.49window/s]评估中:  79%|███████▉  | 464/584 [01:11<00:18,  6.52window/s]评估中:  80%|███████▉  | 465/584 [01:12<00:18,  6.44window/s]评估中:  80%|███████▉  | 466/584 [01:12<00:18,  6.47window/s]评估中:  80%|███████▉  | 467/584 [01:12<00:17,  6.52window/s]评估中:  80%|████████  | 468/584 [01:12<00:17,  6.54window/s]评估中:  80%|████████  | 469/584 [01:12<00:17,  6.46window/s]评估中:  80%|████████  | 470/584 [01:12<00:17,  6.44window/s]评估中:  81%|████████  | 471/584 [01:13<00:17,  6.49window/s]评估中:  81%|████████  | 472/584 [01:13<00:17,  6.55window/s]评估中:  81%|████████  | 473/584 [01:13<00:17,  6.52window/s]评估中:  81%|████████  | 474/584 [01:13<00:17,  6.43window/s]评估中:  81%|████████▏ | 475/584 [01:13<00:16,  6.43window/s]评估中:  82%|████████▏ | 476/584 [01:13<00:16,  6.51window/s]评估中:  82%|████████▏ | 477/584 [01:13<00:16,  6.50window/s]评估中:  82%|████████▏ | 478/584 [01:14<00:16,  6.43window/s]评估中:  82%|████████▏ | 479/584 [01:14<00:16,  6.43window/s]评估中:  82%|████████▏ | 480/584 [01:14<00:16,  6.48window/s]评估中:  82%|████████▏ | 481/584 [01:14<00:15,  6.54window/s]评估中:  83%|████████▎ | 482/584 [01:14<00:15,  6.51window/s]评估中:  83%|████████▎ | 483/584 [01:14<00:15,  6.40window/s]评估中:  83%|████████▎ | 484/584 [01:15<00:15,  6.41window/s]评估中:  83%|████████▎ | 485/584 [01:15<00:15,  6.47window/s]评估中:  83%|████████▎ | 486/584 [01:15<00:15,  6.51window/s]评估中:  83%|████████▎ | 487/584 [01:15<00:15,  6.41window/s]评估中:  84%|████████▎ | 488/584 [01:15<00:14,  6.40window/s]评估中:  84%|████████▎ | 489/584 [01:15<00:14,  6.46window/s]评估中:  84%|████████▍ | 490/584 [01:15<00:14,  6.53window/s]评估中:  84%|████████▍ | 491/584 [01:16<00:14,  6.50window/s]评估中:  84%|████████▍ | 492/584 [01:16<00:14,  6.42window/s]评估中:  84%|████████▍ | 493/584 [01:16<00:14,  6.43window/s]评估中:  85%|████████▍ | 494/584 [01:16<00:13,  6.50window/s]评估中:  85%|████████▍ | 495/584 [01:16<00:13,  6.54window/s]评估中:  85%|████████▍ | 496/584 [01:16<00:13,  6.44window/s]评估中:  85%|████████▌ | 497/584 [01:17<00:13,  6.42window/s]评估中:  85%|████████▌ | 498/584 [01:17<00:13,  6.46window/s]评估中:  85%|████████▌ | 499/584 [01:17<00:13,  6.51window/s]评估中:  86%|████████▌ | 500/584 [01:17<00:12,  6.49window/s]评估中:  86%|████████▌ | 501/584 [01:17<00:12,  6.39window/s]评估中:  86%|████████▌ | 502/584 [01:17<00:12,  6.43window/s]评估中:  86%|████████▌ | 503/584 [01:17<00:12,  6.49window/s]评估中:  86%|████████▋ | 504/584 [01:18<00:12,  6.50window/s]评估中:  86%|████████▋ | 505/584 [01:18<00:12,  6.42window/s]评估中:  87%|████████▋ | 506/584 [01:18<00:12,  6.42window/s]评估中:  87%|████████▋ | 507/584 [01:18<00:11,  6.48window/s]评估中:  87%|████████▋ | 508/584 [01:18<00:11,  6.53window/s]评估中:  87%|████████▋ | 509/584 [01:18<00:11,  6.46window/s]评估中:  87%|████████▋ | 510/584 [01:19<00:11,  6.43window/s]评估中:  88%|████████▊ | 511/584 [01:19<00:11,  6.47window/s]评估中:  88%|████████▊ | 512/584 [01:19<00:11,  6.53window/s]评估中:  88%|████████▊ | 513/584 [01:19<00:10,  6.50window/s]评估中:  88%|████████▊ | 514/584 [01:19<00:10,  6.42window/s]评估中:  88%|████████▊ | 515/584 [01:19<00:10,  6.44window/s]评估中:  88%|████████▊ | 516/584 [01:19<00:10,  6.49window/s]评估中:  89%|████████▊ | 517/584 [01:20<00:10,  6.53window/s]评估中:  89%|████████▊ | 518/584 [01:20<00:10,  6.45window/s]评估中:  89%|████████▉ | 519/584 [01:20<00:10,  6.41window/s]评估中:  89%|████████▉ | 520/584 [01:20<00:09,  6.44window/s]评估中:  89%|████████▉ | 521/584 [01:20<00:09,  6.41window/s]评估中:  89%|████████▉ | 522/584 [01:20<00:09,  6.42window/s]评估中:  90%|████████▉ | 523/584 [01:21<00:09,  6.35window/s]评估中:  90%|████████▉ | 524/584 [01:21<00:09,  6.32window/s]评估中:  90%|████████▉ | 525/584 [01:21<00:09,  6.30window/s]评估中:  90%|█████████ | 526/584 [01:21<00:09,  6.27window/s]评估中:  90%|█████████ | 527/584 [01:21<00:09,  6.32window/s]评估中:  90%|█████████ | 528/584 [01:21<00:08,  6.30window/s]评估中:  91%|█████████ | 529/584 [01:22<00:08,  6.31window/s]评估中:  91%|█████████ | 530/584 [01:22<00:08,  6.40window/s]评估中:  91%|█████████ | 531/584 [01:22<00:08,  6.48window/s]评估中:  91%|█████████ | 532/584 [01:22<00:08,  6.46window/s]评估中:  91%|█████████▏| 533/584 [01:22<00:07,  6.39window/s]评估中:  91%|█████████▏| 534/584 [01:22<00:07,  6.42window/s]评估中:  92%|█████████▏| 535/584 [01:22<00:07,  6.48window/s]评估中:  92%|█████████▏| 536/584 [01:23<00:07,  6.51window/s]评估中:  92%|█████████▏| 537/584 [01:23<00:07,  6.42window/s]评估中:  92%|█████████▏| 538/584 [01:23<00:07,  6.39window/s]评估中:  92%|█████████▏| 539/584 [01:23<00:07,  6.42window/s]评估中:  92%|█████████▏| 540/584 [01:23<00:06,  6.47window/s]评估中:  93%|█████████▎| 541/584 [01:23<00:06,  6.47window/s]评估中:  93%|█████████▎| 542/584 [01:24<00:06,  6.40window/s]评估中:  93%|█████████▎| 543/584 [01:24<00:06,  6.42window/s]评估中:  93%|█████████▎| 544/584 [01:24<00:06,  6.49window/s]评估中:  93%|█████████▎| 545/584 [01:24<00:05,  6.51window/s]评估中:  93%|█████████▎| 546/584 [01:24<00:05,  6.43window/s]评估中:  94%|█████████▎| 547/584 [01:24<00:05,  6.41window/s]评估中:  94%|█████████▍| 548/584 [01:24<00:05,  6.47window/s]评估中:  94%|█████████▍| 549/584 [01:25<00:05,  6.53window/s]评估中:  94%|█████████▍| 550/584 [01:25<00:05,  6.49window/s]评估中:  94%|█████████▍| 551/584 [01:25<00:05,  6.41window/s]评估中:  95%|█████████▍| 552/584 [01:25<00:04,  6.43window/s]评估中:  95%|█████████▍| 553/584 [01:25<00:04,  6.47window/s]评估中:  95%|█████████▍| 554/584 [01:25<00:04,  6.52window/s]评估中:  95%|█████████▌| 555/584 [01:26<00:04,  6.43window/s]评估中:  95%|█████████▌| 556/584 [01:26<00:04,  6.40window/s]评估中:  95%|█████████▌| 557/584 [01:26<00:04,  6.45window/s]评估中:  96%|█████████▌| 558/584 [01:26<00:03,  6.52window/s]评估中:  96%|█████████▌| 559/584 [01:26<00:03,  6.49window/s]评估中:  96%|█████████▌| 560/584 [01:26<00:03,  6.41window/s]评估中:  96%|█████████▌| 561/584 [01:26<00:03,  6.44window/s]评估中:  96%|█████████▌| 562/584 [01:27<00:03,  6.51window/s]评估中:  96%|█████████▋| 563/584 [01:27<00:03,  6.51window/s]评估中:  97%|█████████▋| 564/584 [01:27<00:03,  6.43window/s]评估中:  97%|█████████▋| 565/584 [01:27<00:02,  6.41window/s]评估中:  97%|█████████▋| 566/584 [01:27<00:02,  6.44window/s]评估中:  97%|█████████▋| 567/584 [01:27<00:02,  6.52window/s]评估中:  97%|█████████▋| 568/584 [01:28<00:02,  6.49window/s]评估中:  97%|█████████▋| 569/584 [01:28<00:02,  6.41window/s]评估中:  98%|█████████▊| 570/584 [01:28<00:02,  6.43window/s]评估中:  98%|█████████▊| 571/584 [01:28<00:02,  6.48window/s]评估中:  98%|█████████▊| 572/584 [01:28<00:01,  6.50window/s]评估中:  98%|█████████▊| 573/584 [01:28<00:01,  6.42window/s]评估中:  98%|█████████▊| 574/584 [01:28<00:01,  6.42window/s]评估中:  98%|█████████▊| 575/584 [01:29<00:01,  6.47window/s]评估中:  99%|█████████▊| 576/584 [01:29<00:01,  6.53window/s]评估中:  99%|█████████▉| 577/584 [01:29<00:01,  6.49window/s]评估中:  99%|█████████▉| 578/584 [01:29<00:00,  6.40window/s]评估中:  99%|█████████▉| 579/584 [01:29<00:00,  6.44window/s]评估中:  99%|█████████▉| 580/584 [01:29<00:00,  6.52window/s]评估中:  99%|█████████▉| 581/584 [01:30<00:00,  6.51window/s]评估中: 100%|█████████▉| 582/584 [01:30<00:00,  6.44window/s]评估中: 100%|█████████▉| 583/584 [01:30<00:00,  6.45window/s]评估中: 100%|█████████▉| 583/584 [01:30<00:00,  6.44window/s]
+2026-04-25 03:07:23 - INFO - evaluate_ppl - 
+============================================================
+2026-04-25 03:07:23 - INFO - evaluate_ppl -   W4A8/INT8 (Qwen3-1.7B_w4a8_gptq) 评估结果:
+2026-04-25 03:07:23 - INFO - evaluate_ppl -   困惑度 (PPL): 16.0392
+2026-04-25 03:07:23 - INFO - evaluate_ppl -   平均 NLL Loss: 2.775036
+2026-04-25 03:07:23 - INFO - evaluate_ppl -   评估 Token 数: 298938
+2026-04-25 03:07:23 - INFO - evaluate_ppl - ============================================================
+
+2026-04-25 03:07:23 - INFO - utils - [W4A8 评估] 完成，耗时: 155.37s
+2026-04-25 03:07:23 - INFO - __main__ - 
+======================================================================
+2026-04-25 03:07:23 - INFO - __main__ -   最终评估对比
+2026-04-25 03:07:23 - INFO - __main__ - ======================================================================
+2026-04-25 03:07:23 - INFO - __main__ - 数据集             模型                               PPL         Loss      PPL变化
+2026-04-25 03:07:23 - INFO - __main__ - ---------------------------------------------------------------------------
+2026-04-25 03:07:23 - INFO - __main__ -   wikitext2     FP16 (Qwen3-1.7B)          15.0485     2.711280           
+2026-04-25 03:07:23 - INFO - __main__ -   wikitext2     W4A16/GPTQ-W4 (Qwen3-1.7B_w4a8_gptq)    16.2733     2.789526     +8.14%
+2026-04-25 03:07:23 - INFO - __main__ -   wikitext2     W4A8/INT8 (Qwen3-1.7B_w4a8_gptq)    16.0392     2.775036     +6.58%
+2026-04-25 03:07:23 - INFO - __main__ - ======================================================================
+2026-04-25 03:07:23 - INFO - __main__ - 
+完整结果已保存到: ./Qwen3-1.7B_w4a8_gptq/pipeline_results.json

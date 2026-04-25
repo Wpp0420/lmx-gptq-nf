@@ -1,0 +1,6 @@
+auto_gptq
+datasets
+numpy
+torch
+tqdm
+transformers 
