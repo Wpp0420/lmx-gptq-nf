@@ -25,6 +25,7 @@ from typing import Dict, Optional, Tuple
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from config import ActivationQuantConfig
 from custom_gptq_backend import is_custom_quantized_model, load_custom_quantized_model
@@ -402,8 +403,6 @@ class ActivationQuantWrapper(nn.Module):
         scale = quant_artifact.scale
         zero_point = quant_artifact.zero_point
         x_dequant = quant_artifact.dequantized
-        if smooth_scale is not None:
-            x_dequant = x_dequant * smooth_scale
         x_dequant = x_dequant.to(x.dtype)
         
         # 收集校准统计（静态量化模式）
@@ -412,7 +411,16 @@ class ActivationQuantWrapper(nn.Module):
         if self.scale_export_calibrating:
             self._accumulate_export_scale("input", scale)
         
-        output = self.module(x_dequant, **kwargs)
+        if smooth_scale is not None and isinstance(self.module, nn.Linear):
+            weight = self.module.weight
+            folded_weight = weight.float() * smooth_scale.reshape(1, -1).to(device=weight.device, dtype=torch.float32)
+            output = F.linear(
+                x_dequant,
+                folded_weight.to(dtype=weight.dtype),
+                self.module.bias,
+            )
+        else:
+            output = self.module(x_dequant, **kwargs)
 
         if self.scale_export_calibrating:
             out_artifact = self._quantize_activation(output)

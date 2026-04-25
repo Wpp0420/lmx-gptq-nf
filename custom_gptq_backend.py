@@ -339,6 +339,7 @@ def _save_custom_quantized_model(
                 weight=weight,
                 bits=pipeline_config.gptq.bits,
                 group_size=pipeline_config.gptq.group_size,
+                mse=True,
             )
         else:
             artifacts = quantize_weight_uniform(
@@ -553,7 +554,7 @@ def quantize_with_custom_backend(pipeline_config: W4A8Config):
 
                     if need_nf:
                         nf_quantizer = NormalFloatQuantizer(bits=pipeline_config.gptq.bits)
-                        nf_quantizer.configure(bits=pipeline_config.gptq.bits, perchannel=True)
+                        nf_quantizer.configure(bits=pipeline_config.gptq.bits, perchannel=True, mse=True)
                         nf_weight, nf_loss = _solve_gptq(
                             weight=original_weight,
                             hessian=accumulators[name].H,

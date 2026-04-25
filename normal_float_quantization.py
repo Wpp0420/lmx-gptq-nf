@@ -127,6 +127,45 @@ def codebook_lookup(
     return codes, values
 
 
+def _search_nf_scale(
+    x: torch.Tensor,
+    base_scale: torch.Tensor,
+    codebook: torch.Tensor,
+    axis: int,
+    grid: int = 80,
+    min_shrink: float = 0.5,
+    max_expand: float = 1.25,
+) -> torch.Tensor:
+    """Search a codebook scale that minimizes local reconstruction MSE."""
+    if grid <= 1:
+        return base_scale
+
+    candidates = torch.linspace(
+        min_shrink,
+        max_expand,
+        steps=grid,
+        device=x.device,
+        dtype=torch.float32,
+    )
+    best_scale = base_scale.float().clone()
+    best_error = torch.full_like(best_scale, float("inf"), dtype=torch.float32)
+
+    for factor in candidates:
+        scale = (base_scale.float() * factor).clamp(min=1e-8)
+        view_shape = [1] * x.ndim
+        view_shape[axis] = scale.numel()
+        scale_view = scale.reshape(view_shape)
+        _, values = codebook_lookup(x.float() / scale_view, codebook)
+        error = (values * scale_view - x.float()).pow(2)
+        reduce_dims = tuple(dim for dim in range(error.ndim) if dim != axis)
+        error = error.mean(dim=reduce_dims) if reduce_dims else error
+        improve = error < best_error
+        best_error = torch.where(improve, error, best_error)
+        best_scale = torch.where(improve, scale, best_scale)
+
+    return best_scale.clamp(min=1e-8)
+
+
 def uniform_affine_quantize(
     x: torch.Tensor,
     scale: torch.Tensor,
@@ -234,6 +273,8 @@ class NormalFloatQuantizer(nn.Module):
         self.register_buffer("zero", torch.zeros(shape))
         self.register_buffer("maxq", torch.tensor(2**bits - 1))
         self.perchannel = True
+        self.mse = True
+        self.grid = 80
 
     def configure(
         self,
@@ -248,6 +289,8 @@ class NormalFloatQuantizer(nn.Module):
         self.bits = bits
         self.perchannel = perchannel
         self.maxq = torch.tensor(2**bits - 1)
+        self.mse = mse
+        self.grid = grid
 
     def find_params(self, x: torch.Tensor, weight: bool = False):
         shape = x.shape
@@ -257,6 +300,9 @@ class NormalFloatQuantizer(nn.Module):
             x = x.flatten().unsqueeze(0)
 
         self.scale = x.abs().amax(dim=1).clamp(min=1e-8)
+        if self.mse:
+            codebook = get_normal_float_codebook(self.bits, device=x.device, dtype=torch.float32)
+            self.scale = _search_nf_scale(x, self.scale, codebook, axis=0, grid=self.grid)
         self.zero = torch.zeros_like(self.scale)
 
         if not self.perchannel:
@@ -338,6 +384,8 @@ def quantize_weight_nf(
     weight: torch.Tensor,
     bits: int,
     group_size: int,
+    mse: bool = True,
+    grid: int = 80,
 ) -> WeightQuantArtifacts:
     rows, columns = weight.shape
     if group_size <= 0:
@@ -353,6 +401,8 @@ def quantize_weight_nf(
         end = min(start + group_size, columns)
         group = weight[:, start:end].float()
         scale = group.abs().amax(dim=1).clamp(min=1e-8)
+        if mse:
+            scale = _search_nf_scale(group, scale, codebook, axis=0, grid=grid)
         normalized = group / scale.unsqueeze(1)
         group_codes, values = codebook_lookup(normalized, codebook)
         codes[:, start:end] = group_codes.to(torch.int16)
@@ -492,19 +542,28 @@ def quantize_activation_nf(
     x: torch.Tensor,
     bits: int,
     granularity: str,
+    mse: bool = False,
 ) -> ActivationQuantArtifacts:
     if bits != 8:
         raise ValueError(f"当前仅支持 NF8 激活量化，收到 bits={bits}")
+    codebook = get_normal_float_codebook(bits, device=x.device, dtype=torch.float32)
+    scale_axis = None
     if granularity in {"per_tensor", "per-tensor"}:
         scale = x.float().abs().amax().clamp(min=1e-8).reshape(1)
     elif granularity in {"per_channel", "per-channel"}:
         scale = x.float().reshape(-1, x.shape[-1]).abs().amax(dim=0).clamp(min=1e-8)
+        scale_axis = x.ndim - 1
     else:
         scale = x.float().abs().amax(dim=-1, keepdim=True).clamp(min=1e-8)
 
+    if mse:
+        if scale.numel() == 1:
+            scale = _search_nf_scale(x.float().reshape(1, -1), scale.reshape(1), codebook, axis=0)
+        elif scale_axis is not None:
+            scale = _search_nf_scale(x.float(), scale, codebook, axis=scale_axis)
+
     scale_view = _reshape_activation_scale(scale, x).float()
     normalized = x.float() / scale_view
-    codebook = get_normal_float_codebook(bits, device=x.device, dtype=torch.float32)
     quantized, values = codebook_lookup(normalized, codebook)
     dequantized = values * scale_view
 

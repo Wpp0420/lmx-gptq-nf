@@ -69,6 +69,30 @@ W4权重 (GPTQ INT4) → [反量化] → FP16
   - `analysis/vector_demo/*`：简单向量对比图
   - `analysis/layers/*`：每层每个 block 的权重/激活分布 SVG 和 JSON
 
+### NF4 / NF8 量化流程与优化方向
+
+`test1` 与 `test2` 的最终 PPL 对比显示：`test1` 的 `INT4 + INT8` 为 **16.0392**，`test2` 开启 `NF4 + NF8 + SmoothQuant` 后 PPL 变大，说明非均匀码本并不会在当前流程中天然优于线性量化。当前实现的端到端函数流程如下：
+
+1. `run_pipeline.run_full_pipeline()` 读取 `config.py`，当 `weight_quant_scheme="nf4"` 时自动切到 `custom` 后端。
+2. `custom_gptq_backend.quantize_with_custom_backend()` 加载 FP16 模型、准备校准样本，并用 `_capture_first_layer_inputs()` 截获第 0 层输入。
+3. 每层内对目标 `nn.Linear` 注册 hook，`CalibrationAccumulator.add_batch()` 收集 GPTQ Hessian、输入样本和激活 absmax。
+4. `_solve_gptq()` 执行 GPTQ/OBS 主循环：按 block/列取权重，调用量化器 `find_params()` 与 `quantize()`，再用 Hessian 逆矩阵做误差补偿。
+5. INT4 路径使用 `UniformAffineQuantizer`；NF4 路径使用 `NormalFloatQuantizer`、`get_normal_float_codebook()`、`codebook_lookup()`。
+6. `_save_custom_quantized_model()` 将量化后的权重再次编码为 `packed_weights.pt`，加载时 `load_custom_quantized_model()` 通过 `dequantize_weight()` 恢复 fake-quant 权重。
+7. PPL 评估调用 `w4a8_inference.load_w4a8_model()`，`W4A8ModelWrapper.apply_activation_quantization()` 包装 Linear，运行时 `ActivationQuantWrapper.forward()` 对输入激活做 `quantize_activation_tensor()`。
+8. NF8 激活路径由 `quantize_activation_nf()` 完成：按粒度计算 scale，查 NF8 codebook，反量化后再送入线性层。
+
+本次针对 PPL 退化做了两点代码级优化：
+
+- **NF4 权重 scale 搜索**：`NormalFloatQuantizer.find_params()` 和 `quantize_weight_nf()` 现在使用 `_search_nf_scale()` 在 absmax 附近搜索重构 MSE 更低的 scale，避免 NF4 固定 absmax scale 被少量 outlier 拉大、压缩主体权重分辨率。
+- **SmoothQuant 等价折叠**：原推理路径只做 `x / smooth_scale` 后直接使用原权重，会改变线性层数学语义；现在 `ActivationQuantWrapper.forward()` 对 `nn.Linear` 使用 `F.linear(x_quant_dequant, W * smooth_scale, bias)`，恢复 SmoothQuant 的 `x/s × (W*s)` 等价关系，只保留激活量化误差。
+
+后续优化方向建议：
+
+- 对 NF4：继续调 `group_size`、`desc_act`、`blocksize` 和 `damp_percent`，并优先观察每层 `gptq_nf4_avg_loss`，对异常层回退 INT4 或使用更小 group。
+- 对 NF8：保持 SmoothQuant 权重折叠，不建议默认做每次前向的 NF8 MSE scale 搜索；如做部署前静态校准，可在导出的激活 scale 上离线搜索 clipping/percentile scale。
+- 对组合策略：NF4 与 NF8 的误差会叠加，建议分别评估 `NF4+INT8` 与 `INT4+NF8`，先确认主要 PPL 退化来自权重还是激活。
+
 ## 项目结构
 
 ```
